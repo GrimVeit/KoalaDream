@@ -106,47 +106,12 @@ public class MainMenuEntryPoint : MonoBehaviour
 
     #region Output
 
-    public event Action OnGoToRoulette_Mini;
-    public event Action OnGoToRoulette_Euro;
-    public event Action OnGoToRoulette_America;
-    public event Action OnGoToRoulette_AmericaMulti;
-    public event Action OnGoToRoulette_French;
-    public event Action OnGoToRoulette_AmericaTracker;
+    public event Action OnGoToGame_Puzzle;
 
-    private void HandleGoToRoulette_Mini()
+    private void HandleGoToGame_Puzzle()
     {
         Deactivate();
-        OnGoToRoulette_Mini?.Invoke();
-    }
-
-    private void HandleGoToRoulette_Euro()
-    {
-        Deactivate();
-        OnGoToRoulette_Euro?.Invoke();
-    }
-
-    private void HandleGoToRoulette_America()
-    {
-        Deactivate();
-        OnGoToRoulette_America?.Invoke();
-    }
-
-    private void HandleGoToRoulette_AmericaMulti()
-    {
-        Deactivate();
-        OnGoToRoulette_AmericaMulti?.Invoke();
-    }
-
-    private void HandleGoToRoulette_French()
-    {
-        Deactivate();
-        OnGoToRoulette_French?.Invoke();
-    }
-
-    private void HandleGoToRoulette_AmericaTracker()
-    {
-        Deactivate();
-        OnGoToRoulette_AmericaTracker?.Invoke();
+        OnGoToGame_Puzzle?.Invoke();
     }
 
     #endregion

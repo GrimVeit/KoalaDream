@@ -5,10 +5,12 @@ using UnityEngine;
 public class LoadScreenPanel : MovePanel
 {
     [SerializeField] private LazyMotionGroup lazyMotionGroup;
+    [SerializeField] private List<AnimationFrame> frames = new List<AnimationFrame>();
 
     private void Awake()
     {
         OnDeactivatePanel += lazyMotionGroup.Deactivate;
+        OnDeactivatePanel += DeactivateFramesAnimations;
 
         Initialize();
     }
@@ -16,6 +18,7 @@ public class LoadScreenPanel : MovePanel
     private void OnDestroy()
     {
         OnDeactivatePanel -= lazyMotionGroup.Deactivate;
+        OnDeactivatePanel -= DeactivateFramesAnimations;
 
         Dispose();
     }
@@ -39,5 +42,16 @@ public class LoadScreenPanel : MovePanel
         base.ActivatePanel();
 
         lazyMotionGroup.Activate();
+        ActivateFramesAnimations();
+    }
+
+    private void ActivateFramesAnimations()
+    {
+        frames.ForEach(data => data.Activate(-1));
+    }
+
+    private void DeactivateFramesAnimations()
+    {
+        frames.ForEach(data => data.Deactivate());
     }
 }

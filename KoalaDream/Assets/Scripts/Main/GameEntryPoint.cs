@@ -18,7 +18,7 @@ public class GameEntryPoint
 
     }
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    //[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public static void Autorun()
     {
         GlobalGameSettings();
@@ -52,12 +52,12 @@ public class GameEntryPoint
 
         sceneEntryPoint.Run(rootView);
 
-        sceneEntryPoint.OnGoToRoulette_Mini += () => coroutines.StartCoroutine(LoadAndStartGameScene_1_Mini());
+        sceneEntryPoint.OnGoToGame_Puzzle += () => coroutines.StartCoroutine(LoadAndStartGameScene_Puzzle());
 
         yield return rootView.HideLoadingScreen(0);
     }
 
-    private IEnumerator LoadAndStartGameScene_1_Mini()
+    private IEnumerator LoadAndStartGameScene_Puzzle()
     {
         yield return rootView.ShowLoadingScreen(1);
 

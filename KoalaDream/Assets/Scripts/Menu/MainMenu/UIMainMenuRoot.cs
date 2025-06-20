@@ -23,7 +23,6 @@ public class UIMainMenuRoot : UIRoot
 
     public void Deactivate()
     {
-
         if (currentPanel != null)
             CloseOtherPanel(currentPanel);
     }
