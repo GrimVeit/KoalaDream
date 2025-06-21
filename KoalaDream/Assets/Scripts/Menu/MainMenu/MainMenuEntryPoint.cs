@@ -16,6 +16,7 @@ public class MainMenuEntryPoint : MonoBehaviour
 
     private RoomTrackerPresenter roomTrackerPresenter;
     private RoomLightPresenter roomLightPresenter;
+    private PlayerMarkerNavigationPresenter playerMarkerNavigationPresenter;
 
     private void Awake()
     {
@@ -43,6 +44,7 @@ public class MainMenuEntryPoint : MonoBehaviour
 
         roomTrackerPresenter = new RoomTrackerPresenter(new RoomTrackerModel(), viewContainer.GetView<RoomTrackerView>());
         roomLightPresenter = new RoomLightPresenter(new RoomLightModel(roomTrackerPresenter), viewContainer.GetView<RoomLightView>());
+        playerMarkerNavigationPresenter = new PlayerMarkerNavigationPresenter(new PlayerMarkerNavigationModel(roomTrackerPresenter), viewContainer.GetView<PlayerMarkerNavigationView>());
 
         ActivateEvents();
 
@@ -51,6 +53,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         particleEffectPresenter.Initialize();
         bankPresenter.Initialize();
 
+        playerMarkerNavigationPresenter.Initialize();
         roomLightPresenter.Initialize();
         roomTrackerPresenter.Initialize();
         roomTrackerPresenter.Activate();
@@ -91,6 +94,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         particleEffectPresenter?.Dispose();
         bankPresenter?.Dispose();
 
+        playerMarkerNavigationPresenter.Dispose();
         roomLightPresenter.Dispose();
         roomTrackerPresenter.Dispose();
     }
