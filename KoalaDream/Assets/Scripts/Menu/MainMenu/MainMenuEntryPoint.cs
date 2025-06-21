@@ -14,11 +14,19 @@ public class MainMenuEntryPoint : MonoBehaviour
     private ParticleEffectPresenter particleEffectPresenter;
     private SoundPresenter soundPresenter;
 
+    private RoomTrackerPresenter roomTrackerPresenter;
+    private RoomLightPresenter roomLightPresenter;
+
+    private void Awake()
+    {
+        Run(null);
+    }
+
     public void Run(UIRootView uIRootView)
     {
         sceneRoot = menuRootPrefab;
 
-        uIRootView.AttachSceneUI(sceneRoot.gameObject, Camera.main);
+        //uIRootView.AttachSceneUI(sceneRoot.gameObject, Camera.main);
 
         viewContainer = sceneRoot.GetComponent<ViewContainer>();
         viewContainer.Initialize();
@@ -33,6 +41,19 @@ public class MainMenuEntryPoint : MonoBehaviour
 
         bankPresenter = new BankPresenter(new BankModel(), viewContainer.GetView<BankView>());
 
+        roomTrackerPresenter = new RoomTrackerPresenter(new RoomTrackerModel(), viewContainer.GetView<RoomTrackerView>());
+        roomLightPresenter = new RoomLightPresenter(new RoomLightModel(roomTrackerPresenter), viewContainer.GetView<RoomLightView>());
+
+        ActivateEvents();
+
+        soundPresenter.Initialize();
+        sceneRoot.Initialize();
+        particleEffectPresenter.Initialize();
+        bankPresenter.Initialize();
+
+        roomLightPresenter.Initialize();
+        roomTrackerPresenter.Initialize();
+        roomTrackerPresenter.Activate();
     }
 
     private void ActivateEvents()
@@ -69,6 +90,9 @@ public class MainMenuEntryPoint : MonoBehaviour
         sceneRoot?.Dispose();
         particleEffectPresenter?.Dispose();
         bankPresenter?.Dispose();
+
+        roomLightPresenter.Dispose();
+        roomTrackerPresenter.Dispose();
     }
 
     private void Update()
