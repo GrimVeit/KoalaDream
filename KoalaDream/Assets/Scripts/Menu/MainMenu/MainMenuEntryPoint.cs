@@ -17,6 +17,7 @@ public class MainMenuEntryPoint : MonoBehaviour
     private RoomTrackerPresenter roomTrackerPresenter;
     private RoomLightPresenter roomLightPresenter;
     private PlayerMarkerNavigationPresenter playerMarkerNavigationPresenter;
+    private GameMarkerNavigationPresenter gameMarkerNavigationPresenter;
 
     private void Awake()
     {
@@ -32,19 +33,16 @@ public class MainMenuEntryPoint : MonoBehaviour
         viewContainer = sceneRoot.GetComponent<ViewContainer>();
         viewContainer.Initialize();
 
-        soundPresenter = new SoundPresenter
-                    (new SoundModel(sounds.sounds, PlayerPrefsKeys.IS_MUTE_SOUNDS),
-                    viewContainer.GetView<SoundView>());
+        soundPresenter = new SoundPresenter(new SoundModel(sounds.sounds, PlayerPrefsKeys.IS_MUTE_SOUNDS), viewContainer.GetView<SoundView>());
 
-        particleEffectPresenter = new ParticleEffectPresenter
-            (new ParticleEffectModel(),
-            viewContainer.GetView<ParticleEffectView>());
+        particleEffectPresenter = new ParticleEffectPresenter(new ParticleEffectModel(), viewContainer.GetView<ParticleEffectView>());
 
         bankPresenter = new BankPresenter(new BankModel(), viewContainer.GetView<BankView>());
 
         roomTrackerPresenter = new RoomTrackerPresenter(new RoomTrackerModel(), viewContainer.GetView<RoomTrackerView>());
         roomLightPresenter = new RoomLightPresenter(new RoomLightModel(roomTrackerPresenter), viewContainer.GetView<RoomLightView>());
         playerMarkerNavigationPresenter = new PlayerMarkerNavigationPresenter(new PlayerMarkerNavigationModel(roomTrackerPresenter), viewContainer.GetView<PlayerMarkerNavigationView>());
+        gameMarkerNavigationPresenter = new GameMarkerNavigationPresenter(new GameMarkerNavigationModel(roomTrackerPresenter), viewContainer.GetView<GameMarkerNavigationView>());
 
         ActivateEvents();
 
@@ -53,6 +51,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         particleEffectPresenter.Initialize();
         bankPresenter.Initialize();
 
+        gameMarkerNavigationPresenter.Initialize();
         playerMarkerNavigationPresenter.Initialize();
         roomLightPresenter.Initialize();
         roomTrackerPresenter.Initialize();
@@ -94,6 +93,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         particleEffectPresenter?.Dispose();
         bankPresenter?.Dispose();
 
+        gameMarkerNavigationPresenter.Dispose();
         playerMarkerNavigationPresenter.Dispose();
         roomLightPresenter.Dispose();
         roomTrackerPresenter.Dispose();
