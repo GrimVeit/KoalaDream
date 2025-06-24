@@ -46,6 +46,11 @@ public class RoomTrackerModel
     public event Action<int> OnActivatedRoom;
     public event Action<int> OnDeactivatedRoom;
 
+    public int GetCurrentRoom()
+    {
+        return _currentRoomId;
+    }
+
     #endregion
 
     #region Input

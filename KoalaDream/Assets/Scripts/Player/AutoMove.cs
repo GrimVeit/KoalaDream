@@ -15,33 +15,33 @@ public class AutoMove : MonoBehaviour
 
     private void Awake()
     {
-        playerMove.OnPositionChanged += OnPositionChanged;
+        //playerMove.OnPositionChanged += OnPositionChanged;
     }
 
     private void OnDestroy()
     {
-        playerMove.OnPositionChanged -= OnPositionChanged;
+        //playerMove.OnPositionChanged -= OnPositionChanged;
     }
 
     public void MoveTo(Transform target)
     {
-        currentTarget = target;
-        isActive = true;
-        UpdateDirection();
+        //currentTarget = target;
+        //isActive = true;
+        //UpdateDirection();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            MoveTo(tests[0]);
-        }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Alpha0))
+    //    {
+    //        MoveTo(tests[0]);
+    //    }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            MoveTo(tests[1]);
-        }
-    }
+    //    if (Input.GetKeyDown(KeyCode.Alpha2))
+    //    {
+    //        MoveTo(tests[1]);
+    //    }
+    //}
 
     private void OnPositionChanged(float currentX)
     {

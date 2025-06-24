@@ -59,6 +59,11 @@ public class RoomTrackerPresenter : IRoomTrackerProvider, IRoomTrackerEventsProv
         remove => _model.OnDeactivatedRoom -= value;
     }
 
+    public int GetCurrentRoom()
+    {
+        return _model.GetCurrentRoom();
+    }
+
     #endregion
 
 
@@ -87,4 +92,6 @@ public interface IRoomTrackerEventsProvider
 {
     public event Action<int> OnActivatedRoom;
     public event Action<int> OnDeactivatedRoom;
+
+    public int GetCurrentRoom();
 }

@@ -19,6 +19,12 @@ public class MainMenuEntryPoint : MonoBehaviour
     private PlayerMarkerNavigationPresenter playerMarkerNavigationPresenter;
     private GameMarkerNavigationPresenter gameMarkerNavigationPresenter;
 
+    private PlayerMovePresenter playerMovePresenter;
+    private ManualMovePresenter manualMovePresenter;
+    private AutoMovePresenter autoMovePresenter;
+
+    private StateMenuMachine stateMenuMachine;
+
     private void Awake()
     {
         Run(null);
@@ -44,6 +50,12 @@ public class MainMenuEntryPoint : MonoBehaviour
         playerMarkerNavigationPresenter = new PlayerMarkerNavigationPresenter(new PlayerMarkerNavigationModel(roomTrackerPresenter), viewContainer.GetView<PlayerMarkerNavigationView>());
         gameMarkerNavigationPresenter = new GameMarkerNavigationPresenter(new GameMarkerNavigationModel(roomTrackerPresenter), viewContainer.GetView<GameMarkerNavigationView>());
 
+        playerMovePresenter = new PlayerMovePresenter(new PlayerMoveModel(), viewContainer.GetView<PlayerMoveView>());
+        manualMovePresenter = new ManualMovePresenter(new ManualMoveModel(), viewContainer.GetView<ManualMoveView>());
+        autoMovePresenter = new AutoMovePresenter(new AutoMoveModel(playerMovePresenter, playerMovePresenter), viewContainer.GetView<AutoMoveView>());
+
+        stateMenuMachine = new StateMenuMachine(autoMovePresenter, manualMovePresenter, playerMovePresenter, playerMovePresenter, gameMarkerNavigationPresenter, playerMarkerNavigationPresenter);
+
         ActivateEvents();
 
         soundPresenter.Initialize();
@@ -51,11 +63,17 @@ public class MainMenuEntryPoint : MonoBehaviour
         particleEffectPresenter.Initialize();
         bankPresenter.Initialize();
 
+        autoMovePresenter.Initialize();
+        manualMovePresenter.Initialize();
+        playerMovePresenter.Initialize();
+
         gameMarkerNavigationPresenter.Initialize();
         playerMarkerNavigationPresenter.Initialize();
         roomLightPresenter.Initialize();
         roomTrackerPresenter.Initialize();
         roomTrackerPresenter.Activate();
+
+        stateMenuMachine.Initialize();
     }
 
     private void ActivateEvents()
@@ -92,6 +110,10 @@ public class MainMenuEntryPoint : MonoBehaviour
         sceneRoot?.Dispose();
         particleEffectPresenter?.Dispose();
         bankPresenter?.Dispose();
+
+        autoMovePresenter.Dispose();
+        manualMovePresenter.Dispose();
+        playerMovePresenter.Dispose();
 
         gameMarkerNavigationPresenter.Dispose();
         playerMarkerNavigationPresenter.Dispose();

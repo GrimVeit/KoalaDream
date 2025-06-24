@@ -31,11 +31,29 @@ public class PlayerMarkerNavigationPresenter
     {
         _model.OnActivateMarker += _view.ActivateMarker;
         _model.OnDeactivateMarker += _view.DeactivateMarker;
+        _model.OnAllDeactivates += _view.AllDeactivateMarkers;
+        _model.OnAllActivatesExcept += _view.AllActivateMarkersExcept;
     }
 
     private void DeactivateEvents()
     {
         _model.OnActivateMarker -= _view.ActivateMarker;
         _model.OnDeactivateMarker -= _view.DeactivateMarker;
+        _model.OnAllDeactivates -= _view.AllDeactivateMarkers;
+        _model.OnAllActivatesExcept -= _view.AllActivateMarkersExcept;
     }
+
+    #region Input
+
+    public void AllDeactivate()
+    {
+        _model.AllDeactivate();
+    }
+
+    public void AllDeactivatesExcept()
+    {
+        _model.AllDeactivatesExcept();
+    }
+
+    #endregion
 }

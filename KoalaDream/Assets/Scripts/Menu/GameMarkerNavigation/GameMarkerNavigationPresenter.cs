@@ -27,11 +27,27 @@ public class GameMarkerNavigationPresenter
     {
         _model.OnActivatedMarkers += _view.Activate;
         _model.OnDeactivatedMarkers += _view.Deactivate;
+        _model.OnAllDeactivatedMarkers += _view.AllDeactivates;
     }
 
     private void DeactivateEvents()
     {
         _model.OnActivatedMarkers -= _view.Activate;
         _model.OnDeactivatedMarkers -= _view.Deactivate;
+        _model.OnAllDeactivatedMarkers -= _view.AllDeactivates;
     }
+
+    #region Input
+
+    public void Activate()
+    {
+        _model.Activate();
+    }
+
+    public void AllDeactivates()
+    {
+        _model.AllDeactivate();
+    }
+
+    #endregion
 }

@@ -14,8 +14,7 @@ public class PlayerMove : MonoBehaviour
 
     private float currentSpeed = 0;
 
-    [Range(-1, 1)]
-    public float targetDirection = 90;
+    private float targetDirection = 0;
 
     private void Update()
     {

@@ -33,6 +33,11 @@ public class GameMarkerNavigationView : View
         group.Deactivate();
     }
 
+    public void AllDeactivates()
+    {
+        navigationGroups.ForEach(data => data.Deactivate());
+    }
+
     private GameMarkerNavigationGroup GetNavigationGroup(int roomId)
     {
         return navigationGroups.FirstOrDefault(x => x.RoomId == roomId);

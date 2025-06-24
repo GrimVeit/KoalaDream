@@ -33,6 +33,26 @@ public class PlayerMarkerNavigationView : View
         marker.Deactivate();
     }
 
+    public void AllDeactivateMarkers()
+    {
+        playerMarkerNavigations.ForEach(data => data.Deactivate());
+    }
+
+    public void AllActivateMarkersExcept(int id)
+    {
+        foreach (var marker in playerMarkerNavigations)
+        {
+            if(marker.RoomId != id)
+            {
+                marker.Activate();
+            }
+            else
+            {
+                marker.Deactivate();
+            }
+        }
+    }
+
     private PlayerMarkerNavigation GetPlayerMarkerNavigation(int id)
     {
         return playerMarkerNavigations.FirstOrDefault(data => data.RoomId == id);
