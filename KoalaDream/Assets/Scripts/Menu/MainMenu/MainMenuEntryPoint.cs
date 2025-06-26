@@ -25,6 +25,9 @@ public class MainMenuEntryPoint : MonoBehaviour
     private ManualMovePresenter manualMovePresenter;
     private AutoMovePresenter autoMovePresenter;
 
+    private StorePicturesPresenter storePicturesPresenter;
+    private PicturesVisualPresenter picturesVisualPresenter;
+
     private StateMenuMachine stateMenuMachine;
 
     private void Awake()
@@ -58,6 +61,9 @@ public class MainMenuEntryPoint : MonoBehaviour
         manualMovePresenter = new ManualMovePresenter(new ManualMoveModel(), viewContainer.GetView<ManualMoveView>());
         autoMovePresenter = new AutoMovePresenter(new AutoMoveModel(playerMovePresenter, playerMovePresenter), viewContainer.GetView<AutoMoveView>());
 
+        storePicturesPresenter = new StorePicturesPresenter(new StorePicturesModel());
+        picturesVisualPresenter = new PicturesVisualPresenter(new PicturesVisualModel(storePicturesPresenter), viewContainer.GetView<PicturesVisualView>());
+
         stateMenuMachine = new StateMenuMachine(autoMovePresenter, manualMovePresenter, playerMovePresenter, playerMovePresenter, gameMarkerNavigationPresenter, playerMarkerNavigationPresenter, moveMarkerPresenter);
 
         ActivateEvents();
@@ -78,6 +84,9 @@ public class MainMenuEntryPoint : MonoBehaviour
         roomLightPresenter.Initialize();
         roomTrackerPresenter.Initialize();
         roomTrackerPresenter.Activate();
+
+        picturesVisualPresenter.Initialize();
+        storePicturesPresenter.Initialize();
 
         stateMenuMachine.Initialize();
     }
@@ -127,34 +136,9 @@ public class MainMenuEntryPoint : MonoBehaviour
         playerMarkerNavigationPresenter.Dispose();
         roomLightPresenter.Dispose();
         roomTrackerPresenter.Dispose();
-    }
 
-    private void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.W))
-        //{
-        //    storeGameProgressPresenter.OpenGame(2);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.A))
-        //{
-        //    storeGameProgressPresenter.OpenGame(4);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.S))
-        //{
-        //    storeGameProgressPresenter.OpenGame(1);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.D))
-        //{
-        //    storeGameProgressPresenter.OpenGame(6);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    storeGameProgressPresenter.OpenGame(5);
-        //}
+        picturesVisualPresenter.Dispose();
+        storePicturesPresenter.Dispose();
     }
 
     private void OnDestroy()

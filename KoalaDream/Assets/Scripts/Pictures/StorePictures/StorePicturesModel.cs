@@ -7,6 +7,7 @@ using UnityEngine;
 public class StorePicturesModel
 {
     public event Action<int> OnOpenPicture;
+    public event Action<int> OnClosePicture;
     public event Action<int> OnSelectPicture;
 
     private List<PictureData> pictureDatas = new();
@@ -26,9 +27,21 @@ public class StorePicturesModel
         {
             pictureDatas = new List<PictureData>();
 
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 12; i++)
             {
                 pictureDatas.Add(new PictureData(false, false));
+            }
+        }
+
+        for (int i = 0; i < pictureDatas.Count; i++)
+        {
+            if (pictureDatas[i].IsOpen)
+            {
+                OnOpenPicture?.Invoke(i);
+            }
+            else
+            {
+                OnClosePicture?.Invoke(i);
             }
         }
     }
@@ -70,6 +83,11 @@ public class StorePicturesModel
         picture.IsSelect = true;
         Debug.Log(id);
         OnSelectPicture?.Invoke(id);
+    }
+
+    public void DeselectAll()
+    {
+
     }
 }
 
