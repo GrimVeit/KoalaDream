@@ -6,20 +6,23 @@ public class FromAutoToManualState_Menu : IState
 {
     private readonly IGlobalStateMachineProvider _globalStateMachineProvider;
 
-    private GameMarkerNavigationPresenter _markerNavigationPresenter;
-    private PlayerMarkerNavigationPresenter _playerMarkerNavigationPresenter;
+    private readonly GameMarkerNavigationPresenter _markerNavigationPresenter;
+    private readonly PlayerMarkerNavigationPresenter _playerMarkerNavigationPresenter;
+    private readonly IMoveMarkerProvider _moveMarkerProvider;
 
-    public FromAutoToManualState_Menu(IGlobalStateMachineProvider globalStateMachineProvider, GameMarkerNavigationPresenter markerNavigationPresenter, PlayerMarkerNavigationPresenter playerMarkerNavigationPresenter)
+    public FromAutoToManualState_Menu(IGlobalStateMachineProvider globalStateMachineProvider, GameMarkerNavigationPresenter markerNavigationPresenter, PlayerMarkerNavigationPresenter playerMarkerNavigationPresenter, IMoveMarkerProvider moveMarkerProvider)
     {
         _globalStateMachineProvider = globalStateMachineProvider;
         _markerNavigationPresenter = markerNavigationPresenter;
         _playerMarkerNavigationPresenter = playerMarkerNavigationPresenter;
+        _moveMarkerProvider = moveMarkerProvider;
     }
 
     public void EnterState()
     {
         _markerNavigationPresenter.Activate();
         _playerMarkerNavigationPresenter.AllDeactivatesExcept();
+        _moveMarkerProvider.Activate();
 
         ChangeStateToManual();
     }

@@ -5,9 +5,12 @@ using UnityEngine;
 
 public class PlayerMoveModel
 {
+    private int currentDirection = 0;
+
     #region Output
 
     public event Action<float> OnChangePosition;
+    public event Action<int> OnChangeDirection;
     public event Action<float> OnMove;
 
     #endregion
@@ -22,6 +25,15 @@ public class PlayerMoveModel
     public void ChangePosition(float position)
     {
         OnChangePosition?.Invoke(position);
+    }
+
+    public void ChangeDirection(int pos)
+    {
+        if(currentDirection == pos) return;
+
+        currentDirection = pos;
+
+        OnChangeDirection?.Invoke(currentDirection);
     }
 
     #endregion

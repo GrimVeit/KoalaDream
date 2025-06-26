@@ -9,21 +9,29 @@ public class PlayerMoveView : View
 
     public void Initialize()
     {
-        playerMove.OnPositionChanged += ChangePosition; 
+        playerMove.OnPositionChanged += ChangePosition;
+        playerMove.OnChangeDirection += ChangeDirection;
     }
 
     public void Dispose()
     {
         playerMove.OnPositionChanged -= ChangePosition;
+        playerMove.OnChangeDirection -= ChangeDirection;
     }
 
     #region Output
 
-    public event Action<float> OnChangePosition; 
+    public event Action<float> OnChangePosition;
+    public event Action<int> OnChangeDirection;
 
     private void ChangePosition(float pos)
     {
         OnChangePosition?.Invoke(pos);
+    }
+
+    private void ChangeDirection(int pos)
+    {
+        OnChangeDirection?.Invoke(pos);
     }
 
     #endregion

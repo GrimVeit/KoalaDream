@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class AutoMoveButton : MonoBehaviour, IPointerDownHandler
+public class AutoMoveButton : MonoBehaviour
 {
     [SerializeField] private Transform target;
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void PointerDown()
     {
         OnTarget?.Invoke(target.position.x);
     }

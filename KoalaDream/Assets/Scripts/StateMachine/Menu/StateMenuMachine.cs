@@ -16,12 +16,13 @@ public class StateMenuMachine : IGlobalStateMachineProvider
         IPlayerMoveProvider playerMoveProvider,
         
         GameMarkerNavigationPresenter gameMarkerNavigationPresenter,
-        PlayerMarkerNavigationPresenter playerMarkerNavigationPresenter)
+        PlayerMarkerNavigationPresenter playerMarkerNavigationPresenter,
+        IMoveMarkerProvider moveMarkerProvider)
     {
         states[typeof(PlayerManualState_Menu)] = new PlayerManualState_Menu(this, autoMovePresenter, manualMovePresenter, playerMoveProvider);
-        states[typeof(FromManualToAutoState_Menu)] = new FromManualToAutoState_Menu(this, gameMarkerNavigationPresenter, playerMarkerNavigationPresenter);
+        states[typeof(FromManualToAutoState_Menu)] = new FromManualToAutoState_Menu(this, gameMarkerNavigationPresenter, playerMarkerNavigationPresenter, moveMarkerProvider);
         states[typeof(PlayerAutoState_Menu)] = new PlayerAutoState_Menu(this, autoMovePresenter, playerMoveProvider);
-        states[typeof(FromAutoToManualState_Menu)] = new FromAutoToManualState_Menu(this, gameMarkerNavigationPresenter, playerMarkerNavigationPresenter);
+        states[typeof(FromAutoToManualState_Menu)] = new FromAutoToManualState_Menu(this, gameMarkerNavigationPresenter, playerMarkerNavigationPresenter, moveMarkerProvider);
     }
 
     public void Initialize()

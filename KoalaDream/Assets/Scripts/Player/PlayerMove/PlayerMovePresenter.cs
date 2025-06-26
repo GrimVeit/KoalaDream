@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovePresenter : IPlayerMoveProvider, IPlayerMoveEventsProvider
+public class PlayerMovePresenter : IPlayerMoveProvider, IPlayerMoveEventsProvider, IPlayerDirectionEventsProvider
 {
     private readonly PlayerMoveModel _model;
     private readonly PlayerMoveView _view;
@@ -31,6 +31,7 @@ public class PlayerMovePresenter : IPlayerMoveProvider, IPlayerMoveEventsProvide
     private void ActivateEvents()
     {
         _view.OnChangePosition += _model.ChangePosition;
+        _view.OnChangeDirection += _model.ChangeDirection;
 
         _model.OnMove += _view.Move;
     }
@@ -38,6 +39,7 @@ public class PlayerMovePresenter : IPlayerMoveProvider, IPlayerMoveEventsProvide
     private void DeactivateEvents()
     {
         _view.OnChangePosition -= _model.ChangePosition;
+        _view.OnChangeDirection -= _model.ChangeDirection;
 
         _model.OnMove -= _view.Move;
     }
@@ -48,6 +50,12 @@ public class PlayerMovePresenter : IPlayerMoveProvider, IPlayerMoveEventsProvide
     {
         add => _model.OnChangePosition += value;
         remove => _model.OnChangePosition -= value;
+    }
+
+    public event Action<int> OnChangeDirection
+    {
+        add => _model.OnChangeDirection += value;
+        remove => _model.OnChangeDirection -= value;
     }
 
     #endregion
@@ -66,6 +74,11 @@ public class PlayerMovePresenter : IPlayerMoveProvider, IPlayerMoveEventsProvide
 public interface IPlayerMoveEventsProvider
 {
     public event Action<float> OnChangePosition;
+}
+
+public interface IPlayerDirectionEventsProvider
+{
+    public event Action<int> OnChangeDirection;
 }
 
 public interface IPlayerMoveProvider

@@ -18,8 +18,10 @@ public class MainMenuEntryPoint : MonoBehaviour
     private RoomLightPresenter roomLightPresenter;
     private PlayerMarkerNavigationPresenter playerMarkerNavigationPresenter;
     private GameMarkerNavigationPresenter gameMarkerNavigationPresenter;
+    private MoveMarkerPresenter moveMarkerPresenter;
 
     private PlayerMovePresenter playerMovePresenter;
+    private PlayerAnimationPresenter playerAnimationPresenter;
     private ManualMovePresenter manualMovePresenter;
     private AutoMovePresenter autoMovePresenter;
 
@@ -49,12 +51,14 @@ public class MainMenuEntryPoint : MonoBehaviour
         roomLightPresenter = new RoomLightPresenter(new RoomLightModel(roomTrackerPresenter), viewContainer.GetView<RoomLightView>());
         playerMarkerNavigationPresenter = new PlayerMarkerNavigationPresenter(new PlayerMarkerNavigationModel(roomTrackerPresenter), viewContainer.GetView<PlayerMarkerNavigationView>());
         gameMarkerNavigationPresenter = new GameMarkerNavigationPresenter(new GameMarkerNavigationModel(roomTrackerPresenter), viewContainer.GetView<GameMarkerNavigationView>());
+        moveMarkerPresenter = new MoveMarkerPresenter(new MoveMarkerModel(), viewContainer.GetView<MoveMarkerView>());
 
         playerMovePresenter = new PlayerMovePresenter(new PlayerMoveModel(), viewContainer.GetView<PlayerMoveView>());
+        playerAnimationPresenter = new PlayerAnimationPresenter(new PlayerAnimationModel(playerMovePresenter), viewContainer.GetView<PlayerAnimationView>());
         manualMovePresenter = new ManualMovePresenter(new ManualMoveModel(), viewContainer.GetView<ManualMoveView>());
         autoMovePresenter = new AutoMovePresenter(new AutoMoveModel(playerMovePresenter, playerMovePresenter), viewContainer.GetView<AutoMoveView>());
 
-        stateMenuMachine = new StateMenuMachine(autoMovePresenter, manualMovePresenter, playerMovePresenter, playerMovePresenter, gameMarkerNavigationPresenter, playerMarkerNavigationPresenter);
+        stateMenuMachine = new StateMenuMachine(autoMovePresenter, manualMovePresenter, playerMovePresenter, playerMovePresenter, gameMarkerNavigationPresenter, playerMarkerNavigationPresenter, moveMarkerPresenter);
 
         ActivateEvents();
 
@@ -65,8 +69,10 @@ public class MainMenuEntryPoint : MonoBehaviour
 
         autoMovePresenter.Initialize();
         manualMovePresenter.Initialize();
+        playerAnimationPresenter.Initialize();
         playerMovePresenter.Initialize();
 
+        moveMarkerPresenter.Initialize();
         gameMarkerNavigationPresenter.Initialize();
         playerMarkerNavigationPresenter.Initialize();
         roomLightPresenter.Initialize();
@@ -113,8 +119,10 @@ public class MainMenuEntryPoint : MonoBehaviour
 
         autoMovePresenter.Dispose();
         manualMovePresenter.Dispose();
+        playerAnimationPresenter.Dispose();
         playerMovePresenter.Dispose();
 
+        moveMarkerPresenter.Dispose();
         gameMarkerNavigationPresenter.Dispose();
         playerMarkerNavigationPresenter.Dispose();
         roomLightPresenter.Dispose();

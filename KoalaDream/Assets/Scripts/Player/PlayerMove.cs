@@ -16,6 +16,8 @@ public class PlayerMove : MonoBehaviour
 
     private float targetDirection = 0;
 
+    private int _currentDir;
+
     private void Update()
     {
         float targetSpeed = targetDirection * maxSpeed;
@@ -25,6 +27,17 @@ public class PlayerMove : MonoBehaviour
         else
         {
             currentSpeed = Mathf.MoveTowards(currentSpeed, targetSpeed, maxSpeed / decelerationTime * Time.deltaTime);
+        }
+
+        if(Mathf.Abs(currentSpeed) > 0.7f)
+        {
+            _currentDir = currentSpeed > 0 ? 1 : -1;
+            OnChangeDirection?.Invoke(_currentDir);
+        }
+        else
+        {
+            _currentDir = 0;
+            OnChangeDirection?.Invoke(_currentDir);
         }
 
         Vector3 pos = transform.position;
@@ -53,6 +66,7 @@ public class PlayerMove : MonoBehaviour
     #region Output
 
     public event Action<float> OnPositionChanged;
+    public event Action<int> OnChangeDirection;
 
     #endregion
 }
