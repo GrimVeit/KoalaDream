@@ -1,9 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class StorePicturesPresenter : IStorePicturesOpenCloseEventsProvider
+public class StorePicturesPresenter : IStorePicturesOpenCloseEventsProvider, IStorePicturesSelectEventsProvider, IStorePicturesOpenProvider, IStorePicturesSelectProvider
 {
     private readonly StorePicturesModel _model;
 
@@ -36,11 +33,76 @@ public class StorePicturesPresenter : IStorePicturesOpenCloseEventsProvider
         remove => _model.OnClosePicture -= value;
     }
 
+
+
+    public event Action<int> OnSelectPicture
+    {
+        add => _model.OnSelectPicture += value;
+        remove => _model.OnSelectPicture -= value;
+    }
+
+    public event Action<int> OnSelectOpenPicture_Value
+    {
+        add => _model.OnSelectOpenPicture_Value += value;
+        remove => _model.OnSelectOpenPicture_Value -= value;
+    }
+
+    public event Action<int> OnSelectClosePicture_Value
+    {
+        add => _model.OnSelectClosePicture_Value += value;
+        remove => _model.OnSelectClosePicture_Value -= value;
+    }
+
+    public event Action OnSelectOpenPicture
+    {
+        add => _model.OnSelectOpenPicture += value;
+        remove => _model.OnSelectOpenPicture -= value;
+    }
+
+    public event Action OnSelectClosePicture
+    {
+        add => _model.OnSelectClosePicture += value;
+        remove => _model.OnSelectClosePicture -= value;
+    }
+
     #endregion
+
+    #region Input
+
+    public void OpenPicture(int id)
+    {
+        _model.OpenPicture(id);
+    }
+
+    public void SelectPicture(int id)
+    {
+        _model.SelectPicture(id);
+    }
+
+    #endregion
+}
+
+public interface IStorePicturesOpenProvider
+{
+    public void OpenPicture(int id);
+}
+
+public interface IStorePicturesSelectProvider
+{
+    public void SelectPicture(int id);
 }
 
 public interface IStorePicturesOpenCloseEventsProvider
 {
     public event Action<int> OnOpenPicture;
     public event Action<int> OnClosePicture;
+}
+
+public interface IStorePicturesSelectEventsProvider
+{
+    public event Action<int> OnSelectPicture;
+    public event Action<int> OnSelectOpenPicture_Value;
+    public event Action<int> OnSelectClosePicture_Value;
+    public event Action OnSelectOpenPicture;
+    public event Action OnSelectClosePicture;
 }

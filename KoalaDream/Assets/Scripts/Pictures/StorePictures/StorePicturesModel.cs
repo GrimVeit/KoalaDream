@@ -8,7 +8,13 @@ public class StorePicturesModel
 {
     public event Action<int> OnOpenPicture;
     public event Action<int> OnClosePicture;
+
+
     public event Action<int> OnSelectPicture;
+    public event Action<int> OnSelectOpenPicture_Value;
+    public event Action<int> OnSelectClosePicture_Value;
+    public event Action OnSelectOpenPicture;
+    public event Action OnSelectClosePicture;
 
     private List<PictureData> pictureDatas = new();
 
@@ -82,6 +88,18 @@ public class StorePicturesModel
         pictureDatas.ForEach(data => data.IsSelect = false);
         picture.IsSelect = true;
         Debug.Log(id);
+
+        if (picture.IsOpen)
+        {
+            OnSelectOpenPicture_Value?.Invoke(id);
+            OnSelectOpenPicture?.Invoke();
+        }
+        else
+        {
+            OnSelectClosePicture_Value?.Invoke(id);
+            OnSelectClosePicture?.Invoke();
+        }
+
         OnSelectPicture?.Invoke(id);
     }
 

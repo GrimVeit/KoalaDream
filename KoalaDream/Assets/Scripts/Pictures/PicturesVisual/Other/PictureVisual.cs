@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,17 +13,31 @@ public class PictureVisual : MonoBehaviour
     [SerializeField] private Color colorActive;
     [SerializeField] private Color colorInactive;
 
+    public void Initialize()
+    {
+        buttonPicture.onClick.AddListener(() => OnSelectPicture?.Invoke(id));
+    }
+
+    public void Dispose()
+    {
+        buttonPicture.onClick.RemoveListener(() => OnSelectPicture?.Invoke(id));
+    }
+
     public void Activate()
     {
-        buttonPicture.enabled = false;
         imagePicture.color = colorActive;
         objectMarker.SetActive(false);
     }
 
     public void Deactivate()
     {
-        buttonPicture.enabled = true;
         imagePicture.color = colorInactive;
         objectMarker.SetActive(true);
     }
+
+    #region Output
+
+    public event Action<int> OnSelectPicture;
+
+    #endregion
 }

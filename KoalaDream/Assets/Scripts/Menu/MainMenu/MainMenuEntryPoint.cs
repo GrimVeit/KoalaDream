@@ -27,6 +27,7 @@ public class MainMenuEntryPoint : MonoBehaviour
 
     private StorePicturesPresenter storePicturesPresenter;
     private PicturesVisualPresenter picturesVisualPresenter;
+    private PicturesShowVisualPresenter picturesShowVisualPresenter;
 
     private StateMenuMachine stateMenuMachine;
 
@@ -62,9 +63,10 @@ public class MainMenuEntryPoint : MonoBehaviour
         autoMovePresenter = new AutoMovePresenter(new AutoMoveModel(playerMovePresenter, playerMovePresenter), viewContainer.GetView<AutoMoveView>());
 
         storePicturesPresenter = new StorePicturesPresenter(new StorePicturesModel());
-        picturesVisualPresenter = new PicturesVisualPresenter(new PicturesVisualModel(storePicturesPresenter), viewContainer.GetView<PicturesVisualView>());
+        picturesVisualPresenter = new PicturesVisualPresenter(new PicturesVisualModel(storePicturesPresenter, storePicturesPresenter), viewContainer.GetView<PicturesVisualView>());
+        picturesShowVisualPresenter = new PicturesShowVisualPresenter(new PicturesShowVisualModel(storePicturesPresenter), viewContainer.GetView<PicturesShowVisualView>());
 
-        stateMenuMachine = new StateMenuMachine(autoMovePresenter, manualMovePresenter, playerMovePresenter, playerMovePresenter, gameMarkerNavigationPresenter, playerMarkerNavigationPresenter, moveMarkerPresenter);
+        stateMenuMachine = new StateMenuMachine(autoMovePresenter, manualMovePresenter, playerMovePresenter, playerMovePresenter, gameMarkerNavigationPresenter, playerMarkerNavigationPresenter, moveMarkerPresenter, storePicturesPresenter, sceneRoot);
 
         ActivateEvents();
 
@@ -85,6 +87,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         roomTrackerPresenter.Initialize();
         roomTrackerPresenter.Activate();
 
+        picturesShowVisualPresenter.Initialize();
         picturesVisualPresenter.Initialize();
         storePicturesPresenter.Initialize();
 
@@ -93,11 +96,15 @@ public class MainMenuEntryPoint : MonoBehaviour
 
     private void ActivateEvents()
     {
+        sceneRoot.Activate();
+
         ActivateTransitions();
     }
 
     private void DeactivateEvents()
     {
+        sceneRoot.Deactivate();
+
         DeactivateTransitions();
     }
 
@@ -137,6 +144,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         roomLightPresenter.Dispose();
         roomTrackerPresenter.Dispose();
 
+        picturesShowVisualPresenter?.Dispose();
         picturesVisualPresenter.Dispose();
         storePicturesPresenter.Dispose();
     }

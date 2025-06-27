@@ -18,6 +18,7 @@ public class PicturesVisualPresenter
         ActivateEvents();
 
         _model.Initialize();
+        _view.Initialize();
     }
 
     public void Dispose()
@@ -25,16 +26,21 @@ public class PicturesVisualPresenter
         DeactivateEvents();
 
         _model.Dispose();
+        _view.Dispose();
     }
 
     private void ActivateEvents()
     {
+        _view.OnSelectPicture += _model.SelectPicture;
+
         _model.OnOpenPicture += _view.Open;
         _model.OnClosePicture += _view.Close;
     }
 
     private void DeactivateEvents()
     {
+        _view.OnSelectPicture -= _model.SelectPicture;
+
         _model.OnOpenPicture -= _view.Open;
         _model.OnClosePicture -= _view.Close;
     }
