@@ -6,19 +6,26 @@ using UnityEngine;
 
 public class StorePicturesModel
 {
-    public event Action<int> OnOpenPicture;
-    public event Action<int> OnClosePicture;
+    public event Action<Picture> OnOpenPicture;
+    public event Action<Picture> OnClosePicture;
 
 
-    public event Action<int> OnSelectPicture;
-    public event Action<int> OnSelectOpenPicture_Value;
-    public event Action<int> OnSelectClosePicture_Value;
+    public event Action<Picture> OnSelectPicture;
+    public event Action<Picture> OnSelectOpenPicture_Value;
+    public event Action<Picture> OnSelectClosePicture_Value;
     public event Action OnSelectOpenPicture;
     public event Action OnSelectClosePicture;
+
+    private PictureGroup _pictureGroup;
 
     private List<PictureData> pictureDatas = new();
 
     public readonly string FilePath = Path.Combine(Application.persistentDataPath, "Pictures.json");
+
+    public StorePicturesModel(PictureGroup pictureGroup)
+    {
+        _pictureGroup = pictureGroup;
+    }
 
     public void Initialize()
     {
@@ -41,13 +48,15 @@ public class StorePicturesModel
 
         for (int i = 0; i < pictureDatas.Count; i++)
         {
-            if (pictureDatas[i].IsOpen)
+            _pictureGroup.Pictures[i].SetData(pictureDatas[i]);
+
+            if (_pictureGroup.Pictures[i].PictureData.IsOpen)
             {
-                OnOpenPicture?.Invoke(i);
+                OnOpenPicture?.Invoke(_pictureGroup.Pictures[i]);
             }
             else
             {
-                OnClosePicture?.Invoke(i);
+                OnClosePicture?.Invoke(_pictureGroup.Pictures[i]);
             }
         }
     }
@@ -60,7 +69,7 @@ public class StorePicturesModel
 
     public void OpenPicture(int id)
     {
-        var picture = pictureDatas[id];
+        var picture = _pictureGroup.GetPicture(id);
 
         if (picture == null)
         {
@@ -68,16 +77,16 @@ public class StorePicturesModel
             return;
         }
 
-        if (picture.IsOpen) return;
+        if (picture.PictureData.IsOpen) return;
 
-        picture.IsOpen = true;
+        picture.PictureData.IsOpen = true;
         Debug.Log(id);
-        OnOpenPicture?.Invoke(id);
+        OnOpenPicture?.Invoke(picture);
     }
 
     public void SelectPicture(int id)
     {
-        var picture = pictureDatas[id];
+        var picture = _pictureGroup.GetPicture(id);
 
         if (picture == null)
         {
@@ -86,21 +95,21 @@ public class StorePicturesModel
         }
 
         pictureDatas.ForEach(data => data.IsSelect = false);
-        picture.IsSelect = true;
+        picture.PictureData.IsSelect = true;
         Debug.Log(id);
 
-        if (picture.IsOpen)
+        if (picture.PictureData.IsOpen)
         {
-            OnSelectOpenPicture_Value?.Invoke(id);
+            OnSelectOpenPicture_Value?.Invoke(picture);
             OnSelectOpenPicture?.Invoke();
         }
         else
         {
-            OnSelectClosePicture_Value?.Invoke(id);
+            OnSelectClosePicture_Value?.Invoke(picture);
             OnSelectClosePicture?.Invoke();
         }
 
-        OnSelectPicture?.Invoke(id);
+        OnSelectPicture?.Invoke(picture);
     }
 
     public void DeselectAll()

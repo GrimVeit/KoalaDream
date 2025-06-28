@@ -5,6 +5,7 @@ using UnityEngine;
 public class MainMenuEntryPoint : MonoBehaviour
 {
     [SerializeField] private Sounds sounds;
+    [SerializeField] private PictureGroup pictureGroup;
     [SerializeField] private UIMainMenuRoot menuRootPrefab;
 
     private UIMainMenuRoot sceneRoot;
@@ -28,6 +29,7 @@ public class MainMenuEntryPoint : MonoBehaviour
     private StorePicturesPresenter storePicturesPresenter;
     private PicturesVisualPresenter picturesVisualPresenter;
     private PicturesShowVisualPresenter picturesShowVisualPresenter;
+    private PicturesOpenVisualPresenter picturesOpenVisualPresenter;
 
     private StateMenuMachine stateMenuMachine;
 
@@ -62,9 +64,10 @@ public class MainMenuEntryPoint : MonoBehaviour
         manualMovePresenter = new ManualMovePresenter(new ManualMoveModel(), viewContainer.GetView<ManualMoveView>());
         autoMovePresenter = new AutoMovePresenter(new AutoMoveModel(playerMovePresenter, playerMovePresenter), viewContainer.GetView<AutoMoveView>());
 
-        storePicturesPresenter = new StorePicturesPresenter(new StorePicturesModel());
+        storePicturesPresenter = new StorePicturesPresenter(new StorePicturesModel(pictureGroup));
         picturesVisualPresenter = new PicturesVisualPresenter(new PicturesVisualModel(storePicturesPresenter, storePicturesPresenter), viewContainer.GetView<PicturesVisualView>());
         picturesShowVisualPresenter = new PicturesShowVisualPresenter(new PicturesShowVisualModel(storePicturesPresenter), viewContainer.GetView<PicturesShowVisualView>());
+        picturesOpenVisualPresenter = new PicturesOpenVisualPresenter(new PicturesOpenVisualModel(storePicturesPresenter), viewContainer.GetView<PicturesOpenVisualView>());
 
         stateMenuMachine = new StateMenuMachine(autoMovePresenter, manualMovePresenter, playerMovePresenter, playerMovePresenter, gameMarkerNavigationPresenter, playerMarkerNavigationPresenter, moveMarkerPresenter, storePicturesPresenter, sceneRoot);
 
@@ -87,6 +90,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         roomTrackerPresenter.Initialize();
         roomTrackerPresenter.Activate();
 
+        picturesOpenVisualPresenter.Initialize();
         picturesShowVisualPresenter.Initialize();
         picturesVisualPresenter.Initialize();
         storePicturesPresenter.Initialize();
@@ -144,6 +148,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         roomLightPresenter.Dispose();
         roomTrackerPresenter.Dispose();
 
+        picturesOpenVisualPresenter?.Dispose();
         picturesShowVisualPresenter?.Dispose();
         picturesVisualPresenter.Dispose();
         storePicturesPresenter.Dispose();

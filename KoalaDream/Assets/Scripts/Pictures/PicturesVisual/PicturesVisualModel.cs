@@ -25,14 +25,14 @@ public class PicturesVisualModel
         _storePicturesOpenCloseEventsProvider.OnClosePicture -= ClosePicture;
     }
 
-    private void OpenPicture(int index)
+    private void OpenPicture(Picture picture)
     {
-        OnOpenPicture?.Invoke(index);
+        OnOpenPicture?.Invoke(picture.Id);
     }
 
-    private void ClosePicture(int index)
+    private void ClosePicture(Picture picture)
     {
-        OnClosePicture?.Invoke(index);
+        OnClosePicture?.Invoke(picture.Id);
     }
 
 

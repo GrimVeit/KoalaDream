@@ -1,19 +1,18 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PicturesShowVisualView : View
+public class PicturesOpenVisualView : View
 {
     [SerializeField] private Image imagePicture;
-    [SerializeField] private TextMeshProUGUI textNumberPicture;
+    [SerializeField] private TextMeshProUGUI textPricePicture;
 
-    public void ShowPicture(Picture picture)
+    public void OpenPicture(Picture picture)
     {
-        textNumberPicture.text = "#" + (picture.Id + 1);
         imagePicture.sprite = picture.SpritePictureFull;
+        textPricePicture.text = $"Unlock cost: {picture.Price}";
     }
 }

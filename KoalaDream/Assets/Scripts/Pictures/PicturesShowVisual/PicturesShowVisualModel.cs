@@ -24,14 +24,14 @@ public class PicturesShowVisualModel
         _storePicturesSelectEventsProvider.OnSelectOpenPicture_Value -= ShowPicture;
     }
 
-    private void ShowPicture(int index)
+    private void ShowPicture(Picture picture)
     {
-        OnShowPicture?.Invoke(index);
+        OnShowPicture?.Invoke(picture);
     }
 
     #region Output
 
-    public event Action<int> OnShowPicture;
+    public event Action<Picture> OnShowPicture;
 
     #endregion
 }

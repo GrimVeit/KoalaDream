@@ -21,13 +21,13 @@ public class StorePicturesPresenter : IStorePicturesOpenCloseEventsProvider, ISt
 
     #region Output
 
-    public event Action<int> OnOpenPicture
+    public event Action<Picture> OnOpenPicture
     {
         add => _model.OnOpenPicture += value;
         remove => _model.OnOpenPicture -= value;
     }
 
-    public event Action<int> OnClosePicture
+    public event Action<Picture> OnClosePicture
     {
         add => _model.OnClosePicture += value;
         remove => _model.OnClosePicture -= value;
@@ -35,19 +35,19 @@ public class StorePicturesPresenter : IStorePicturesOpenCloseEventsProvider, ISt
 
 
 
-    public event Action<int> OnSelectPicture
+    public event Action<Picture> OnSelectPicture
     {
         add => _model.OnSelectPicture += value;
         remove => _model.OnSelectPicture -= value;
     }
 
-    public event Action<int> OnSelectOpenPicture_Value
+    public event Action<Picture> OnSelectOpenPicture_Value
     {
         add => _model.OnSelectOpenPicture_Value += value;
         remove => _model.OnSelectOpenPicture_Value -= value;
     }
 
-    public event Action<int> OnSelectClosePicture_Value
+    public event Action<Picture> OnSelectClosePicture_Value
     {
         add => _model.OnSelectClosePicture_Value += value;
         remove => _model.OnSelectClosePicture_Value -= value;
@@ -94,15 +94,15 @@ public interface IStorePicturesSelectProvider
 
 public interface IStorePicturesOpenCloseEventsProvider
 {
-    public event Action<int> OnOpenPicture;
-    public event Action<int> OnClosePicture;
+    public event Action<Picture> OnOpenPicture;
+    public event Action<Picture> OnClosePicture;
 }
 
 public interface IStorePicturesSelectEventsProvider
 {
-    public event Action<int> OnSelectPicture;
-    public event Action<int> OnSelectOpenPicture_Value;
-    public event Action<int> OnSelectClosePicture_Value;
+    public event Action<Picture> OnSelectPicture;
+    public event Action<Picture> OnSelectOpenPicture_Value;
+    public event Action<Picture> OnSelectClosePicture_Value;
     public event Action OnSelectOpenPicture;
     public event Action OnSelectClosePicture;
 }
