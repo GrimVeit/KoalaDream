@@ -3,26 +3,26 @@ using UnityEngine;
 
 public class BankModel
 {
-    public float Money => money;
+    public int Money => _money;
 
-    private float money;
+    private int _money;
     public event Action OnAddMoney;
     public event Action OnRemoveMoney;
-    public event Action<float> OnChangeMoney;
+    public event Action<int> OnChangeMoney;
 
     private const string BANK_MONEY = "BANK_MONEY";
 
     public void Initialize()
     {
-        money = PlayerPrefs.GetFloat(BANK_MONEY, 100);
+        _money = PlayerPrefs.GetInt(BANK_MONEY, 24);
     }
 
     public void Destroy()
     {
-        PlayerPrefs.SetFloat(BANK_MONEY, money);
+        PlayerPrefs.SetFloat(BANK_MONEY, _money);
     }
 
-    public void SendMoney(float money)
+    public void SendMoney(int money)
     {
         Debug.Log(money);
 
@@ -34,16 +34,21 @@ public class BankModel
         {
             OnRemoveMoney?.Invoke();
         }
-        this.money += money;
-        this.money = Mathf.Round(this.money * 10f) / 10f;
-        MathF.Round(this.money, 1);
-        OnChangeMoney?.Invoke(this.money);
 
-        Debug.Log(this.money);
+        _money += money;
+
+        if(_money < 0)
+        {
+            _money = 0;
+        }
+
+        OnChangeMoney?.Invoke(_money);
+
+        Debug.Log(_money);
     }
 
-    public bool CanAfford(float bet)
+    public bool CanAfford(int bet)
     {
-        return money >= bet;
+        return _money >= bet;
     }
 }

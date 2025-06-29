@@ -7,8 +7,8 @@ public class BankPresenter : IMoneyProvider
 
     public BankPresenter(BankModel model, BankView view)
     {
-        this._model = model;
-        this._view = view;
+        _model = model;
+        _view = view;
     }
 
     public void Initialize()
@@ -37,19 +37,14 @@ public class BankPresenter : IMoneyProvider
         _model.SendMoney(money);
     }
 
-    public void SendMoney(float money)
+    public bool CanAfford(int money)
     {
-        _model.SendMoney(money);
+        return _model.CanAfford(money);
     }
 
-    public bool CanAfford(float bet)
-    {
-        return _model.CanAfford(bet);
-    }
+    public int GetMoney() => _model.Money;
 
-    public float GetMoney() => _model.Money;
-
-    public event Action<float> OnChangeMoney
+    public event Action<int> OnChangeMoney
     {
         add { _model.OnChangeMoney += value; }
         remove { _model.OnChangeMoney -= value; }
@@ -58,11 +53,11 @@ public class BankPresenter : IMoneyProvider
 
 public interface IMoneyProvider
 {
-    float GetMoney();
+    int GetMoney();
 
-    event Action<float> OnChangeMoney;
-    void SendMoney(float money);
-    bool CanAfford(float money);
+    event Action<int> OnChangeMoney;
+    void SendMoney(int money);
+    bool CanAfford(int money);
 }
 
 

@@ -18,7 +18,7 @@ public class GameEntryPoint
 
     }
 
-    //[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public static void Autorun()
     {
         GlobalGameSettings();
@@ -43,7 +43,8 @@ public class GameEntryPoint
     {
         yield return rootView.ShowLoadingScreen(0);
 
-        yield return LoadScene(Scenes.BOOT);
+        yield return new WaitForSeconds(1);
+
         yield return LoadScene(Scenes.MAIN_MENU);
 
         yield return new WaitForEndOfFrame();
@@ -62,11 +63,11 @@ public class GameEntryPoint
         yield return rootView.ShowLoadingScreen(1);
 
         yield return LoadScene(Scenes.BOOT);
-        yield return LoadScene(Scenes.GAME_1_MINI);
+        yield return LoadScene(Scenes.PUZZLE);
 
         yield return new WaitForEndOfFrame();
 
-        var sceneEntryPoint = Object.FindObjectOfType<GameSceneEntryPoint_MiniGame>();
+        var sceneEntryPoint = Object.FindObjectOfType<GameSceneEntryPoint_Puzzle>();
         sceneEntryPoint.Run(rootView);
 
         sceneEntryPoint.OnGoToMenu += () => coroutines.StartCoroutine(LoadAndStartMainMenu());

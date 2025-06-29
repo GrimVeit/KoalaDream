@@ -2,9 +2,10 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameSceneEntryPoint_MiniGame : MonoBehaviour
+public class GameSceneEntryPoint_Puzzle : MonoBehaviour
 {
     [SerializeField] private Sounds sounds;
+    [SerializeField] private PictureGroup pictureGroup;
     [SerializeField] private UIGameSceneRoot_Game sceneRootPrefab;
 
     private UIGameSceneRoot_Game sceneRoot;
@@ -12,6 +13,9 @@ public class GameSceneEntryPoint_MiniGame : MonoBehaviour
     private BankPresenter bankPresenter;
     private SoundPresenter soundPresenter;
     private ParticleEffectPresenter particleEffectPresenter;
+
+    private StorePicturesPresenter storePicturesPresenter;
+    private PuzzleFramePresenter puzzleFramePresenter;
 
     public void Run(UIRootView uIRootView)
     {
@@ -26,6 +30,9 @@ public class GameSceneEntryPoint_MiniGame : MonoBehaviour
         bankPresenter = new BankPresenter(new BankModel(), viewContainer.GetView<BankView>());
         particleEffectPresenter = new ParticleEffectPresenter(new ParticleEffectModel(), viewContainer.GetView<ParticleEffectView>());
 
+        storePicturesPresenter = new StorePicturesPresenter(new StorePicturesModel(pictureGroup));
+        puzzleFramePresenter = new PuzzleFramePresenter(new PuzzleFrameModel(storePicturesPresenter), viewContainer.GetView<PuzzleFrameView>());
+
         sceneRoot.SetSoundProvider(soundPresenter);
         sceneRoot.Activate();
 
@@ -36,6 +43,9 @@ public class GameSceneEntryPoint_MiniGame : MonoBehaviour
         bankPresenter.Initialize();
         soundPresenter.Initialize();
         particleEffectPresenter.Initialize();
+
+        puzzleFramePresenter.Initialize();
+        storePicturesPresenter.Initialize();
 
     }
 
@@ -68,6 +78,9 @@ public class GameSceneEntryPoint_MiniGame : MonoBehaviour
 
         bankPresenter.Dispose();
         particleEffectPresenter.Dispose();
+
+        puzzleFramePresenter?.Dispose();
+        storePicturesPresenter?.Dispose();
     }
 
     private void OnDestroy()

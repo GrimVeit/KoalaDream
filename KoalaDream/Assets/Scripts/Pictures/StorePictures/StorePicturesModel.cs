@@ -58,6 +58,22 @@ public class StorePicturesModel
             {
                 OnClosePicture?.Invoke(_pictureGroup.Pictures[i]);
             }
+
+            if (_pictureGroup.Pictures[i].PictureData.IsSelect)
+            {
+                if (_pictureGroup.Pictures[i].PictureData.IsOpen)
+                {
+                    OnSelectOpenPicture_Value?.Invoke(_pictureGroup.Pictures[i]);
+                    OnSelectOpenPicture?.Invoke();
+                }
+                else
+                {
+                    OnSelectClosePicture_Value?.Invoke(_pictureGroup.Pictures[i]);
+                    OnSelectClosePicture?.Invoke();
+                }
+
+                OnSelectPicture?.Invoke(_pictureGroup.Pictures[i]);
+            }
         }
     }
 

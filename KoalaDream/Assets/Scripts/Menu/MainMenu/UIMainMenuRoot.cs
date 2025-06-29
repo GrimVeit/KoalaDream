@@ -22,6 +22,7 @@ public class UIMainMenuRoot : UIRoot
     public void Activate()
     {
         showPicturePanel.OnClickToExit += ClickToExit_ShowPicture;
+
         openPicturePanel.OnClickToExit += ClickToExit_OpenPicture;
     }
 
@@ -32,6 +33,7 @@ public class UIMainMenuRoot : UIRoot
             CloseOtherPanel(currentPanel);
 
         showPicturePanel.OnClickToExit -= ClickToExit_ShowPicture;
+
         openPicturePanel.OnClickToExit -= ClickToExit_OpenPicture;
     }
 

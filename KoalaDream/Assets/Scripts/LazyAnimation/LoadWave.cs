@@ -42,7 +42,7 @@ public class LoadWave : MotionBase
 
             int maxStart = blocks.Count - waveLength;
 
-            for (int start = 0; start <= maxStart; start++)
+            for (int start = 1; start <= maxStart; start++)
             {
                 blocks[start - 1].sprite = spriteGray;
                 blocks[start + waveLength - 1].sprite = spriteYellow;

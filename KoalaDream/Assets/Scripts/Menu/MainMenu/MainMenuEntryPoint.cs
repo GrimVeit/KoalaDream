@@ -30,13 +30,9 @@ public class MainMenuEntryPoint : MonoBehaviour
     private PicturesVisualPresenter picturesVisualPresenter;
     private PicturesShowVisualPresenter picturesShowVisualPresenter;
     private PicturesOpenVisualPresenter picturesOpenVisualPresenter;
+    private PicturePuzzleAccessPresenter picturePuzzleAccessPresenter;
 
     private StateMenuMachine stateMenuMachine;
-
-    private void Awake()
-    {
-        Run(null);
-    }
 
     public void Run(UIRootView uIRootView)
     {
@@ -68,6 +64,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         picturesVisualPresenter = new PicturesVisualPresenter(new PicturesVisualModel(storePicturesPresenter, storePicturesPresenter), viewContainer.GetView<PicturesVisualView>());
         picturesShowVisualPresenter = new PicturesShowVisualPresenter(new PicturesShowVisualModel(storePicturesPresenter), viewContainer.GetView<PicturesShowVisualView>());
         picturesOpenVisualPresenter = new PicturesOpenVisualPresenter(new PicturesOpenVisualModel(storePicturesPresenter), viewContainer.GetView<PicturesOpenVisualView>());
+        picturePuzzleAccessPresenter = new PicturePuzzleAccessPresenter(new PicturePuzzleAccessModel(bankPresenter, storePicturesPresenter), viewContainer.GetView<PicturePuzzleAccessView>());
 
         stateMenuMachine = new StateMenuMachine(autoMovePresenter, manualMovePresenter, playerMovePresenter, playerMovePresenter, gameMarkerNavigationPresenter, playerMarkerNavigationPresenter, moveMarkerPresenter, storePicturesPresenter, sceneRoot);
 
@@ -90,6 +87,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         roomTrackerPresenter.Initialize();
         roomTrackerPresenter.Activate();
 
+        picturePuzzleAccessPresenter.Initialize();
         picturesOpenVisualPresenter.Initialize();
         picturesShowVisualPresenter.Initialize();
         picturesVisualPresenter.Initialize();
@@ -114,12 +112,12 @@ public class MainMenuEntryPoint : MonoBehaviour
 
     private void ActivateTransitions()
     {
-
+        picturePuzzleAccessPresenter.OnActivatePuzzle += HandleGoToGame_Puzzle;
     }
 
     private void DeactivateTransitions()
     {
-
+        picturePuzzleAccessPresenter.OnActivatePuzzle -= HandleGoToGame_Puzzle;
     }
 
     private void Deactivate()
@@ -148,6 +146,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         roomLightPresenter.Dispose();
         roomTrackerPresenter.Dispose();
 
+        picturePuzzleAccessPresenter?.Dispose();
         picturesOpenVisualPresenter?.Dispose();
         picturesShowVisualPresenter?.Dispose();
         picturesVisualPresenter.Dispose();
