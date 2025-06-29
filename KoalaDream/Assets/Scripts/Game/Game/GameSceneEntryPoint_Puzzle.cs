@@ -16,6 +16,7 @@ public class GameSceneEntryPoint_Puzzle : MonoBehaviour
 
     private StorePicturesPresenter storePicturesPresenter;
     private PuzzleFramePresenter puzzleFramePresenter;
+    private PuzzleElementPresenter puzzleElementPresenter;
 
     public void Run(UIRootView uIRootView)
     {
@@ -32,6 +33,7 @@ public class GameSceneEntryPoint_Puzzle : MonoBehaviour
 
         storePicturesPresenter = new StorePicturesPresenter(new StorePicturesModel(pictureGroup));
         puzzleFramePresenter = new PuzzleFramePresenter(new PuzzleFrameModel(storePicturesPresenter), viewContainer.GetView<PuzzleFrameView>());
+        puzzleElementPresenter = new PuzzleElementPresenter(new PuzzleElementModel(soundPresenter), viewContainer.GetView<PuzzleElementView>());
 
         sceneRoot.SetSoundProvider(soundPresenter);
         sceneRoot.Activate();
@@ -44,6 +46,7 @@ public class GameSceneEntryPoint_Puzzle : MonoBehaviour
         soundPresenter.Initialize();
         particleEffectPresenter.Initialize();
 
+        puzzleElementPresenter.Initialize();
         puzzleFramePresenter.Initialize();
         storePicturesPresenter.Initialize();
 
@@ -79,6 +82,7 @@ public class GameSceneEntryPoint_Puzzle : MonoBehaviour
         bankPresenter.Dispose();
         particleEffectPresenter.Dispose();
 
+        puzzleElementPresenter?.Dispose();
         puzzleFramePresenter?.Dispose();
         storePicturesPresenter?.Dispose();
     }

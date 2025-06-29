@@ -10,6 +10,8 @@ public class PuzzleFrameView : View
 
     private PuzzleFrame _currentPuzzleFrame;
 
+    private int _currentPuzzleCount = 0;
+
     public void SelectFrame(int frameIndex)
     {
         var puzzleFramePrefab = GetPuzzleFrame(frameIndex);
@@ -22,6 +24,7 @@ public class PuzzleFrameView : View
 
         _currentPuzzleFrame = Instantiate(puzzleFramePrefab, transformSpawn);
         _currentPuzzleFrame.transform.localPosition = Vector3.zero;
+        _currentPuzzleCount = 0;
     }
 
     private PuzzleFrame GetPuzzleFrame(int id)
