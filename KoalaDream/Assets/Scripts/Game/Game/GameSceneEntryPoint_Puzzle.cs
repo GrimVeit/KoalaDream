@@ -6,6 +6,7 @@ public class GameSceneEntryPoint_Puzzle : MonoBehaviour
 {
     [SerializeField] private Sounds sounds;
     [SerializeField] private PictureGroup pictureGroup;
+    [SerializeField] private PuzzlesGroup puzzlesGroup;
     [SerializeField] private UIGameSceneRoot_Game sceneRootPrefab;
 
     private UIGameSceneRoot_Game sceneRoot;
@@ -33,7 +34,7 @@ public class GameSceneEntryPoint_Puzzle : MonoBehaviour
 
         storePicturesPresenter = new StorePicturesPresenter(new StorePicturesModel(pictureGroup));
         puzzleFramePresenter = new PuzzleFramePresenter(new PuzzleFrameModel(storePicturesPresenter), viewContainer.GetView<PuzzleFrameView>());
-        puzzleElementPresenter = new PuzzleElementPresenter(new PuzzleElementModel(soundPresenter), viewContainer.GetView<PuzzleElementView>());
+        puzzleElementPresenter = new PuzzleElementPresenter(new PuzzleElementModel(soundPresenter, storePicturesPresenter, puzzlesGroup), viewContainer.GetView<PuzzleElementView>());
 
         sceneRoot.SetSoundProvider(soundPresenter);
         sceneRoot.Activate();

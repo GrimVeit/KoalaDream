@@ -1,85 +1,82 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PuzzleElementModel
 {
+    public event Action<Puzzles> OnSelectPuzzles;
+
     public event Action OnUngrabCurrentPuzzleElement;
     public event Action<PuzzleElement> OnGrabPuzzleElement;
 
     public event Action OnStartMove;
     public event Action<Vector2> OnMove;
     public event Action OnEndMove;
-    public event Action OnTeleporting;
-
-    private bool isActive = true;
+    public event Action OnDestroy;
 
     private ISoundProvider _soundProvider;
+    private IStorePicturesSelectEventsProvider _storePicturesSelectEventsProvider;
+    private PuzzlesGroup _puzzlesGroup;
 
-    public PuzzleElementModel(ISoundProvider soundProvider)
+    public PuzzleElementModel(ISoundProvider soundProvider, IStorePicturesSelectEventsProvider storePicturesSelectEventsProvider, PuzzlesGroup puzzlesGroup)
     {
         _soundProvider = soundProvider;
+        _storePicturesSelectEventsProvider = storePicturesSelectEventsProvider;
+        _puzzlesGroup = puzzlesGroup;
+
+        _storePicturesSelectEventsProvider.OnSelectPicture += SelectPuzzles;
+    }
+
+    public void Initialize()
+    {
+
+    }
+
+    public void Dispose()
+    {
+        _storePicturesSelectEventsProvider.OnSelectPicture -= SelectPuzzles;
+    }
+
+    private void SelectPuzzles(Picture picture)
+    {
+        var puzzles = _puzzlesGroup.GetPuzzles(picture.Id);
+
+        OnSelectPuzzles?.Invoke(puzzles);
     }
 
     public void GrabPuzzleElement(PuzzleElement puzzleElement)
     {
         OnUngrabCurrentPuzzleElement?.Invoke();
 
-        //soundProvider.PlayOneShot("ChipGrab");
-
         OnGrabPuzzleElement?.Invoke(puzzleElement);
     }
 
     public void StartMove()
     {
-        if (!isActive) return;
-
         OnStartMove?.Invoke();
     }
 
     public void Move(Vector2 vector)
     {
-        if (!isActive) return;
-
         OnMove?.Invoke(vector);
     }
 
     public void EndMove(int id, Transform transform)
     {
-        if (!isActive) return;
-
         Collider2D collider = Physics2D.OverlapPoint(transform.position);
 
         if (collider != null)
         {
-            Debug.Log(collider.gameObject.name);
-
-            //if(collider.gameObject.TryGetComponent(out ICell cell))
-            //{
-            //    cell.AddChip(id, chip, transform.position);
-            //    Teleport();
-            //    return;
-            //}
+            if(collider.gameObject.TryGetComponent(out ICell cell))
+            {
+                if(cell.IdCell() == id)
+                {
+                    cell.Set();
+                    OnDestroy?.Invoke();
+                    return;
+                }
+            }
         }
 
-        _soundProvider.PlayOneShot("Whoosh");
         OnEndMove?.Invoke();
-    }
-
-    public void Teleport()
-    {
-        OnTeleporting?.Invoke();
-    }
-
-    public void Activate()
-    {
-        isActive = true;
-    }
-
-
-    public void Deactivate()
-    {
-        isActive = false;
     }
 }

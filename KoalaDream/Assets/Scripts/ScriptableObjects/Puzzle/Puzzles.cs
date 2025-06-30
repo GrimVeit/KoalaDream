@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Puzzles
+[CreateAssetMenu(fileName = "Puzzles", menuName = "Game/Puzzles/New")]
+public class Puzzles : ScriptableObject
 {
     [SerializeField] private int id;
 

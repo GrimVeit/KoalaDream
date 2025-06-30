@@ -34,12 +34,14 @@ public class PuzzleElementPresenter
         _view.OnMove_Action += _model.Move;
         _view.OnEndMove_Action += _model.EndMove;
 
+        _model.OnSelectPuzzles += _view.SetPuzzleElements;
+
         _model.OnGrabPuzzleElement += _view.GrabPuzzleElement;
         _model.OnUngrabCurrentPuzzleElement += _view.UngrabCurrentPuzzleElement;
         _model.OnStartMove += _view.StartMove;
         _model.OnMove += _view.Move;
         _model.OnEndMove += _view.EndMove;
-        _model.OnTeleporting += _view.Teleport;
+        _model.OnDestroy += _view.Destroy;
     }
 
     private void DeactivateEvents()
@@ -49,25 +51,14 @@ public class PuzzleElementPresenter
         _view.OnMove_Action -= _model.Move;
         _view.OnEndMove_Action -= _model.EndMove;
 
+        _model.OnSelectPuzzles -= _view.SetPuzzleElements;
+
         _model.OnGrabPuzzleElement -= _view.GrabPuzzleElement;
         _model.OnUngrabCurrentPuzzleElement -= _view.UngrabCurrentPuzzleElement;
         _model.OnStartMove -= _view.StartMove;
         _model.OnMove -= _view.Move;
         _model.OnEndMove -= _view.EndMove;
-        _model.OnTeleporting -= _view.Teleport;
+        _model.OnDestroy -= _view.Teleport;
+        _model.OnDestroy -= _view.Destroy;
     }
-
-    #region Input
-
-    public void Activate()
-    {
-        _model.Activate();
-    }
-
-    public void Deactivate()
-    {
-        _model.Deactivate();
-    }
-
-    #endregion
 }

@@ -7,7 +7,6 @@ public class ItemDisplayManager : MonoBehaviour
 {
     [Header("Настройки")]
     [SerializeField] private int displayCount = 3;
-
     [SerializeField] private List<Transform> displaySlots = new List<Transform>();
 
     [Header("")]
