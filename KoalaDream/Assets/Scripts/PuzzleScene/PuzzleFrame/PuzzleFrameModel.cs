@@ -28,6 +28,10 @@ public class PuzzleFrameModel
 
     public event Action<int> OnSelectFrame;
 
+    public event Action OnShowScale;
+
+    public event Action<int> OnCompletePuzzle;
+
     private void SelectFrame(Picture picture)
     {
         OnSelectFrame?.Invoke(picture.Id);
@@ -37,7 +41,15 @@ public class PuzzleFrameModel
 
     #region Input
 
+    public void CompletePuzzle(int id)
+    {
+        OnCompletePuzzle?.Invoke(id);
+    }
 
+    public void ShowScale()
+    {
+        OnShowScale?.Invoke();
+    }
 
     #endregion
 }

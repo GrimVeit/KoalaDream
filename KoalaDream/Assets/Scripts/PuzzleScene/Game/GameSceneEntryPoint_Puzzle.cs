@@ -7,9 +7,9 @@ public class GameSceneEntryPoint_Puzzle : MonoBehaviour
     [SerializeField] private Sounds sounds;
     [SerializeField] private PictureGroup pictureGroup;
     [SerializeField] private PuzzlesGroup puzzlesGroup;
-    [SerializeField] private UIGameSceneRoot_Game sceneRootPrefab;
+    [SerializeField] private UIGameSceneRoot_Puzzle sceneRootPrefab;
 
-    private UIGameSceneRoot_Game sceneRoot;
+    private UIGameSceneRoot_Puzzle sceneRoot;
     private ViewContainer viewContainer;
     private BankPresenter bankPresenter;
     private SoundPresenter soundPresenter;
