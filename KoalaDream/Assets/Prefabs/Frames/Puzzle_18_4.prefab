@@ -229,6 +229,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 10
+  cells: []
+  transformPuzzlesParent: {fileID: 0}
+  scaleMaxPuzParent: {x: 0, y: 0, z: 0}
+  durationScaleParentPuzOn: 0
+  durationScaleParentPuzOff: 0
+  imageBlack: {fileID: 0}
+  durationBlackOff: 0
 --- !u!1 &829096416096948361
 GameObject:
   m_ObjectHideFlags: 0
@@ -1957,8 +1964,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2880, y: 1620}
-  m_SizeDelta: {x: 5760, y: 3240}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9042731335503679293
 CanvasRenderer:
