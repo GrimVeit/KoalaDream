@@ -26,6 +26,7 @@ public class PuzzleFramePresenter : IPuzzleFrameEventsProvider, IPuzzleFrameProv
         DeactivateEvents();
 
         _model.Dispose();
+        _view.Dispose();
     }
 
     private void ActivateEvents()

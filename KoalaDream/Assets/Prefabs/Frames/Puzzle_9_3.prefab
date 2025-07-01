@@ -153,6 +153,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7340075030220527508}
+  - {fileID: 4943286246570771177}
   - {fileID: 3096026173604703230}
   - {fileID: 7884928933291342140}
   - {fileID: 7048695423937988949}
@@ -220,6 +221,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 6
+  cells: []
+  transformPuzzlesParent: {fileID: 0}
+  scaleMaxPuzParent: {x: 0, y: 0, z: 0}
+  durationScaleParentPuzOn: 0
+  durationScaleParentPuzOff: 0
+  imageBlack: {fileID: 0}
+  durationBlackOff: 0
 --- !u!1 &2231464080424742694
 GameObject:
   m_ObjectHideFlags: 0
@@ -779,6 +787,50 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 178.78851, y: 178.71405}
   m_EdgeRadius: 0
+--- !u!1 &7567494403577827693
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4943286246570771177}
+  - component: {fileID: 5587087934803081733}
+  m_Layer: 5
+  m_Name: Puzzles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4943286246570771177
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7567494403577827693}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 5042421659317208263}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -498, y: -148}
+  m_SizeDelta: {x: 539.79, y: 534.8}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &5587087934803081733
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7567494403577827693}
+  m_CullTransparentMesh: 1
 --- !u!1 &7769078333438429939
 GameObject:
   m_ObjectHideFlags: 0

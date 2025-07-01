@@ -17,6 +17,7 @@ public class PuzzleElementPresenter
     {
         ActivateEvents();
 
+        _model.Initialize();
         _view.Initialize();
     }
 
@@ -24,6 +25,7 @@ public class PuzzleElementPresenter
     {
         DeactivateEvents();
 
+        _model.Dispose();
         _view.Dispose();
     }
 

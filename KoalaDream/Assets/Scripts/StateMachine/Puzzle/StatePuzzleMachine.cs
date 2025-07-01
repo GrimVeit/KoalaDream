@@ -9,20 +9,25 @@ public class StatePuzzleMachine : IGlobalStateMachineProvider
 
     private IState _currentState;
 
-    public StatePuzzleMachine()
+    public StatePuzzleMachine(
+        UIGameSceneRoot_Puzzle sceneRoot,
+        
+        IStorePicturesOpenProvider storePicturesOpenProvider,
+        IPuzzleFrameEventsProvider puzzleFrameEventsProvider,
+        IPuzzleFrameProvider puzzleFrameProvider)
     {
-        states[typeof(MainState_Puzzle)] = new MainState_Puzzle();
-        states[typeof(HideScrollState_Puzzle)] = new HideScrollState_Puzzle();
-        states[typeof(PuzzleScaleState_Puzzle)] = new PuzzleScaleState_Puzzle();
-        states[typeof(ShowFullImageState_Puzzle)] = new ShowFullImageState_Puzzle();
-        states[typeof(DarkenFullImageState_Puzzle)] = new DarkenFullImageState_Puzzle();
-        states[typeof(ShowGreatTextState_Puzzle)] = new ShowGreatTextState_Puzzle();
-        states[typeof(ShowExitState_Puzzle)] = new ShowExitState_Puzzle();
+        states[typeof(MainState_Puzzle)] = new MainState_Puzzle(this, sceneRoot, storePicturesOpenProvider, puzzleFrameEventsProvider);
+        states[typeof(HideScrollState_Puzzle)] = new HideScrollState_Puzzle(this, sceneRoot);
+        states[typeof(PuzzleScaleState_Puzzle)] = new PuzzleScaleState_Puzzle(this, puzzleFrameProvider);
+        states[typeof(ShowFullImageState_Puzzle)] = new ShowFullImageState_Puzzle(this, sceneRoot);
+        states[typeof(DarkenFullImageState_Puzzle)] = new DarkenFullImageState_Puzzle(this, sceneRoot);
+        states[typeof(ShowGreatTextState_Puzzle)] = new ShowGreatTextState_Puzzle(this, sceneRoot);
+        states[typeof(ShowExitState_Puzzle)] = new ShowExitState_Puzzle(this, sceneRoot);
     }
 
     public void Initialize()
     {
-        SetState(GetState<PlayerManualState_Menu>());
+        SetState(GetState<MainState_Puzzle>());
     }
 
     public void Dispose()

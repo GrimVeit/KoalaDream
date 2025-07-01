@@ -58,7 +58,7 @@ public class UIGameSceneRoot_Puzzle : UIRoot
 
     public void ClosePuzzlesScrollPanel()
     {
-        OpenOtherPanel(puzzlesScrollPanel);
+        CloseOtherPanel(puzzlesScrollPanel);
     }
 
 
