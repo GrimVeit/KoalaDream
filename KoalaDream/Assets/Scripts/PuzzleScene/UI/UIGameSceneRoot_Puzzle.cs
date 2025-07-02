@@ -38,15 +38,32 @@ public class UIGameSceneRoot_Puzzle : UIRoot
 
     public void Activate()
     {
-
+        showExitPanel.OnClickToExit += ClickToExit_ShowExit;
     }
 
     public void Deactivate()
     {
+        showExitPanel.OnClickToExit += ClickToExit_ShowExit;
+
         if (currentPanel != null)
             CloseOtherPanel(currentPanel);
+
+        CloseShowGreatPanel();
+        CloseShowExitPanel();
+        CloseDarkenFullImagePanel();
     }
 
+
+    #region Output
+
+    public event Action OnClickToExit_ShowExit;
+
+    private void ClickToExit_ShowExit()
+    {
+        OnClickToExit_ShowExit?.Invoke();
+    }
+
+    #endregion
 
 
     #region Input

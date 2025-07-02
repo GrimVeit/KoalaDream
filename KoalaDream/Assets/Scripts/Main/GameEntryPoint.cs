@@ -60,9 +60,10 @@ public class GameEntryPoint
 
     private IEnumerator LoadAndStartGameScene_Puzzle()
     {
-        yield return rootView.ShowLoadingScreen(1);
+        yield return rootView.ShowLoadingScreen(0);
 
-        yield return LoadScene(Scenes.BOOT);
+        yield return new WaitForSeconds(1);
+
         yield return LoadScene(Scenes.PUZZLE);
 
         yield return new WaitForEndOfFrame();
@@ -72,7 +73,7 @@ public class GameEntryPoint
 
         sceneEntryPoint.OnGoToMenu += () => coroutines.StartCoroutine(LoadAndStartMainMenu());
 
-        yield return rootView.HideLoadingScreen(1);
+        yield return rootView.HideLoadingScreen(0);
     }
 
     private IEnumerator LoadScene(string scene)

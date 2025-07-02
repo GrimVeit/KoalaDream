@@ -26,7 +26,7 @@ public class GameSceneEntryPoint_Puzzle : MonoBehaviour
     {
         sceneRoot = sceneRootPrefab;
 
-        uIRootView.AttachSceneUI(sceneRoot.gameObject, Camera.main);
+        //uIRootView.AttachSceneUI(sceneRoot.gameObject, Camera.main);
 
         viewContainer = sceneRoot.GetComponent<ViewContainer>();
         viewContainer.Initialize();
@@ -74,17 +74,16 @@ public class GameSceneEntryPoint_Puzzle : MonoBehaviour
 
     private void ActivateTransitionsSceneEvents()
     {
-
+        sceneRoot.OnClickToExit_ShowExit += HandleGoToMenu;
     }
 
     private void DeactivateTransitionsSceneEvents()
     {
-
+        sceneRoot.OnClickToExit_ShowExit -= HandleGoToMenu;
     }
 
     public void Dispose()
     {
-        sceneRoot.Deactivate();
         sceneRoot.Dispose();
 
         DeactivateEvents();

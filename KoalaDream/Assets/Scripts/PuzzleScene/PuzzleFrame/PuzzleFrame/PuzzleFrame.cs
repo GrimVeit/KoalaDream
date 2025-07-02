@@ -64,7 +64,7 @@ public class PuzzleFrame : MonoBehaviour
         if(currentCount == needCount)
         {
             Debug.Log("WINNNNNN");
-            OnCompletePuzzle?.Invoke(id);
+            OnCompletePuzzle?.Invoke(Id);
         }
     }
 

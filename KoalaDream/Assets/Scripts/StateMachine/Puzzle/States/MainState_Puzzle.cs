@@ -32,7 +32,7 @@ public class MainState_Puzzle : IState
 
     private void ChangeStateToHideScroll(int id)
     {
-        //_storePicturesOpenProvider.OpenPicture(id);
+        _storePicturesOpenProvider.OpenPicture(id);
 
         _machineProvider.SetState(_machineProvider.GetState<HideScrollState_Puzzle>());
     }
