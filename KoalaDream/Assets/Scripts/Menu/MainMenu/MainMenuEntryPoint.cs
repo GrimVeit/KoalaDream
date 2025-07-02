@@ -25,12 +25,16 @@ public class MainMenuEntryPoint : MonoBehaviour
     private PlayerAnimationPresenter playerAnimationPresenter;
     private ManualMovePresenter manualMovePresenter;
     private AutoMovePresenter autoMovePresenter;
+    private PlayerVisiblePresenter playerVisiblePresenter;
+    private PlayerSleepAnimationPresenter playerSleepAnimationPresenter;
 
     private StorePicturesPresenter storePicturesPresenter;
     private PicturesVisualPresenter picturesVisualPresenter;
     private PicturesShowVisualPresenter picturesShowVisualPresenter;
     private PicturesOpenVisualPresenter picturesOpenVisualPresenter;
+
     private PicturePuzzleAccessPresenter picturePuzzleAccessPresenter;
+    private BedGameAccessPresenter bedGameAccessPresenter;
 
     private StateMenuMachine stateMenuMachine;
 
@@ -59,14 +63,30 @@ public class MainMenuEntryPoint : MonoBehaviour
         playerAnimationPresenter = new PlayerAnimationPresenter(new PlayerAnimationModel(playerMovePresenter), viewContainer.GetView<PlayerAnimationView>());
         manualMovePresenter = new ManualMovePresenter(new ManualMoveModel(), viewContainer.GetView<ManualMoveView>());
         autoMovePresenter = new AutoMovePresenter(new AutoMoveModel(playerMovePresenter, playerMovePresenter), viewContainer.GetView<AutoMoveView>());
+        playerVisiblePresenter = new PlayerVisiblePresenter(new PlayerVisibleModel(), viewContainer.GetView<PlayerVisibleView>());
+        playerSleepAnimationPresenter = new PlayerSleepAnimationPresenter(new PlayerSleepAnimationModel(), viewContainer.GetView<PlayerSleepAnimationView>());
 
         storePicturesPresenter = new StorePicturesPresenter(new StorePicturesModel(pictureGroup));
         picturesVisualPresenter = new PicturesVisualPresenter(new PicturesVisualModel(storePicturesPresenter, storePicturesPresenter), viewContainer.GetView<PicturesVisualView>());
         picturesShowVisualPresenter = new PicturesShowVisualPresenter(new PicturesShowVisualModel(storePicturesPresenter), viewContainer.GetView<PicturesShowVisualView>());
         picturesOpenVisualPresenter = new PicturesOpenVisualPresenter(new PicturesOpenVisualModel(storePicturesPresenter), viewContainer.GetView<PicturesOpenVisualView>());
-        picturePuzzleAccessPresenter = new PicturePuzzleAccessPresenter(new PicturePuzzleAccessModel(bankPresenter, storePicturesPresenter), viewContainer.GetView<PicturePuzzleAccessView>());
 
-        stateMenuMachine = new StateMenuMachine(autoMovePresenter, manualMovePresenter, playerMovePresenter, playerMovePresenter, gameMarkerNavigationPresenter, playerMarkerNavigationPresenter, moveMarkerPresenter, storePicturesPresenter, sceneRoot);
+        picturePuzzleAccessPresenter = new PicturePuzzleAccessPresenter(new PicturePuzzleAccessModel(bankPresenter, storePicturesPresenter), viewContainer.GetView<PicturePuzzleAccessView>());
+        bedGameAccessPresenter = new BedGameAccessPresenter(new BedGameAccessModel(), viewContainer.GetView<BedGameAccessView>());
+
+        stateMenuMachine = new StateMenuMachine(
+            autoMovePresenter, 
+            manualMovePresenter, 
+            playerMovePresenter, 
+            playerMovePresenter, 
+            gameMarkerNavigationPresenter, 
+            playerMarkerNavigationPresenter, 
+            moveMarkerPresenter, 
+            storePicturesPresenter, 
+            sceneRoot, 
+            bedGameAccessPresenter,
+            playerVisiblePresenter,
+            playerSleepAnimationPresenter);
 
         ActivateEvents();
 
@@ -75,6 +95,8 @@ public class MainMenuEntryPoint : MonoBehaviour
         particleEffectPresenter.Initialize();
         bankPresenter.Initialize();
 
+        playerSleepAnimationPresenter.Initialize();
+        playerVisiblePresenter.Initialize();
         autoMovePresenter.Initialize();
         manualMovePresenter.Initialize();
         playerAnimationPresenter.Initialize();
@@ -87,6 +109,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         roomTrackerPresenter.Initialize();
         roomTrackerPresenter.Activate();
 
+        bedGameAccessPresenter.Initialize();
         picturePuzzleAccessPresenter.Initialize();
         picturesOpenVisualPresenter.Initialize();
         picturesShowVisualPresenter.Initialize();
@@ -135,6 +158,8 @@ public class MainMenuEntryPoint : MonoBehaviour
         particleEffectPresenter?.Dispose();
         bankPresenter?.Dispose();
 
+        playerSleepAnimationPresenter?.Dispose();
+        playerVisiblePresenter?.Dispose();
         autoMovePresenter.Dispose();
         manualMovePresenter.Dispose();
         playerAnimationPresenter.Dispose();
@@ -146,6 +171,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         roomLightPresenter.Dispose();
         roomTrackerPresenter.Dispose();
 
+        bedGameAccessPresenter?.Dispose();
         picturePuzzleAccessPresenter?.Dispose();
         picturesOpenVisualPresenter?.Dispose();
         picturesShowVisualPresenter?.Dispose();

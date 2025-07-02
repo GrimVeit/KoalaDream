@@ -5,6 +5,7 @@ using UnityEngine;
 public class AutoMoveView : View
 {
     [SerializeField] private List<AutoMoveButton> autoMoves = new List<AutoMoveButton>();
+    [SerializeField] private List<Transform> moveOthersTransforms = new List<Transform>();
 
     public void Initialize()
     {
@@ -16,19 +17,6 @@ public class AutoMoveView : View
         autoMoves.ForEach(m => m.OnTarget -= Target);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            Target(-14);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            Target(14);
-        }
-    }
-
     #region Output
 
     public event Action<float> OnTarget;
@@ -36,6 +24,15 @@ public class AutoMoveView : View
     public void Target(float target)
     {
         OnTarget?.Invoke(target);
+    }
+
+    #endregion
+
+    #region Input
+
+    public void Move(int index)
+    {
+        Target(moveOthersTransforms[index].position.x);
     }
 
     #endregion

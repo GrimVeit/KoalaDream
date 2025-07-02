@@ -55,10 +55,24 @@ public class AutoMovePresenter : IAutoMoveEventsProvider
     }
 
     #endregion
+
+    #region Input
+
+    public void Move(int index)
+    {
+        _view.Move(index);
+    }
+
+    #endregion
 }
 
 public interface IAutoMoveEventsProvider
 {
     public event Action OnStartMove;
     public event Action OnEndMove;
+}
+
+public interface IAutoMoveProvider
+{
+    public void Move(int index);
 }

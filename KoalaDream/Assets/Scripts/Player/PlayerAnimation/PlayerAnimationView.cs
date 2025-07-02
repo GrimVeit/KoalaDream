@@ -7,11 +7,27 @@ public class PlayerAnimationView : View
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
+    private int _currentState;
+
     public void SetState(int state)
     {
-        if (state != 0)
-            spriteRenderer.flipX = state < 0;
+        _currentState = state;
 
-        playerAnimator.SetBool("isWalking", state != 0);
+        if (_currentState != 0)
+            spriteRenderer.flipX = _currentState < 0;
+
+        playerAnimator.SetBool("isWalking", _currentState != 0);
+    }
+
+    public void RotateLeft()
+    {
+        if (_currentState == 0) 
+            spriteRenderer.flipX = true;
+    }
+
+    public void RotateRight()
+    {
+        if (_currentState == 0)
+            spriteRenderer.flipX = false;
     }
 }
