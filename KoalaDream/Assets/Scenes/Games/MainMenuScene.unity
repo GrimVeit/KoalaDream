@@ -40627,13 +40627,13 @@ MonoBehaviour:
   roomNames:
   - id: 0
     roomName: Living Room
-    durationTextTyping: 0
+    durationTextTyping: 0.064
   - id: 1
     roomName: Hall
-    durationTextTyping: 0
+    durationTextTyping: 0.2
   - id: 2
     roomName: Bedroom
-    durationTextTyping: 0
+    durationTextTyping: 0.099
   roomNameNotificationPrefab: {fileID: 4283949375190134545, guid: af345e31e8cc298429a3a58b55755c68, type: 3}
   transformSpawn: {fileID: 287708583}
   transformUp: {fileID: 1932754917}
@@ -69282,9 +69282,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 338907217}
+  - {fileID: 287708583}
   - {fileID: 1047107903}
   - {fileID: 134776733}
-  - {fileID: 287708583}
   m_Father: {fileID: 7268127844772316494}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
