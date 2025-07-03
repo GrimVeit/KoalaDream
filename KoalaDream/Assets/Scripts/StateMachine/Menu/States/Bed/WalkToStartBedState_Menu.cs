@@ -18,6 +18,8 @@ public class WalkToStartBedState_Menu : IState
 
     public void EnterState()
     {
+        Debug.Log($"<color=red>WALK TO START BED</color>");
+
         _autoMovePresenter.OnEndMove += ChangeStateToStartSleep;
 
         _autoMovePresenter.Move(1);

@@ -23,7 +23,7 @@ public class PlayerSleepAnimationModel
 
     public void EndDeactivate()
     {
-        OnEndActivate?.Invoke();
+        OnEndDeactivate?.Invoke();
     }
     
     #region Output

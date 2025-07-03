@@ -24,8 +24,15 @@ public class StateMenuMachine : IGlobalStateMachineProvider
         
         IBedGameAccessEventsProvider bedGameAccessEventsProvider,
         IPlayerVisibleProvider playerVisibleProvider,
-        IPlayerSleepAnimationProvider playerSleepAnimationProvider)
+        IPlayerSleepAnimationProvider playerSleepAnimationProvider,
+        IPlayerSleepAnimationEventsProvider playerSleepAnimationEventsProvider,
+        IGameSessionInfoProvider gameSessionInfoProvider,
+        IPlayerAnimationProvider playerAnimationProvider)
     {
+        states[typeof(CheckGameSessionState_Menu)] = new CheckGameSessionState_Menu(this, gameMarkerNavigationPresenter, playerMarkerNavigationPresenter, moveMarkerProvider, gameSessionInfoProvider);
+        states[typeof(AfterPuzzleState_Menu)] = new AfterPuzzleState_Menu(this, playerMoveProvider, playerAnimationProvider);
+        states[typeof(AfterSleepState_Menu)] = new AfterSleepState_Menu(this, playerMoveProvider, playerAnimationProvider, playerVisibleProvider, playerSleepAnimationProvider, playerSleepAnimationEventsProvider);
+
         states[typeof(PlayerManualState_Menu)] = new PlayerManualState_Menu(this, autoMovePresenter, manualMovePresenter, playerMoveProvider, storePicturesSelectEventsProvider, bedGameAccessEventsProvider);
         states[typeof(FromManualToAutoState_Menu)] = new FromManualToAutoState_Menu(this, gameMarkerNavigationPresenter, playerMarkerNavigationPresenter, moveMarkerProvider);
         states[typeof(PlayerAutoState_Menu)] = new PlayerAutoState_Menu(this, autoMovePresenter, playerMoveProvider);
@@ -41,7 +48,7 @@ public class StateMenuMachine : IGlobalStateMachineProvider
 
     public void Initialize()
     {
-        SetState(GetState<PlayerManualState_Menu>());
+        SetState(GetState<CheckGameSessionState_Menu>());
     }
 
     public void Dispose()

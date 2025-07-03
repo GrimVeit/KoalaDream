@@ -20,6 +20,8 @@ public class FromAutoToManualState_Menu : IState
 
     public void EnterState()
     {
+        Debug.Log($"<color=red>FROM AUTO TO MANUAL</color>");
+
         _markerNavigationPresenter.Activate();
         _playerMarkerNavigationPresenter.AllDeactivatesExcept();
         _moveMarkerProvider.Activate();

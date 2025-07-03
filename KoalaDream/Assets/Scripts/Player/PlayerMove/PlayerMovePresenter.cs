@@ -34,6 +34,7 @@ public class PlayerMovePresenter : IPlayerMoveProvider, IPlayerMoveEventsProvide
         _view.OnChangeDirection += _model.ChangeDirection;
 
         _model.OnMove += _view.Move;
+        _model.OnTeleport += _view.Teleport;
     }
 
     private void DeactivateEvents()
@@ -42,6 +43,7 @@ public class PlayerMovePresenter : IPlayerMoveProvider, IPlayerMoveEventsProvide
         _view.OnChangeDirection -= _model.ChangeDirection;
 
         _model.OnMove -= _view.Move;
+        _model.OnTeleport -= _view.Teleport;
     }
 
     #region Output
@@ -68,6 +70,11 @@ public class PlayerMovePresenter : IPlayerMoveProvider, IPlayerMoveEventsProvide
         _model.Move(direction);
     }
 
+    public void Teleport(int id)
+    {
+        _model.Teleport(id);
+    }
+
     #endregion
 }
 
@@ -84,4 +91,5 @@ public interface IPlayerDirectionEventsProvider
 public interface IPlayerMoveProvider
 {
     void Move(float dir);
+    void Teleport(int id);
 }

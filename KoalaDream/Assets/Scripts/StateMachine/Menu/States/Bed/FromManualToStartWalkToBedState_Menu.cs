@@ -20,6 +20,8 @@ public class FromManualToStartWalkToBedState_Menu : IState
 
     public void EnterState()
     {
+        Debug.Log($"<color=red>FROM MANUAL TO START WALK TO BED</color>");
+
         _markerNavigationPresenter.AllDeactivates();
         _playerMarkerNavigationPresenter.AllDeactivate();
         _moveMarkerProvider.Deactivate();

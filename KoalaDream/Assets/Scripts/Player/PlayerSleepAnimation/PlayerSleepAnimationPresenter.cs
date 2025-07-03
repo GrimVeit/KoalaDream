@@ -27,13 +27,19 @@ public class PlayerSleepAnimationPresenter : IPlayerSleepAnimationProvider, IPla
     private void ActivateEvents()
     {
         _view.OnEndActivate += _model.EndActivate;
+        _view.OnEndDeactivate += _model.EndDeactivate;
 
         _model.OnActivate += _view.Activate;
+        _model.OnDeactivate += _view.Deactivate;
     }
 
     private void DeactivateEvents()
     {
+        _view.OnEndActivate -= _model.EndActivate;
+        _view.OnEndDeactivate -= _model.EndDeactivate;
+
         _model.OnActivate -= _view.Activate;
+        _model.OnDeactivate -= _view.Deactivate;
     }
 
     #region Output

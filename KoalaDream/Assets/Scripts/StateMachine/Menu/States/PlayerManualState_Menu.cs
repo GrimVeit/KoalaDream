@@ -25,6 +25,8 @@ public class PlayerManualState_Menu : IState
 
     public void EnterState()
     {
+        Debug.Log($"<color=red>MANUAL</color>");
+
         _storePicturesSelectEventsProvider.OnSelectOpenPicture += ChangeStateToShowPicture;
         _storePicturesSelectEventsProvider.OnSelectClosePicture += ChangeStateToOpenPicture;
         _bedGameAccessEventsProvider.OnActivateGame += ChangeStateToWalkToStartBed;

@@ -18,6 +18,14 @@ public class PlayerMove : MonoBehaviour
 
     private int _currentDir;
 
+    private float minX => leftBoundary.position.x;
+    private float maxX => rightBoundary.position.x;
+
+    private void Awake()
+    {
+        
+    }
+
     private void Update()
     {
         float targetSpeed = targetDirection * maxSpeed;
@@ -42,9 +50,6 @@ public class PlayerMove : MonoBehaviour
 
         Vector3 pos = transform.position;
 
-        float minX = leftBoundary.position.x;
-        float maxX = rightBoundary.position.x;
-
         pos.x += currentSpeed * Time.deltaTime;
         pos.x = Mathf.Clamp(pos.x, minX, maxX);
 
@@ -62,6 +67,13 @@ public class PlayerMove : MonoBehaviour
     {
         targetDirection = Mathf.Clamp(direction, -1, 1);
     }
+
+    public void Teleport(float x)
+    {
+        transform.position = new Vector3(Mathf.Clamp(x, minX, maxX), transform.position.y, transform.position.z);
+    }
+
+
 
     #region Output
 

@@ -12,6 +12,7 @@ public class PicturesVisualModel
 
         _storePicturesOpenCloseEventsProvider.OnOpenPicture += OpenPicture;
         _storePicturesOpenCloseEventsProvider.OnClosePicture += ClosePicture;
+        _storePicturesOpenCloseEventsProvider.OnPreviewPicture += PreviewPicture;
     }
 
     public void Initialize()
@@ -23,6 +24,7 @@ public class PicturesVisualModel
     {
         _storePicturesOpenCloseEventsProvider.OnOpenPicture -= OpenPicture;
         _storePicturesOpenCloseEventsProvider.OnClosePicture -= ClosePicture;
+        _storePicturesOpenCloseEventsProvider.OnPreviewPicture -= PreviewPicture;
     }
 
     private void OpenPicture(Picture picture)
@@ -35,11 +37,17 @@ public class PicturesVisualModel
         OnClosePicture?.Invoke(picture.Id);
     }
 
+    private void PreviewPicture(Picture picture)
+    {
+        OnPreviewPicture?.Invoke(picture.Id);
+    }
+
 
 
     #region Output
 
     public event Action<int> OnOpenPicture;
+    public event Action<int> OnPreviewPicture;
     public event Action<int> OnClosePicture;
 
     #endregion

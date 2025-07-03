@@ -29,9 +29,22 @@ public class PlayerAnimationModel
         OnChangeState?.Invoke(state);
     }
 
+    public void Left()
+    {
+        OnLeft?.Invoke();
+    }
+
+    public void Right()
+    {
+        OnRight?.Invoke();
+    }
+
     #region Output
 
     public event Action<int> OnChangeState;
+
+    public event Action OnLeft;
+    public event Action OnRight;
 
     #endregion
 }

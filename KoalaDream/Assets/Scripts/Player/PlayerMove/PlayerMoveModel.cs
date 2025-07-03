@@ -11,7 +11,9 @@ public class PlayerMoveModel
 
     public event Action<float> OnChangePosition;
     public event Action<int> OnChangeDirection;
+
     public event Action<float> OnMove;
+    public event Action<int> OnTeleport;
 
     #endregion
 
@@ -20,6 +22,11 @@ public class PlayerMoveModel
     public void Move(float direction)
     {
         OnMove?.Invoke(direction);
+    }
+
+    public void Teleport(int id)
+    {
+        OnTeleport?.Invoke(id);
     }
 
     public void ChangePosition(float position)

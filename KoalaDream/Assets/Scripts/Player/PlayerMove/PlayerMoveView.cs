@@ -7,6 +7,8 @@ public class PlayerMoveView : View
 {
     [SerializeField] private PlayerMove playerMove;
 
+    [SerializeField] private List<Transform> transformsTeleports = new List<Transform>();
+
     public void Initialize()
     {
         playerMove.OnPositionChanged += ChangePosition;
@@ -41,6 +43,11 @@ public class PlayerMoveView : View
     public void Move(float direction)
     {
         playerMove.Move(direction);
+    }
+
+    public void Teleport(int id)
+    {
+        playerMove.Teleport(transformsTeleports[id].position.x);
     }
 
     #endregion

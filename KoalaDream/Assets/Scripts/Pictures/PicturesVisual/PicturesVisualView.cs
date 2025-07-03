@@ -36,7 +36,7 @@ public class PicturesVisualView : View
             return;
         }
 
-        visual.Activate();
+        visual.Open();
     }
 
     public void Close(int index)
@@ -49,7 +49,20 @@ public class PicturesVisualView : View
             return;
         }
 
-        visual.Deactivate();
+        visual.Close();
+    }
+
+    public void Preview(int index)
+    {
+        var visual = GetPictureVisual(index);
+
+        if (visual == null)
+        {
+            Debug.LogWarning("Not found picture visual with id - " + index);
+            return;
+        }
+
+        visual.Preview();
     }
 
     private PictureVisual GetPictureVisual(int id)

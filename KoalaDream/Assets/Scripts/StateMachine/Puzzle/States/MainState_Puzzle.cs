@@ -7,14 +7,14 @@ public class MainState_Puzzle : IState
     private readonly IGlobalStateMachineProvider _machineProvider;
     private readonly UIGameSceneRoot_Puzzle _sceneRoot;
 
-    private readonly IStorePicturesOpenProvider _storePicturesOpenProvider;
+    private readonly IStorePicturesPreviewProvider _storePicturesPreviewProvider;
     private readonly IPuzzleFrameEventsProvider _puzzleFrameEventsProvider;
 
-    public MainState_Puzzle(IGlobalStateMachineProvider globalStateMachineProvider, UIGameSceneRoot_Puzzle sceneRoot, IStorePicturesOpenProvider storePicturesOpenProvider, IPuzzleFrameEventsProvider puzzleFrameEventsProvider)
+    public MainState_Puzzle(IGlobalStateMachineProvider globalStateMachineProvider, UIGameSceneRoot_Puzzle sceneRoot, IStorePicturesPreviewProvider storePicturesPreviewProvider, IPuzzleFrameEventsProvider puzzleFrameEventsProvider)
     {
         _machineProvider = globalStateMachineProvider;
         _sceneRoot = sceneRoot;
-        _storePicturesOpenProvider = storePicturesOpenProvider;
+        _storePicturesPreviewProvider = storePicturesPreviewProvider;
         _puzzleFrameEventsProvider = puzzleFrameEventsProvider;
     }
 
@@ -32,7 +32,7 @@ public class MainState_Puzzle : IState
 
     private void ChangeStateToHideScroll(int id)
     {
-        _storePicturesOpenProvider.OpenPicture(id);
+        _storePicturesPreviewProvider.PreviewPicture(id);
 
         _machineProvider.SetState(_machineProvider.GetState<HideScrollState_Puzzle>());
     }

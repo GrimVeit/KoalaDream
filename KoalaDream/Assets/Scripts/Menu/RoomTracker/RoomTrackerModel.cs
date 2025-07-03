@@ -63,7 +63,7 @@ public class RoomTrackerModel
         if(_currentRoomId != -1)
             OnDeactivatedRoom?.Invoke(_currentRoomId);
 
-        UnityEngine.Debug.Log("ACTIVATE: " + roomId);
+        UnityEngine.Debug.Log("ROOM: " + roomId);
         _currentRoomId = roomId;
         OnActivatedRoom?.Invoke(roomId);
     }

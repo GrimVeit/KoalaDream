@@ -45,6 +45,17 @@ public class PlayerSleepAnimationView : View
         Coroutines.Start(coro);
     }
 
+    public void Deactivate()
+    {
+        tweenMove?.Kill();
+        if (coro != null) Coroutines.Stop(coro);
+
+        transformPlayer.gameObject.SetActive(true);
+
+        coro = MoveToWakeUp();
+        Coroutines.Start(coro);
+    }
+
     private IEnumerator MoveToSleep()
     {
         int index = 0;
@@ -76,9 +87,46 @@ public class PlayerSleepAnimationView : View
         OnEndActivate?.Invoke();
     }
 
+    private IEnumerator MoveToWakeUp()
+    {
+        transformPlayer.localPosition = transformLieDownAndSitDown.localPosition;
+        imagePlayerAnim.sprite = spriteLieDown;
+
+        yield return new WaitForSeconds(0.4f);
+
+        imagePlayerAnim.flipX = true;
+
+        imagePlayerAnim.sprite = spriteSitDawn;
+
+        yield return new WaitForSeconds(timeWaitLieDown_Anim);
+
+        IsMove = true;
+        tweenMove = transformPlayer.DOLocalMove(transformRestart.localPosition, timeWalk).OnComplete(() => IsMove = false);
+
+        int index = 0;
+        imagePlayerAnim.flipX = false;
+
+        while (IsMove)
+        {
+            imagePlayerAnim.sprite = spritesMove[index];
+
+            index++;
+
+            if (index >= spritesMove.Count)
+                index = 0;
+
+            yield return new WaitForSeconds(timeWaitDelayWalk_Anim);
+        }
+
+        transformPlayer.gameObject.SetActive(false);
+
+        OnEndDeactivate?.Invoke();
+    }
+
     #region Output
 
     public event Action OnEndActivate;
+    public event Action OnEndDeactivate;
 
     #endregion
 }

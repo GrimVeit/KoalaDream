@@ -18,6 +18,8 @@ public class StartSleepState_Menu : IState
 
     public void EnterState()
     {
+        Debug.Log($"<color=red>START SLEEP</color>");
+
         _playerVisibleProvider.Hide();
         _sleepAnimationProvider.ActivateAnimation();
     }

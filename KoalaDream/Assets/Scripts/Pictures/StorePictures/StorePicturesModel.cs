@@ -8,12 +8,17 @@ public class StorePicturesModel
 {
     public event Action<Picture> OnOpenPicture;
     public event Action<Picture> OnClosePicture;
+    public event Action<Picture> OnPreviewPicture;
 
 
     public event Action<Picture> OnSelectPicture;
+
     public event Action<Picture> OnSelectOpenPicture_Value;
+    public event Action<Picture> OnSelectPreviewPicture_Value;
     public event Action<Picture> OnSelectClosePicture_Value;
+
     public event Action OnSelectOpenPicture;
+    public event Action OnSelectPreviewPicture;
     public event Action OnSelectClosePicture;
 
     private PictureGroup _pictureGroup;
@@ -42,7 +47,7 @@ public class StorePicturesModel
 
             for (int i = 0; i < 12; i++)
             {
-                pictureDatas.Add(new PictureData(false, false));
+                pictureDatas.Add(new PictureData(false, false, false));
             }
         }
 
@@ -57,6 +62,11 @@ public class StorePicturesModel
             else
             {
                 OnClosePicture?.Invoke(_pictureGroup.Pictures[i]);
+            }
+
+            if (_pictureGroup.Pictures[i].PictureData.IsPreview)
+            {
+                OnPreviewPicture?.Invoke(_pictureGroup.Pictures[i]);
             }
 
             if (_pictureGroup.Pictures[i].PictureData.IsSelect)
@@ -83,6 +93,22 @@ public class StorePicturesModel
         File.WriteAllText(FilePath, json);
     }
 
+    public void PreviewPicture(int id)
+    {
+        var picture = _pictureGroup.GetPicture(id);
+
+        if (picture == null)
+        {
+            Debug.LogError("Not found picture with id - " + id);
+            return;
+        }
+
+        picture.PictureData.IsOpen = false;
+        picture.PictureData.IsPreview = true;
+
+        OnPreviewPicture?.Invoke(picture);
+    }
+
     public void OpenPicture(int id)
     {
         var picture = _pictureGroup.GetPicture(id);
@@ -93,10 +119,9 @@ public class StorePicturesModel
             return;
         }
 
-        if (picture.PictureData.IsOpen) return;
-
+        picture.PictureData.IsPreview = false;
         picture.PictureData.IsOpen = true;
-        Debug.Log(id);
+
         OnOpenPicture?.Invoke(picture);
     }
 
@@ -112,12 +137,16 @@ public class StorePicturesModel
 
         pictureDatas.ForEach(data => data.IsSelect = false);
         picture.PictureData.IsSelect = true;
-        Debug.Log(id);
 
         if (picture.PictureData.IsOpen)
         {
             OnSelectOpenPicture_Value?.Invoke(picture);
             OnSelectOpenPicture?.Invoke();
+        }
+        else if (picture.PictureData.IsPreview)
+        {
+            OnSelectPreviewPicture_Value?.Invoke(picture);
+            OnSelectPreviewPicture?.Invoke();
         }
         else
         {
@@ -128,9 +157,9 @@ public class StorePicturesModel
         OnSelectPicture?.Invoke(picture);
     }
 
-    public void DeselectAll()
+    public bool IsHavePrevious()
     {
-
+        return pictureDatas.Any(p => p.IsPreview = true);
     }
 }
 
@@ -149,11 +178,13 @@ public class PictureDatas
 public class PictureData
 {
     public bool IsOpen;
+    public bool IsPreview;
     public bool IsSelect;
 
-    public PictureData(bool isOpen, bool isSelect)
+    public PictureData(bool isOpen, bool isPreviewed, bool isSelect)
     {
         IsOpen = isOpen;
+        IsPreview = isPreviewed;
         IsSelect = isSelect;
     }
 }

@@ -20,6 +20,8 @@ public class GameSceneEntryPoint_Puzzle : MonoBehaviour
     private PuzzleElementPresenter puzzleElementPresenter;
     private PuzzleDemonstrationPresenter puzzleDemonstrationPresenter;
 
+    private GameSessionPresenter gameSessionPresenter;
+
     private StatePuzzleMachine statePuzzleMachine;
 
     public void Run(UIRootView uIRootView)
@@ -40,6 +42,8 @@ public class GameSceneEntryPoint_Puzzle : MonoBehaviour
         puzzleElementPresenter = new PuzzleElementPresenter(new PuzzleElementModel(soundPresenter, storePicturesPresenter, puzzlesGroup), viewContainer.GetView<PuzzleElementView>());
         puzzleDemonstrationPresenter = new PuzzleDemonstrationPresenter(new PuzzleDemonstrationModel(storePicturesPresenter), viewContainer.GetView<PuzzleDemonstrationView>());
 
+        gameSessionPresenter = new GameSessionPresenter(new GameSesionModel(PlayerPrefsKeys.GAME_TYPE));
+
         statePuzzleMachine = new StatePuzzleMachine(sceneRoot, storePicturesPresenter, puzzleFramePresenter, puzzleFramePresenter);
 
         sceneRoot.SetSoundProvider(soundPresenter);
@@ -53,10 +57,14 @@ public class GameSceneEntryPoint_Puzzle : MonoBehaviour
         soundPresenter.Initialize();
         particleEffectPresenter.Initialize();
 
+        gameSessionPresenter.Initialize();
+
         puzzleDemonstrationPresenter.Initialize();
         puzzleElementPresenter.Initialize();
         puzzleFramePresenter.Initialize();
         storePicturesPresenter.Initialize();
+
+        gameSessionPresenter.SetGame(1);
 
         statePuzzleMachine.Initialize();
 
@@ -90,6 +98,8 @@ public class GameSceneEntryPoint_Puzzle : MonoBehaviour
 
         bankPresenter.Dispose();
         particleEffectPresenter.Dispose();
+
+        gameSessionPresenter?.Dispose();
 
         puzzleDemonstrationPresenter?.Dispose();
         puzzleElementPresenter?.Dispose();

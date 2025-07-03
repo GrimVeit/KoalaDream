@@ -12,11 +12,11 @@ public class StatePuzzleMachine : IGlobalStateMachineProvider
     public StatePuzzleMachine(
         UIGameSceneRoot_Puzzle sceneRoot,
         
-        IStorePicturesOpenProvider storePicturesOpenProvider,
+        IStorePicturesPreviewProvider storePicturesPreviewProvider,
         IPuzzleFrameEventsProvider puzzleFrameEventsProvider,
         IPuzzleFrameProvider puzzleFrameProvider)
     {
-        states[typeof(MainState_Puzzle)] = new MainState_Puzzle(this, sceneRoot, storePicturesOpenProvider, puzzleFrameEventsProvider);
+        states[typeof(MainState_Puzzle)] = new MainState_Puzzle(this, sceneRoot, storePicturesPreviewProvider, puzzleFrameEventsProvider);
         states[typeof(HideScrollState_Puzzle)] = new HideScrollState_Puzzle(this, sceneRoot);
         states[typeof(PuzzleScaleState_Puzzle)] = new PuzzleScaleState_Puzzle(this, puzzleFrameProvider);
         states[typeof(ShowFullImageState_Puzzle)] = new ShowFullImageState_Puzzle(this, sceneRoot);

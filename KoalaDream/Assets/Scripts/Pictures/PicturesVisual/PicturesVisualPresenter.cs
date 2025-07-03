@@ -35,6 +35,7 @@ public class PicturesVisualPresenter
 
         _model.OnOpenPicture += _view.Open;
         _model.OnClosePicture += _view.Close;
+        _model.OnPreviewPicture += _view.Preview;
     }
 
     private void DeactivateEvents()
@@ -43,5 +44,6 @@ public class PicturesVisualPresenter
 
         _model.OnOpenPicture -= _view.Open;
         _model.OnClosePicture -= _view.Close;
+        _model.OnPreviewPicture -= _view.Preview;
     }
 }

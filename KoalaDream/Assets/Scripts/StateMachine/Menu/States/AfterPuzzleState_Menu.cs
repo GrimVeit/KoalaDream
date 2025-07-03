@@ -2,30 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAutoState_Menu : IState
+public class AfterPuzzleState_Menu : IState
 {
     private readonly IGlobalStateMachineProvider _globalStateMachineProvider;
 
-    private readonly AutoMovePresenter _autoMovePresenter;
     private readonly IPlayerMoveProvider _moveProvider;
+    private readonly IPlayerAnimationProvider _animationProvider;
 
-    public PlayerAutoState_Menu(IGlobalStateMachineProvider globalStateMachineProvider, AutoMovePresenter autoMovePresenter, IPlayerMoveProvider moveProvider)
+    public AfterPuzzleState_Menu(IGlobalStateMachineProvider globalStateMachineProvider, IPlayerMoveProvider moveProvider, IPlayerAnimationProvider animationProvider)
     {
         _globalStateMachineProvider = globalStateMachineProvider;
-        _autoMovePresenter = autoMovePresenter;
         _moveProvider = moveProvider;
+        _animationProvider = animationProvider;
     }
 
     public void EnterState()
     {
-        Debug.Log($"<color=red>AUTO</color>");
+        Debug.Log($"<color=red>AFTER PUZZLE</color>");
 
-        _autoMovePresenter.OnEndMove += ChangeStateToManual;
+        _moveProvider.Teleport(0);
+        _animationProvider.Left();
+
+        ChangeStateToManual();
     }
 
     public void ExitState()
     {
-        _autoMovePresenter.OnEndMove -= ChangeStateToManual;
+
     }
 
     private void ChangeStateToManual()
