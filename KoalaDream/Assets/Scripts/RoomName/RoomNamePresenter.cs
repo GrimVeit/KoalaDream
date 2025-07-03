@@ -15,11 +15,25 @@ public class RoomNamePresenter
 
     public void Initialize()
     {
+        ActivateEvents();
 
+        _model.Initialize();
     }
 
     public void Dispose()
     {
+        DeactivateEvents();
 
+        _model.Dispose();
+    }
+
+    private void ActivateEvents()
+    {
+        _model.OnSetRoom += _view.SetRoom;
+    }
+
+    private void DeactivateEvents()
+    {
+        _model.OnSetRoom -= _view.SetRoom;
     }
 }

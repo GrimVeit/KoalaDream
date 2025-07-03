@@ -39,6 +39,8 @@ public class MainMenuEntryPoint : MonoBehaviour
     private PicturePuzzleAccessPresenter picturePuzzleAccessPresenter;
     private BedGameAccessPresenter bedGameAccessPresenter;
 
+    private RoomNamePresenter roomNamePresenter;
+
     private StateMenuMachine stateMenuMachine;
 
     public void Run(UIRootView uIRootView)
@@ -75,6 +77,8 @@ public class MainMenuEntryPoint : MonoBehaviour
         picturesOpenVisualPresenter = new PicturesOpenVisualPresenter(new PicturesOpenVisualModel(storePicturesPresenter), viewContainer.GetView<PicturesOpenVisualView>());
         picturePreviewPresenter = new PicturePreviewPresenter(new PicturePreviewModel(storePicturesPresenter, storePicturesPresenter));
 
+        roomNamePresenter = new RoomNamePresenter(new RoomNameModel(roomTrackerPresenter), viewContainer.GetView<RoomNameView>());
+
         gameSessionPresenter = new GameSessionPresenter(new GameSesionModel(PlayerPrefsKeys.GAME_TYPE));
 
         picturePuzzleAccessPresenter = new PicturePuzzleAccessPresenter(new PicturePuzzleAccessModel(bankPresenter, storePicturesPresenter), viewContainer.GetView<PicturePuzzleAccessView>());
@@ -103,6 +107,8 @@ public class MainMenuEntryPoint : MonoBehaviour
         sceneRoot.Initialize();
         particleEffectPresenter.Initialize();
         bankPresenter.Initialize();
+
+        roomNamePresenter.Initialize();
 
         playerSleepAnimationPresenter.Initialize();
         playerVisiblePresenter.Initialize();
@@ -169,6 +175,8 @@ public class MainMenuEntryPoint : MonoBehaviour
         sceneRoot?.Dispose();
         particleEffectPresenter?.Dispose();
         bankPresenter?.Dispose();
+
+        roomNamePresenter?.Dispose();
 
         playerSleepAnimationPresenter?.Dispose();
         playerVisiblePresenter?.Dispose();
