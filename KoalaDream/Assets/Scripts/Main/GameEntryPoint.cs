@@ -36,7 +36,7 @@ public class GameEntryPoint
 
     private void Run()
     {
-        coroutines.StartCoroutine(LoadAndStartMainMenu(1));
+        coroutines.StartCoroutine(LoadAndStartMainMenu(0));
     }
 
     private IEnumerator LoadAndStartMainMenu(int index)
@@ -54,6 +54,7 @@ public class GameEntryPoint
         sceneEntryPoint.Run(rootView);
 
         sceneEntryPoint.OnGoToGame_Puzzle += () => coroutines.StartCoroutine(LoadAndStartGameScene_Puzzle(0));
+        sceneEntryPoint.OnGoToGame_Runner += () => coroutines.StartCoroutine(LoadAndStartGameScene_Runner(1));
 
         yield return rootView.HideLoadingScreen(index);
     }
@@ -72,6 +73,24 @@ public class GameEntryPoint
         sceneEntryPoint.Run(rootView);
 
         sceneEntryPoint.OnGoToMenu += () => coroutines.StartCoroutine(LoadAndStartMainMenu(0));
+
+        yield return rootView.HideLoadingScreen(index);
+    }
+
+    private IEnumerator LoadAndStartGameScene_Runner(int index)
+    {
+        yield return rootView.ShowLoadingScreen(index);
+
+        yield return new WaitForSeconds(1);
+
+        yield return LoadScene(Scenes.RUNNER);
+
+        yield return new WaitForEndOfFrame();
+
+        var sceneEntryPoint = Object.FindObjectOfType<GameSceneEntryPoint_Runner>();
+        sceneEntryPoint.Run(rootView);
+
+        sceneEntryPoint.OnGoToMenu += () => coroutines.StartCoroutine(LoadAndStartMainMenu(1));
 
         yield return rootView.HideLoadingScreen(index);
     }

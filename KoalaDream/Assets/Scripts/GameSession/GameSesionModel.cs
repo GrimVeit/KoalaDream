@@ -30,6 +30,8 @@ public class GameSesionModel
 
     public void Reset()
     {
+        _gameGlobalState = 0;
+
         PlayerPrefs.DeleteKey(KEY);
     }
 

@@ -154,11 +154,13 @@ public class MainMenuEntryPoint : MonoBehaviour
     private void ActivateTransitions()
     {
         picturePuzzleAccessPresenter.OnActivatePuzzle += HandleGoToGame_Puzzle;
+        playerSleepAnimationPresenter.OnEndActivate += HandleGoToGame_Runner;
     }
 
     private void DeactivateTransitions()
     {
         picturePuzzleAccessPresenter.OnActivatePuzzle -= HandleGoToGame_Puzzle;
+        playerSleepAnimationPresenter.OnEndActivate -= HandleGoToGame_Runner;
     }
 
     private void Deactivate()
@@ -210,11 +212,18 @@ public class MainMenuEntryPoint : MonoBehaviour
     #region Output
 
     public event Action OnGoToGame_Puzzle;
+    public event Action OnGoToGame_Runner;
 
     private void HandleGoToGame_Puzzle()
     {
         Deactivate();
         OnGoToGame_Puzzle?.Invoke();
+    }
+
+    private void HandleGoToGame_Runner()
+    {
+        Deactivate();
+        OnGoToGame_Runner?.Invoke();
     }
 
     #endregion

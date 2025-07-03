@@ -28,6 +28,11 @@ public class GameSessionPresenter : IGameSessionProvider, IGameSessionInfoProvid
         _model.SetGame(index);
     }
 
+    public void Reset()
+    {
+        _model.Reset();
+    }
+
     public int GetGameState()
     {
         return _model.GetGameState();
