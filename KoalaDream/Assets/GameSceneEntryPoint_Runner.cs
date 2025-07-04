@@ -17,6 +17,8 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
     private BackgroundRandomPresenter backgroundRandomPresenter;
     private GameSessionPresenter gameSessionPresenter;
 
+    private TouchSystemPresenter touchSystemPresenter;
+
     public void Run(UIRootView uIRootView)
     {
         sceneRoot = sceneRootPrefab;
@@ -32,6 +34,8 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
 
         backgroundRandomPresenter = new BackgroundRandomPresenter(viewContainer.GetView<BackgroundRandomView>());
         gameSessionPresenter = new GameSessionPresenter(new GameSesionModel(PlayerPrefsKeys.GAME_TYPE));
+
+        touchSystemPresenter = new TouchSystemPresenter(new TouchSystemModel(), viewContainer.GetView<TouchSystemView>());
         
         sceneRoot.SetSoundProvider(soundPresenter);
         sceneRoot.Activate();
@@ -46,6 +50,8 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
 
         gameSessionPresenter.Initialize();
         backgroundRandomPresenter.Initialize();
+
+        touchSystemPresenter.Initialize();
 
         gameSessionPresenter.SetGame(2);
 
@@ -84,6 +90,8 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
 
         gameSessionPresenter.Dispose();
         backgroundRandomPresenter?.Dispose();
+
+        touchSystemPresenter?.Dispose();
     }
 
     private void OnApplicationQuit()
