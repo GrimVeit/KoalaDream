@@ -114,6 +114,11 @@ public class GameSceneEntryPoint_Puzzle : MonoBehaviour
         Dispose();
     }
 
+    private void OnApplicationQuit()
+    {
+        gameSessionPresenter.Reset();
+    }
+
     #region Output
 
     public event Action OnGoToMenu;

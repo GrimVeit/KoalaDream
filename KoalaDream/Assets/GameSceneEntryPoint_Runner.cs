@@ -18,6 +18,7 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
     private GameSessionPresenter gameSessionPresenter;
 
     private TouchSystemPresenter touchSystemPresenter;
+    private PlayerEnergyPresenter playerEnergyPresenter;
 
     public void Run(UIRootView uIRootView)
     {
@@ -36,6 +37,7 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
         gameSessionPresenter = new GameSessionPresenter(new GameSesionModel(PlayerPrefsKeys.GAME_TYPE));
 
         touchSystemPresenter = new TouchSystemPresenter(new TouchSystemModel(), viewContainer.GetView<TouchSystemView>());
+        playerEnergyPresenter = new PlayerEnergyPresenter(new PlayerEnergyModel(touchSystemPresenter), viewContainer.GetView<PlayerEnergyView>());
         
         sceneRoot.SetSoundProvider(soundPresenter);
         sceneRoot.Activate();
@@ -51,6 +53,7 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
         gameSessionPresenter.Initialize();
         backgroundRandomPresenter.Initialize();
 
+        playerEnergyPresenter.Initialize();
         touchSystemPresenter.Initialize();
 
         gameSessionPresenter.SetGame(2);
@@ -91,6 +94,7 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
         gameSessionPresenter.Dispose();
         backgroundRandomPresenter?.Dispose();
 
+        playerEnergyPresenter?.Dispose();
         touchSystemPresenter?.Dispose();
     }
 

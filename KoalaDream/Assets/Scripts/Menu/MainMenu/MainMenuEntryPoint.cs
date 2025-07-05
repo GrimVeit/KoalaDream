@@ -209,6 +209,11 @@ public class MainMenuEntryPoint : MonoBehaviour
         Dispose();
     }
 
+    private void OnApplicationQuit()
+    {
+        gameSessionPresenter.Reset();
+    }
+
     #region Output
 
     public event Action OnGoToGame_Puzzle;

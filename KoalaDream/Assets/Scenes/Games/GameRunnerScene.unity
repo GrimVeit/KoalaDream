@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 6931151}
   - component: {fileID: 6931150}
   m_Layer: 5
-  m_Name: HP (5)
+  m_Name: HP_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1128,7 +1128,7 @@ GameObject:
   - component: {fileID: 368600396}
   - component: {fileID: 368600395}
   m_Layer: 5
-  m_Name: HP (6)
+  m_Name: HP_8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1287,7 +1287,7 @@ GameObject:
   - component: {fileID: 529223384}
   - component: {fileID: 529223383}
   m_Layer: 5
-  m_Name: HP (7)
+  m_Name: HP_9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1624,7 +1624,7 @@ GameObject:
   - component: {fileID: 604215457}
   - component: {fileID: 604215456}
   m_Layer: 5
-  m_Name: HP (4)
+  m_Name: HP_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2096,7 +2096,7 @@ GameObject:
   - component: {fileID: 926905473}
   - component: {fileID: 926905472}
   m_Layer: 5
-  m_Name: HP (2)
+  m_Name: HP_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2427,7 +2427,7 @@ GameObject:
   - component: {fileID: 1005209616}
   - component: {fileID: 1005209615}
   m_Layer: 5
-  m_Name: HP
+  m_Name: HP_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2636,7 +2636,7 @@ GameObject:
   - component: {fileID: 1097932595}
   - component: {fileID: 1097932594}
   m_Layer: 5
-  m_Name: HP
+  m_Name: HP_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2733,6 +2733,7 @@ RectTransform:
   - {fileID: 1753572736}
   - {fileID: 722668041}
   - {fileID: 131453352}
+  - {fileID: 1413488891}
   m_Father: {fileID: 1540950909}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -3071,6 +3072,67 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &1413488890
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1413488891}
+  - component: {fileID: 1413488892}
+  m_Layer: 5
+  m_Name: PlayerEnergy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1413488891
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413488890}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1138537688}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1413488892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1413488890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f362c40254e8474c9f0020ac3f123b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpElements:
+  - {fileID: 1005209615}
+  - {fileID: 1097932594}
+  - {fileID: 2039394297}
+  - {fileID: 926905472}
+  - {fileID: 1639679791}
+  - {fileID: 604215456}
+  - {fileID: 6931150}
+  - {fileID: 368600395}
+  - {fileID: 529223383}
+  - {fileID: 1713921245}
+  spriteYellow: {fileID: 21300000, guid: 12c7bfaf78930ad45847ec10c27dd850, type: 3}
+  spriteGrey: {fileID: 21300000, guid: 61d031ff8aa0fce48aadcc806382f79a, type: 3}
 --- !u!1 &1473892262
 GameObject:
   m_ObjectHideFlags: 0
@@ -3633,7 +3695,7 @@ GameObject:
   - component: {fileID: 1639679792}
   - component: {fileID: 1639679791}
   m_Layer: 5
-  m_Name: HP (3)
+  m_Name: HP_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3708,7 +3770,7 @@ GameObject:
   - component: {fileID: 1713921246}
   - component: {fileID: 1713921245}
   m_Layer: 5
-  m_Name: HP (8)
+  m_Name: HP_10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4273,7 +4335,7 @@ GameObject:
   - component: {fileID: 2039394298}
   - component: {fileID: 2039394297}
   m_Layer: 5
-  m_Name: HP (1)
+  m_Name: HP_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
