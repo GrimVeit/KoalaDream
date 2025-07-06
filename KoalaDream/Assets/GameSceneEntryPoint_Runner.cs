@@ -18,7 +18,9 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
     private GameSessionPresenter gameSessionPresenter;
 
     private TouchSystemPresenter touchSystemPresenter;
+    private PlayerRunnerMovePresenter playerRunnerMovePresenter;
     private PlayerEnergyPresenter playerEnergyPresenter;
+    private ScrollBackgroundPresenter scrollBackgroundPresenter;
 
     public void Run(UIRootView uIRootView)
     {
@@ -37,7 +39,9 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
         gameSessionPresenter = new GameSessionPresenter(new GameSesionModel(PlayerPrefsKeys.GAME_TYPE));
 
         touchSystemPresenter = new TouchSystemPresenter(new TouchSystemModel(), viewContainer.GetView<TouchSystemView>());
+        playerRunnerMovePresenter = new PlayerRunnerMovePresenter(new PlayerRunnerMoveModel(touchSystemPresenter), viewContainer.GetView<PlayerRunnerMoveView>());
         playerEnergyPresenter = new PlayerEnergyPresenter(new PlayerEnergyModel(touchSystemPresenter), viewContainer.GetView<PlayerEnergyView>());
+        scrollBackgroundPresenter = new ScrollBackgroundPresenter(new ScrollBackgroundModel(), viewContainer.GetView<ScrollBackgroundView>());
         
         sceneRoot.SetSoundProvider(soundPresenter);
         sceneRoot.Activate();
@@ -53,13 +57,16 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
         gameSessionPresenter.Initialize();
         backgroundRandomPresenter.Initialize();
 
+        scrollBackgroundPresenter.Initialize();
         playerEnergyPresenter.Initialize();
+        playerRunnerMovePresenter.Initialize();
         touchSystemPresenter.Initialize();
 
         gameSessionPresenter.SetGame(2);
 
         sceneRoot.OpenBalancePanel();
         sceneRoot.OpenEnergyPanel();
+        scrollBackgroundPresenter.ActivateScroll();
     }
 
     private void ActivateEvents()
@@ -94,7 +101,9 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
         gameSessionPresenter.Dispose();
         backgroundRandomPresenter?.Dispose();
 
+        scrollBackgroundPresenter?.Dispose();
         playerEnergyPresenter?.Dispose();
+        playerRunnerMovePresenter?.Dispose();
         touchSystemPresenter?.Dispose();
     }
 
