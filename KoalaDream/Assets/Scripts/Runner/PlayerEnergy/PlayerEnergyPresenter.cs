@@ -36,4 +36,18 @@ public class PlayerEnergyPresenter
     {
         _model.OnEnergyChanged -= _view.SetEnergyValue;
     }
+
+    #region Input
+
+    public void AddEnergy(float energy)
+    {
+        _model.AddEnergy(energy);
+    }
+
+    #endregion
+}
+
+public interface IPlayerEnergyProvider
+{
+    void AddEnergy(float size);
 }

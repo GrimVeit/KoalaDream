@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IMoneyObstacle : IObstacle
+public interface IEnergyObstacle : IObstacle
 {
-    public event Action OnAddMoney;
+    public event Action OnAddEnergy;
 }

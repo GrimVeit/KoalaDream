@@ -44,7 +44,7 @@ public class AnimationFrame : MonoBehaviour, IIdentify
                 yield return new WaitForSeconds(frameRate);
             }
             currentCycle += 1;
-            Debug.Log(currentCycle);
+            //Debug.Log(currentCycle);
         }
     }
 }

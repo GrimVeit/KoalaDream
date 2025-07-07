@@ -1,13 +1,14 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleModel
+public class PlayerAddEnergyModel
 {
+    private List<IEnergyObstacle> energyObstacles = new List<IEnergyObstacle>();
+
     private readonly IObstacleSpawnerEventsProvider _obstacleSpawnerEventsProvider;
 
-    public ObstacleModel(IObstacleSpawnerEventsProvider obstacleSpawnerEventsProvider)
+    public PlayerAddEnergyModel(IObstacleSpawnerEventsProvider obstacleSpawnerEventsProvider)
     {
         _obstacleSpawnerEventsProvider = obstacleSpawnerEventsProvider;
 
@@ -24,18 +25,12 @@ public class ObstacleModel
         _obstacleSpawnerEventsProvider.OnSpawnObstacle -= AddObstacle;
     }
 
-    public event Action<IMoveObstacle> OnAddObstacle;
-    public event Action<IMoveObstacle> OnRemoveObstacle;
-
     private void AddObstacle(IObstacle obstacle)
     {
-        var moveObstacle = obstacle as IMoveObstacle;
-
-        OnAddObstacle?.Invoke(moveObstacle);
-    }
-
-    public void RemoveObstacle(IMoveObstacle obstacle)
-    {
-        OnRemoveObstacle?.Invoke(obstacle);
+        if (obstacle is IEnergyObstacle punchObstacle)
+        {
+            energyObstacles.Add(punchObstacle);
+            Debug.Log("Add Energy");
+        }
     }
 }

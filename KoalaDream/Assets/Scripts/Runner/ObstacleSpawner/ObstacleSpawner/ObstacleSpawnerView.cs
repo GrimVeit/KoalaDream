@@ -17,7 +17,7 @@ public class ObstacleSpawnerView : View
         var obstaclePrefab = spawnChance.GetRandomObstacle();
 
         var obstacleObject = Instantiate(obstaclePrefab, transformParent);
-        obstacleObject.transform.SetLocalPositionAndRotation(data.StartPoint.position, obstaclePrefab.transform.rotation);
+        obstacleObject.transform.SetLocalPositionAndRotation(data.StartPoint.localPosition, obstaclePrefab.transform.rotation);
         var obstacle = obstacleObject.GetComponent<IObstacle>();
 
         OnSpawnObstacle?.Invoke(obstacle);

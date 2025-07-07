@@ -17,7 +17,7 @@ public class ObstacleView : View
         {
             o.OnEndMove -= RemoveObstacle;
 
-            o.MoveToClear(transformClears[Random.Range(0, transformClears.Count)].position, () => 
+            o.MoveToClear(transformClears[Random.Range(0, transformClears.Count)].position.ToSystemVector(), () => 
             {
                 OnDestroyObstacle?.Invoke(o);
                 o.Destroy();
@@ -41,7 +41,7 @@ public class ObstacleView : View
 
         obstacle.OnEndMove += RemoveObstacle;
 
-        obstacle.SetData(transformEnd.localPosition);
+        obstacle.SetData(transformEnd.localPosition.ToSystemVector());
         obstacle.MoveToEnd();
     }
 

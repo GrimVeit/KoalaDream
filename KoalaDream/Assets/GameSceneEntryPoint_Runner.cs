@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameSceneEntryPoint_Runner : MonoBehaviour
 {
     [SerializeField] private Sounds sounds;
+    [SerializeField] private SpawnPointsData spawnPointsData;
     [SerializeField] private UIGameSceneRoot_Runner sceneRootPrefab;
 
     private UIGameSceneRoot_Runner sceneRoot;
@@ -21,6 +22,13 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
     private PlayerRunnerMovePresenter playerRunnerMovePresenter;
     private PlayerEnergyPresenter playerEnergyPresenter;
     private ScrollBackgroundPresenter scrollBackgroundPresenter;
+
+    private ObstacleSpawnerPresenter obstacleSpawnerPresenter;
+    private ObstaclePresenter obstaclePresenter;
+
+    private PlayerPunchPresenter playerPunchPresenter;
+    private PlayerAddEnergyPresenter playerAddEnergyPresenter;
+    private PlayerAddMoneyPresenter playerAddMoneyPresenter;
 
     public void Run(UIRootView uIRootView)
     {
@@ -42,6 +50,13 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
         playerRunnerMovePresenter = new PlayerRunnerMovePresenter(new PlayerRunnerMoveModel(touchSystemPresenter), viewContainer.GetView<PlayerRunnerMoveView>());
         playerEnergyPresenter = new PlayerEnergyPresenter(new PlayerEnergyModel(touchSystemPresenter), viewContainer.GetView<PlayerEnergyView>());
         scrollBackgroundPresenter = new ScrollBackgroundPresenter(new ScrollBackgroundModel(), viewContainer.GetView<ScrollBackgroundView>());
+
+        obstacleSpawnerPresenter = new ObstacleSpawnerPresenter(new ObstacleSpawnerModel(spawnPointsData, 2, 5), viewContainer.GetView<ObstacleSpawnerView>());
+        obstaclePresenter = new ObstaclePresenter(new ObstacleModel(obstacleSpawnerPresenter), viewContainer.GetView<ObstacleView>());
+
+        playerPunchPresenter = new PlayerPunchPresenter(new PlayerPunchModel(obstacleSpawnerPresenter));
+        playerAddEnergyPresenter = new PlayerAddEnergyPresenter(new PlayerAddEnergyModel(obstacleSpawnerPresenter));
+        playerAddMoneyPresenter = new PlayerAddMoneyPresenter(new PlayerAddMoneyModel(obstacleSpawnerPresenter, bankPresenter));
         
         sceneRoot.SetSoundProvider(soundPresenter);
         sceneRoot.Activate();
@@ -62,11 +77,18 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
         playerRunnerMovePresenter.Initialize();
         touchSystemPresenter.Initialize();
 
-        gameSessionPresenter.SetGame(2);
+        playerAddMoneyPresenter.Initialize();
+        playerAddEnergyPresenter.Initialize();
+        playerPunchPresenter.Initialize();
 
+        obstaclePresenter.Initialize();
+        obstacleSpawnerPresenter.Initialize();
+
+        gameSessionPresenter.SetGame(2);
         sceneRoot.OpenBalancePanel();
         sceneRoot.OpenEnergyPanel();
         scrollBackgroundPresenter.ActivateScroll();
+        obstacleSpawnerPresenter.ActivateSpawner();
     }
 
     private void ActivateEvents()
@@ -105,6 +127,13 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
         playerEnergyPresenter?.Dispose();
         playerRunnerMovePresenter?.Dispose();
         touchSystemPresenter?.Dispose();
+
+        playerAddMoneyPresenter?.Dispose();
+        playerAddEnergyPresenter?.Dispose();
+        playerPunchPresenter?.Dispose();
+
+        obstaclePresenter?.Dispose();
+        obstacleSpawnerPresenter?.Dispose();
     }
 
     private void OnApplicationQuit()

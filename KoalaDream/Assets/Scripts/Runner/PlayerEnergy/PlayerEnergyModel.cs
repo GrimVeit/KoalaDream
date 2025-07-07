@@ -9,7 +9,7 @@ public class PlayerEnergyModel
 
     private IEnumerator energyCoroutine;
 
-    private float _currentEnergy = 20f;
+    private float _currentEnergy = 30f;
 
     public PlayerEnergyModel(ITouchSystemEventsProvider touchSystemEventsProvider)
     {
@@ -51,7 +51,7 @@ public class PlayerEnergyModel
 
             if(_currentEnergy < 0) _currentEnergy = 0;
 
-            Debug.Log(_currentEnergy.ToString());
+            //Debug.Log(_currentEnergy.ToString());
 
             OnEnergyChanged?.Invoke(_currentEnergy);
 
@@ -63,6 +63,13 @@ public class PlayerEnergyModel
 
             yield return null;
         }
+    }
+
+    public void AddEnergy(float size)
+    {
+        if(size < 0) return;
+
+        _currentEnergy += size;
     }
 
     #region Output
