@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,9 @@ public class PlayerAddMoneyModel
 
     private readonly IObstacleSpawnerEventsProvider _obstacleSpawnerEventsProvider;
     private readonly IMoneyProvider _moneyProvider;
+
+    private const int _winMoney = 5;
+    private int _currentMoney;
 
     public PlayerAddMoneyModel(IObstacleSpawnerEventsProvider obstacleSpawnerEventsProvider, IMoneyProvider moneyProvider)
     {
@@ -39,6 +43,17 @@ public class PlayerAddMoneyModel
 
     private void AddMoney()
     {
+        _currentMoney += 1;
         _moneyProvider.SendMoney(1);
+        if(_currentMoney >= _winMoney)
+        {
+            OnWin?.Invoke();
+        }
     }
+
+    #region Output
+
+    public event Action OnWin;
+
+    #endregion
 }

@@ -18,10 +18,15 @@ public class StateRunnerMachine : IGlobalStateMachineProvider
         IBackgroundRandomProvider backgroundRandomProvider,
         IBackgroundScrollProvider backgroundScrollProvider,
         
-        IObstacleSpawnerProvider obstacleSpawnerProvider)
+        IObstacleSpawnerProvider obstacleSpawnerProvider,
+        
+        ILeafEffectProvider leafEffectProvider,
+        IPlayerAddMoneyEventsProvider playerAddMoneyEventsProvider)
     {
         states[typeof(IntroState_Runner)] = new IntroState_Runner(this, playerRunnerActivatorEventsProvider, playerRunnerActivatorProvider, backgroundRandomProvider, backgroundScrollProvider);
-        states[typeof(MainState_Runner)] = new MainState_Runner(this, sceneRoot, backgroundScrollProvider, obstacleSpawnerProvider);
+        states[typeof(MainState_Runner)] = new MainState_Runner(this, sceneRoot, backgroundScrollProvider, obstacleSpawnerProvider, leafEffectProvider, playerAddMoneyEventsProvider);
+
+        states[typeof(WaitShowWinState_Runner)] = new WaitShowWinState_Runner(this, sceneRoot, backgroundScrollProvider, obstacleSpawnerProvider);
     }
 
     public void Initialize()

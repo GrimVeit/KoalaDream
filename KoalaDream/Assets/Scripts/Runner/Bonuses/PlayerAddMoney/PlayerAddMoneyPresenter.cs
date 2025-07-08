@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAddMoneyPresenter
+public class PlayerAddMoneyPresenter : IPlayerAddMoneyEventsProvider
 {
     private readonly PlayerAddMoneyModel _model;
 
@@ -20,4 +21,19 @@ public class PlayerAddMoneyPresenter
     {
         _model.Dispose();
     }
+
+    #region Output
+
+    public event Action OnWin
+    {
+        add => _model.OnWin += value;
+        remove => _model.OnWin -= value;
+    }
+
+    #endregion
+}
+
+public interface IPlayerAddMoneyEventsProvider
+{
+    public event Action OnWin;
 }

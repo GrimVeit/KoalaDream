@@ -30,6 +30,8 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
     private PlayerAddEnergyPresenter playerAddEnergyPresenter;
     private PlayerAddMoneyPresenter playerAddMoneyPresenter;
 
+    private LeafEffectPresenter leafEffectPresenter;
+
     private StateRunnerMachine stateRunnerMachine;
 
 
@@ -66,13 +68,16 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
         playerAddEnergyPresenter = new PlayerAddEnergyPresenter(new PlayerAddEnergyModel(obstacleSpawnerPresenter, playerEnergyPresenter));
         playerAddMoneyPresenter = new PlayerAddMoneyPresenter(new PlayerAddMoneyModel(obstacleSpawnerPresenter, bankPresenter));
 
+        leafEffectPresenter = new LeafEffectPresenter(new LeafEffectModel(), viewContainer.GetView<LeafEffectView>());
+
         stateRunnerMachine = new StateRunnerMachine(
             playerRunnerMovePresenter,
             playerRunnerMovePresenter,
             sceneRoot,
             backgroundRandomPresenter,
             scrollBackgroundPresenter,
-            obstacleSpawnerPresenter);
+            obstacleSpawnerPresenter,
+            leafEffectPresenter);
         
         sceneRoot.SetSoundProvider(soundPresenter);
         sceneRoot.Activate();
@@ -99,6 +104,8 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
 
         obstaclePresenter.Initialize();
         obstacleSpawnerPresenter.Initialize();
+
+        leafEffectPresenter.Initialize();
 
         stateRunnerMachine.Initialize();
 
@@ -151,6 +158,8 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
 
         obstaclePresenter?.Dispose();
         obstacleSpawnerPresenter?.Dispose();
+
+        leafEffectPresenter?.Dispose();
 
         stateRunnerMachine?.Dispose();
     }
