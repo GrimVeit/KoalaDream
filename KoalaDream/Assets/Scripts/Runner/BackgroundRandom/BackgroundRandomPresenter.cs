@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackgroundRandomPresenter
+public class BackgroundRandomPresenter : IBackgroundRandomProvider
 {
     private readonly BackgroundRandomView _view;
 
@@ -29,4 +29,9 @@ public class BackgroundRandomPresenter
     }
 
     #endregion
+}
+
+public interface IBackgroundRandomProvider
+{
+    public void Random();
 }

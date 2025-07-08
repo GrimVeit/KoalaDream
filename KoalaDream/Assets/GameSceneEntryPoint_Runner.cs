@@ -30,6 +30,14 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
     private PlayerAddEnergyPresenter playerAddEnergyPresenter;
     private PlayerAddMoneyPresenter playerAddMoneyPresenter;
 
+    private StateRunnerMachine stateRunnerMachine;
+
+
+    private void Awake()
+    {
+        Run(null);
+    }
+
     public void Run(UIRootView uIRootView)
     {
         sceneRoot = sceneRootPrefab;
@@ -54,9 +62,17 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
         obstacleSpawnerPresenter = new ObstacleSpawnerPresenter(new ObstacleSpawnerModel(spawnPointsData, 2, 5), viewContainer.GetView<ObstacleSpawnerView>());
         obstaclePresenter = new ObstaclePresenter(new ObstacleModel(obstacleSpawnerPresenter), viewContainer.GetView<ObstacleView>());
 
-        playerPunchPresenter = new PlayerPunchPresenter(new PlayerPunchModel(obstacleSpawnerPresenter));
-        playerAddEnergyPresenter = new PlayerAddEnergyPresenter(new PlayerAddEnergyModel(obstacleSpawnerPresenter));
+        playerPunchPresenter = new PlayerPunchPresenter(new PlayerPunchModel(obstacleSpawnerPresenter, playerRunnerMovePresenter));
+        playerAddEnergyPresenter = new PlayerAddEnergyPresenter(new PlayerAddEnergyModel(obstacleSpawnerPresenter, playerEnergyPresenter));
         playerAddMoneyPresenter = new PlayerAddMoneyPresenter(new PlayerAddMoneyModel(obstacleSpawnerPresenter, bankPresenter));
+
+        stateRunnerMachine = new StateRunnerMachine(
+            playerRunnerMovePresenter,
+            playerRunnerMovePresenter,
+            sceneRoot,
+            backgroundRandomPresenter,
+            scrollBackgroundPresenter,
+            obstacleSpawnerPresenter);
         
         sceneRoot.SetSoundProvider(soundPresenter);
         sceneRoot.Activate();
@@ -84,11 +100,12 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
         obstaclePresenter.Initialize();
         obstacleSpawnerPresenter.Initialize();
 
+        stateRunnerMachine.Initialize();
+
+
+        /////
         gameSessionPresenter.SetGame(2);
-        sceneRoot.OpenBalancePanel();
-        sceneRoot.OpenEnergyPanel();
-        scrollBackgroundPresenter.ActivateScroll();
-        obstacleSpawnerPresenter.ActivateSpawner();
+        ////
     }
 
     private void ActivateEvents()
@@ -134,6 +151,8 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
 
         obstaclePresenter?.Dispose();
         obstacleSpawnerPresenter?.Dispose();
+
+        stateRunnerMachine?.Dispose();
     }
 
     private void OnApplicationQuit()

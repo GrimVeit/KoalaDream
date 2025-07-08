@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScrollBackgroundPresenter
+public class ScrollBackgroundPresenter : IBackgroundScrollProvider
 {
     private readonly ScrollBackgroundModel model;
     private readonly ScrollBackgroundView view;
@@ -50,4 +50,10 @@ public class ScrollBackgroundPresenter
     }
 
     #endregion
+}
+
+public interface IBackgroundScrollProvider
+{
+    public void ActivateScroll();
+    public void DeactivateScroll();
 }

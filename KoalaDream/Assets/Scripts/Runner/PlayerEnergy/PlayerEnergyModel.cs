@@ -70,6 +70,8 @@ public class PlayerEnergyModel
         if(size < 0) return;
 
         _currentEnergy += size;
+
+        OnEnergyChanged?.Invoke(_currentEnergy);
     }
 
     #region Output

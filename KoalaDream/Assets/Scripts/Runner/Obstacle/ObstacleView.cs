@@ -31,7 +31,15 @@ public class ObstacleView : View
     {
         obstacles.ForEach(o =>
         {
-            o.Stop();
+            o.Pause();
+        });
+    }
+
+    public void ResumeObstacles()
+    {
+        obstacles.ForEach(o =>
+        {
+            o.Resume();
         });
     }
 

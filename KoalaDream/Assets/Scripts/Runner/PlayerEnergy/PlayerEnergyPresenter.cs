@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerEnergyPresenter
+public class PlayerEnergyPresenter : IPlayerEnergyProvider
 {
     private readonly PlayerEnergyModel _model;
     private readonly PlayerEnergyView _view;

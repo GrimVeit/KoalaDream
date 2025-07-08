@@ -8,11 +8,14 @@ public class PlayerAddEnergyModel
 
     private readonly IObstacleSpawnerEventsProvider _obstacleSpawnerEventsProvider;
 
-    public PlayerAddEnergyModel(IObstacleSpawnerEventsProvider obstacleSpawnerEventsProvider)
+    private readonly IPlayerEnergyProvider _playerEnergyProvider;
+
+    public PlayerAddEnergyModel(IObstacleSpawnerEventsProvider obstacleSpawnerEventsProvider, IPlayerEnergyProvider playerEnergyProvider)
     {
         _obstacleSpawnerEventsProvider = obstacleSpawnerEventsProvider;
 
         _obstacleSpawnerEventsProvider.OnSpawnObstacle += AddObstacle;
+        _playerEnergyProvider = playerEnergyProvider;
     }
 
     public void Initialize()
@@ -29,8 +32,15 @@ public class PlayerAddEnergyModel
     {
         if (obstacle is IEnergyObstacle punchObstacle)
         {
+            punchObstacle.OnAddEnergy += AddEnergy;
+
             energyObstacles.Add(punchObstacle);
             Debug.Log("Add Energy");
         }
+    }
+
+    private void AddEnergy()
+    {
+        _playerEnergyProvider.AddEnergy(3);
     }
 }

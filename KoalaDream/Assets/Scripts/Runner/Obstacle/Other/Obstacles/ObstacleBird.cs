@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ObstacleBird : MonoBehaviour, IMoveObstacle, IPunchObstacle
 {
@@ -10,9 +11,12 @@ public class ObstacleBird : MonoBehaviour, IMoveObstacle, IPunchObstacle
     [SerializeField] private protected Transform transformObstacle;
     [SerializeField] private AnimationFrame animationFrame;
     [SerializeField] private ObstacleCollider obstacleCollider;
+    [SerializeField] private float forcePunch;
 
     private protected float endX;
     private protected Tween _tweenMove;
+    private Sequence sequenceClose;
+    private bool isActivate = false;
 
     private void Awake()
     {
@@ -22,6 +26,8 @@ public class ObstacleBird : MonoBehaviour, IMoveObstacle, IPunchObstacle
 
     private void OnDestroy()
     {
+        sequenceClose?.Kill();
+
         animationFrame.Deactivate();
         obstacleCollider.OnActivate -= ActivateAction;
     }
@@ -42,9 +48,14 @@ public class ObstacleBird : MonoBehaviour, IMoveObstacle, IPunchObstacle
         _tweenMove = transformObstacle.DOMove(target.ToUnityVector(), 1f).OnComplete(() => OnComplete?.Invoke());
     }
 
-    public void Stop()
+    public void Pause()
     {
-        _tweenMove?.Kill();
+        _tweenMove?.Pause();
+    }
+
+    public void Resume()
+    {
+        _tweenMove?.Play();
     }
 
     public void Destroy()
@@ -54,14 +65,35 @@ public class ObstacleBird : MonoBehaviour, IMoveObstacle, IPunchObstacle
 
     private void ActivateAction()
     {
-        OnAddPunch?.Invoke();
+        if(isActivate) return;
+
+        OnAddPunch?.Invoke(forcePunch);
+
+        sequenceClose = DOTween.Sequence();
+
+        sequenceClose
+            .Append(transformObstacle.DOScale(1.1f, 0.1f))
+            .Append(transformObstacle.DOScale(0, 0.2f))
+            .Join(transformObstacle.DOLocalRotate(new Vector3(0, 0, GetRandomAngle()), 0.2f));
+
+        isActivate = true;
+    }
+
+    private float GetRandomAngle()
+    {
+        bool positive = Random.value > 0.5f;
+
+        if (positive)
+            return Random.Range(180f, 360);
+        else
+            return Random.Range(-360f, -180f);
     }
 
     #region Input
 
     public event Action<IMoveObstacle> OnEndMove;
 
-    public event Action OnAddPunch;
+    public event Action<float> OnAddPunch;
 
     #endregion
 }

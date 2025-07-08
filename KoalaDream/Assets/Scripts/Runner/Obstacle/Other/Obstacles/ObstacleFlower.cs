@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ObstacleFlower : MonoBehaviour, IMoveObstacle, IEnergyObstacle
 {
@@ -11,8 +12,16 @@ public class ObstacleFlower : MonoBehaviour, IMoveObstacle, IEnergyObstacle
     [SerializeField] private AnimationFrame animationFrame;
     [SerializeField] private ObstacleCollider obstacleCollider;
 
+    [Header("Effect")]
+    [SerializeField] private Transform transformSprite;
+    [SerializeField] private Image imageEffect;
+    [SerializeField] private Sprite spriteEffect_1;
+    [SerializeField] private Sprite spriteEffect_2;
+
     private protected float endX;
     private protected Tween _tweenMove;
+
+    private IEnumerator timer;
 
     private void Awake()
     {
@@ -22,6 +31,8 @@ public class ObstacleFlower : MonoBehaviour, IMoveObstacle, IEnergyObstacle
 
     private void OnDestroy()
     {
+        if (timer != null) Coroutines.Stop(timer);
+
         animationFrame.Deactivate();
         obstacleCollider.OnActivate -= ActivateAction;
     }
@@ -42,9 +53,14 @@ public class ObstacleFlower : MonoBehaviour, IMoveObstacle, IEnergyObstacle
         _tweenMove = transformObstacle.DOMove(target.ToUnityVector(), 1f).OnComplete(() => OnComplete?.Invoke());
     }
 
-    public void Stop()
+    public void Pause()
     {
-        _tweenMove?.Kill();
+        _tweenMove?.Pause();
+    }
+
+    public void Resume()
+    {
+        _tweenMove?.Play();
     }
 
     public void Destroy()
@@ -55,6 +71,37 @@ public class ObstacleFlower : MonoBehaviour, IMoveObstacle, IEnergyObstacle
     private void ActivateAction()
     {
         OnAddEnergy?.Invoke();
+
+        if (timer != null) Coroutines.Stop(timer);
+
+        timer = Timer();
+        Coroutines.Start(timer);
+    }
+
+    private IEnumerator Timer()
+    {
+        imageEffect.gameObject.SetActive(true);
+        imageEffect.transform.localScale = Vector3.zero;
+        imageEffect.sprite = spriteEffect_1;
+
+        imageEffect.transform.DOScale(0.5f, 0.1f);
+        imageEffect.transform.DOShakeRotation(
+            duration: 0.3f,
+            strength: new Vector3(0, 0, 20),
+            vibrato: 20,
+            randomness: 90,
+            fadeOut: true
+        );
+
+        yield return new WaitForSeconds(0.1f);
+
+        imageEffect.sprite = spriteEffect_2;
+        imageEffect.transform.DOScale(1, 0.2f);
+
+        yield return new WaitForSeconds(0.2f);
+
+        transformSprite.DOScale(0, 0.2f);
+        imageEffect.transform.DOScale(0, 0.2f);
     }
 
     #region Input

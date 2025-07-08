@@ -10,7 +10,7 @@ public class ScrollBackgroundModel
 
     private bool isActive = false;
     private float valueScroll = 0;
-    private float duration = 20f;
+    private float duration = 120f;
 
     public void ActivateScroll()
     {

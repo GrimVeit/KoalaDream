@@ -29,9 +29,14 @@ public abstract class Obstacle : MonoBehaviour, IMoveObstacle
         _tweenMove = transformObstacle.DOMove(target.ToUnityVector(), 1f).OnComplete(() => OnComplete?.Invoke());
     }
 
-    public void Stop()
+    public void Pause()
     {
-        _tweenMove?.Kill();
+        _tweenMove?.Pause();
+    }
+
+    public void Resume()
+    {
+        _tweenMove?.Play();
     }
 
     public void Destroy()

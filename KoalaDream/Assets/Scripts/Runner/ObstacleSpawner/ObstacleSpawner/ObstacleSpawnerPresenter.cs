@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleSpawnerPresenter : IObstacleSpawnerEventsProvider
+public class ObstacleSpawnerPresenter : IObstacleSpawnerEventsProvider, IObstacleSpawnerProvider
 {
     private readonly ObstacleSpawnerModel _model;
     private readonly ObstacleSpawnerView _view;

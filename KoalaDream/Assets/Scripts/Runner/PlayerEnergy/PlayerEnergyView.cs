@@ -11,7 +11,7 @@ public class PlayerEnergyView : View
 
     public void SetEnergyValue(float value)
     {
-        int number = Mathf.CeilToInt((value / 20) * hpElements.Count);
+        int number = Mathf.CeilToInt((value / 30) * hpElements.Count);
 
         if (number > hpElements.Count) return;
 

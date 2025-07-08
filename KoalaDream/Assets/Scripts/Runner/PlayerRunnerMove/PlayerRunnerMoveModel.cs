@@ -11,8 +11,8 @@ public class PlayerRunnerMoveModel
     {
         _touchSystemEventsProvider = touchSystemEventsProvider;
 
-        _touchSystemEventsProvider.OnStartTouch += StartTouch;
-        _touchSystemEventsProvider.OnStopTouch += StopTouch;
+        _touchSystemEventsProvider.OnStartTouch += StartUp;
+        _touchSystemEventsProvider.OnStopTouch += StopUp;
     }
 
     public void Initialize()
@@ -22,24 +22,31 @@ public class PlayerRunnerMoveModel
 
     public void Dispose()
     {
-        _touchSystemEventsProvider.OnStartTouch -= StartTouch;
-        _touchSystemEventsProvider.OnStopTouch -= StopTouch;
+        _touchSystemEventsProvider.OnStartTouch -= StartUp;
+        _touchSystemEventsProvider.OnStopTouch -= StopUp;
     }
 
-    private void StartTouch()
+    public void StartUp()
     {
-        OnStartTouch?.Invoke();
+        OnStartUp?.Invoke();
     }
 
-    private void StopTouch()
+    public void StopUp()
     {
-        OnStopTouch?.Invoke();
+        OnStopUp?.Invoke();
+    }
+
+    public void ApplyForceOffset(float amount, float duration)
+    {
+        OnApplyForceOffset?.Invoke(amount, duration);
     }
 
     #region Output
 
-    public event Action OnStartTouch;
-    public event Action OnStopTouch;
+    public event Action OnStartUp;
+    public event Action OnStopUp;
+
+    public event Action<float, float> OnApplyForceOffset;
 
     #endregion
 }

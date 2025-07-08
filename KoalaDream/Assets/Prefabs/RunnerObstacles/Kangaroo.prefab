@@ -53,6 +53,7 @@ MonoBehaviour:
   transformObstacle: {fileID: 1708323534542990285}
   animationFrame: {fileID: 457551651006670334}
   obstacleCollider: {fileID: 5895699770967042438}
+  forcePunch: 110
 --- !u!114 &457551651006670334
 MonoBehaviour:
   m_ObjectHideFlags: 0

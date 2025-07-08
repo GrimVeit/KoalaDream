@@ -5,5 +5,5 @@ using UnityEngine;
 
 public interface IPunchObstacle : IObstacle
 {
-    public event Action OnAddPunch;
+    public event Action<float> OnAddPunch;
 }
