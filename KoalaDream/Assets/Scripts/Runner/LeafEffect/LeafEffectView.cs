@@ -24,9 +24,18 @@ public class LeafEffectView : View
 
         tweenMove?.Kill();
 
+        transformLeaf.DOScale(1, 0.2f);
+
         Debug.Log("PATH: " + leafPaths.IndexOf(path));
 
-        tweenMove = transformLeaf.DOLocalMove(path.End.localPosition, GetRandomDuration());
+        tweenMove = transformLeaf.DOLocalMove(path.End.localPosition, GetRandomDuration()).OnComplete(() => transformLeaf.DOScale(0, 0.2f));
+    }
+
+    public void DeactivateLeaf()
+    {
+        tweenMove?.Kill();
+
+        transformLeaf.DOScale(0, 0.2f);
     }
 
     private float GetRandomDuration()

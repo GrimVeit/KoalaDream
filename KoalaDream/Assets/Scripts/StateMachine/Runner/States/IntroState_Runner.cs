@@ -6,35 +6,44 @@ public class IntroState_Runner : IState
 {
     private readonly IGlobalStateMachineProvider _machineProvider;
 
-    private readonly IPlayerRunnerActivatorEventsProvider _playerRunnerActivatorEventsProvider;
-    private readonly IPlayerRunnerActivatorProvider _playerRunnerActivatorProvider;
+    //private readonly IPlayerRunnerActivatorEventsProvider _playerRunnerActivatorEventsProvider;
+    //private readonly IPlayerRunnerActivatorProvider _playerRunnerActivatorProvider;
 
     private readonly IBackgroundRandomProvider _backgroundRandomProvider;
     private readonly IBackgroundScrollProvider _backgroundScrollProvider;
 
+    private readonly IPlayerRunnerMoveFreezeProvider _playerRunnerMoveFreezeProvider;
+    private readonly IPlayerRunnerMoveAutoProvider _playerRunnerMoveAutoProvider;
+    private readonly IPlayerRunnerMoveAutoEventsProvider _playerRunnerMoveAutoEventsProvider;
 
 
-    public IntroState_Runner(IGlobalStateMachineProvider globalStateMachineProvider, IPlayerRunnerActivatorEventsProvider playerRunnerActivatorEventsProvider, IPlayerRunnerActivatorProvider playerRunnerActivatorProvider, IBackgroundRandomProvider backgroundRandomProvider, IBackgroundScrollProvider backgroundScrollProvider)
+
+    public IntroState_Runner(IGlobalStateMachineProvider globalStateMachineProvider, IBackgroundRandomProvider backgroundRandomProvider, IBackgroundScrollProvider backgroundScrollProvider, IPlayerRunnerMoveFreezeProvider playerRunnerMoveFreezeProvider, IPlayerRunnerMoveAutoProvider playerRunnerMoveAutoProvider, IPlayerRunnerMoveAutoEventsProvider playerRunnerMoveAutoEventsProvider)
     {
         _machineProvider = globalStateMachineProvider;
-        _playerRunnerActivatorEventsProvider = playerRunnerActivatorEventsProvider;
-        _playerRunnerActivatorProvider = playerRunnerActivatorProvider;
         _backgroundRandomProvider = backgroundRandomProvider;
         _backgroundScrollProvider = backgroundScrollProvider;
+        _playerRunnerMoveFreezeProvider = playerRunnerMoveFreezeProvider;
+        _playerRunnerMoveAutoProvider = playerRunnerMoveAutoProvider;
+        _playerRunnerMoveAutoEventsProvider = playerRunnerMoveAutoEventsProvider;
     }
 
     public void EnterState()
     {
-        _playerRunnerActivatorEventsProvider.OnActivate += ChangeStateToMain;
+        _playerRunnerMoveAutoEventsProvider.OnMovePlayerToStartGamePosition += ChangeStateToMain;
+
+        _playerRunnerMoveFreezeProvider.Freeze();
+        _playerRunnerMoveAutoProvider.MoveToStartGamePosition();
 
         _backgroundRandomProvider.Random();
         _backgroundScrollProvider.DeactivateScroll();
-        _playerRunnerActivatorProvider.Activate();
     }
 
     public void ExitState()
     {
-        _playerRunnerActivatorEventsProvider.OnActivate -= ChangeStateToMain;
+        _playerRunnerMoveAutoEventsProvider.OnMovePlayerToStartGamePosition -= ChangeStateToMain;
+
+        _playerRunnerMoveFreezeProvider.Unfreeze();
     }
 
     private void ChangeStateToMain()

@@ -36,6 +36,19 @@ public class PlayerRunnerMoveModel
         OnStopUp?.Invoke();
     }
 
+
+    public void Freeze()
+    {
+        OnFreeze?.Invoke();
+    }
+
+    public void Unfreeze()
+    {
+        OnUnfreeze?.Invoke();
+    }
+
+
+
     public void ApplyForceOffset(float amount, float duration)
     {
         OnApplyForceOffset?.Invoke(amount, duration);
@@ -45,6 +58,9 @@ public class PlayerRunnerMoveModel
 
     public event Action OnStartUp;
     public event Action OnStopUp;
+
+    public event Action OnFreeze;
+    public event Action OnUnfreeze;
 
     public event Action<float, float> OnApplyForceOffset;
 

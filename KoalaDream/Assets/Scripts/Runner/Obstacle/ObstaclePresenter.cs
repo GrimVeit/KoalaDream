@@ -45,9 +45,14 @@ public class ObstaclePresenter : IObstacleEventsProvider
     //    _view.AddObstacle(obstacle);
     //}
 
-    public void StopObstacles()
+    public void PauseObstacles()
     {
-        _view.StopObstacles();
+        _view.PauseObstacles();
+    }
+
+    public void ResumeObstacles()
+    {
+        _view.ResumeObstacles();
     }
 
     public void ClearObstacles()
@@ -71,4 +76,12 @@ public class ObstaclePresenter : IObstacleEventsProvider
 public interface IObstacleEventsProvider
 {
     public event Action<IObstacle> OnDestroyObstacle;
+}
+
+public interface IObstacleProvider
+{
+    public void PauseObstacles();
+    public void ResumeObstacles();
+    public void ClearObstacles();
+
 }

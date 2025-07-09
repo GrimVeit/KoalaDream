@@ -27,7 +27,7 @@ public class ObstacleView : View
         obstacles.Clear();
     }
 
-    public void StopObstacles()
+    public void PauseObstacles()
     {
         obstacles.ForEach(o =>
         {

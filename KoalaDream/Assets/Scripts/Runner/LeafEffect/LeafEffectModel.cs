@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 public class LeafEffectModel
 {
     public event Action OnActivateLeaf;
+    public event Action OnDeactivateLeaf;
 
     private IEnumerator coroutineLeaf;
 
@@ -31,6 +32,8 @@ public class LeafEffectModel
         isActive = false;
 
         if (coroutineLeaf != null) Coroutines.Stop(coroutineLeaf);
+
+        OnDeactivateLeaf?.Invoke();
     }
 
     private IEnumerator CoroutineSpawn()

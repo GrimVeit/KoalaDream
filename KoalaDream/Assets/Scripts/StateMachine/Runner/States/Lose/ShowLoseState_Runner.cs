@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaitShowWinState_Runner : IState
+public class ShowLoseState_Runner : IState
 {
     private readonly IGlobalStateMachineProvider _machineProvider;
 
@@ -13,10 +13,10 @@ public class WaitShowWinState_Runner : IState
     private readonly ILeafEffectProvider _leafEffectProvider;
 
     private readonly IPlayerRunnerMoveFreezeProvider _playerRunnerMoveFreezeProvider;
-    private readonly IPlayerRunnerMoveAutoProvider _playerRunnerMoveAutoProvider;
-    private readonly IPlayerRunnerMoveAutoEventsProvider _playerRunnerMoveAutoEventsProvider;
 
-    public WaitShowWinState_Runner(IGlobalStateMachineProvider machineProvider, UIGameSceneRoot_Runner sceneRoot, IBackgroundScrollProvider backgroundScrollProvider, IObstacleSpawnerProvider obstacleSpawnerProvider, ILeafEffectProvider leafEffectProvider, IPlayerRunnerMoveFreezeProvider playerRunnerMoveFreezeProvider, IPlayerRunnerMoveAutoProvider playerRunnerMoveAutoProvider, IPlayerRunnerMoveAutoEventsProvider playerRunnerMoveAutoEventsProvider)
+    private IEnumerator timer;
+
+    public ShowLoseState_Runner(IGlobalStateMachineProvider machineProvider, UIGameSceneRoot_Runner sceneRoot, IBackgroundScrollProvider backgroundScrollProvider, IObstacleSpawnerProvider obstacleSpawnerProvider, ILeafEffectProvider leafEffectProvider, IPlayerRunnerMoveFreezeProvider playerRunnerMoveFreezeProvider)
     {
         _machineProvider = machineProvider;
         _sceneRoot = sceneRoot;
@@ -24,14 +24,10 @@ public class WaitShowWinState_Runner : IState
         _obstacleSpawnerProvider = obstacleSpawnerProvider;
         _leafEffectProvider = leafEffectProvider;
         _playerRunnerMoveFreezeProvider = playerRunnerMoveFreezeProvider;
-        _playerRunnerMoveAutoProvider = playerRunnerMoveAutoProvider;
-        _playerRunnerMoveAutoEventsProvider = playerRunnerMoveAutoEventsProvider;
     }
 
     public void EnterState()
     {
-        _playerRunnerMoveAutoEventsProvider.OnMovePlayerToEndGamePosition += ChangeStateToShowWin;
-
         _sceneRoot.CloseBalancePanel();
         _sceneRoot.CloseEnergyPanel();
 
@@ -40,16 +36,30 @@ public class WaitShowWinState_Runner : IState
         _leafEffectProvider.DeactivateLeafTimer();
 
         _playerRunnerMoveFreezeProvider.Freeze();
-        _playerRunnerMoveAutoProvider.MoveToEndGamePosition();
+        _sceneRoot.OpenLosePanel();
+
+        if(timer != null) Coroutines.Stop(timer);
+
+        timer = Timer(2.5f);
+        Coroutines.Start(timer);
     }
 
     public void ExitState()
     {
-        _playerRunnerMoveAutoEventsProvider.OnMovePlayerToEndGamePosition -= ChangeStateToShowWin;
+        _sceneRoot.CloseLosePanel();
+
+        if (timer != null) Coroutines.Stop(timer);
     }
 
-    private void ChangeStateToShowWin()
+    private IEnumerator Timer(float time)
     {
-        _machineProvider.SetState(_machineProvider.GetState<ShowWinState_Runner>());
+        yield return new WaitForSeconds(time);
+
+        ChangeStateToLoseExit();
+    }
+
+    private void ChangeStateToLoseExit()
+    {
+        _machineProvider.SetState(_machineProvider.GetState<LoseExitState_Runner>());
     }
 }

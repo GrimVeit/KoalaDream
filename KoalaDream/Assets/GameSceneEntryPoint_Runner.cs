@@ -20,7 +20,10 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
 
     private TouchSystemPresenter touchSystemPresenter;
     private PlayerRunnerMovePresenter playerRunnerMovePresenter;
+    private PlayerRunnerMoveAutoPresenter playerRunnerMoveAutoPresenter;
+    private PlayerRunnerAnimationPresenter playerRunnerAnimationPresenter;
     private PlayerEnergyPresenter playerEnergyPresenter;
+    private PlayerRunnerDeadZonePresenter playerRunnerDeadZonePresenter;
     private ScrollBackgroundPresenter scrollBackgroundPresenter;
 
     private ObstacleSpawnerPresenter obstacleSpawnerPresenter;
@@ -58,7 +61,10 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
 
         touchSystemPresenter = new TouchSystemPresenter(new TouchSystemModel(), viewContainer.GetView<TouchSystemView>());
         playerRunnerMovePresenter = new PlayerRunnerMovePresenter(new PlayerRunnerMoveModel(touchSystemPresenter), viewContainer.GetView<PlayerRunnerMoveView>());
+        playerRunnerMoveAutoPresenter = new PlayerRunnerMoveAutoPresenter(viewContainer.GetView<PlayerRunnerMoveAutoView>());
+        playerRunnerAnimationPresenter = new PlayerRunnerAnimationPresenter(viewContainer.GetView<PlayerRunnerAnimationView>());
         playerEnergyPresenter = new PlayerEnergyPresenter(new PlayerEnergyModel(touchSystemPresenter), viewContainer.GetView<PlayerEnergyView>());
+        playerRunnerDeadZonePresenter = new PlayerRunnerDeadZonePresenter(new PlayerRunnerDeadZoneModel(), viewContainer.GetView<PlayerRunnerDeadZoneView>());
         scrollBackgroundPresenter = new ScrollBackgroundPresenter(new ScrollBackgroundModel(), viewContainer.GetView<ScrollBackgroundView>());
 
         obstacleSpawnerPresenter = new ObstacleSpawnerPresenter(new ObstacleSpawnerModel(spawnPointsData, 2, 5), viewContainer.GetView<ObstacleSpawnerView>());
@@ -71,13 +77,17 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
         leafEffectPresenter = new LeafEffectPresenter(new LeafEffectModel(), viewContainer.GetView<LeafEffectView>());
 
         stateRunnerMachine = new StateRunnerMachine(
-            playerRunnerMovePresenter,
-            playerRunnerMovePresenter,
             sceneRoot,
             backgroundRandomPresenter,
             scrollBackgroundPresenter,
             obstacleSpawnerPresenter,
-            leafEffectPresenter);
+            leafEffectPresenter,
+            playerAddMoneyPresenter,
+            playerRunnerMovePresenter,
+            playerRunnerMoveAutoPresenter,
+            playerRunnerMoveAutoPresenter,
+            playerRunnerDeadZonePresenter,
+            playerRunnerAnimationPresenter);
         
         sceneRoot.SetSoundProvider(soundPresenter);
         sceneRoot.Activate();
@@ -94,7 +104,10 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
         backgroundRandomPresenter.Initialize();
 
         scrollBackgroundPresenter.Initialize();
+        playerRunnerDeadZonePresenter.Initialize();
         playerEnergyPresenter.Initialize();
+        playerRunnerAnimationPresenter.Initialize();
+        playerRunnerMoveAutoPresenter.Initialize();
         playerRunnerMovePresenter.Initialize();
         touchSystemPresenter.Initialize();
 
@@ -148,7 +161,10 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
         backgroundRandomPresenter?.Dispose();
 
         scrollBackgroundPresenter?.Dispose();
+        playerRunnerDeadZonePresenter?.Dispose();
         playerEnergyPresenter?.Dispose();
+        playerRunnerAnimationPresenter?.Dispose();
+        playerRunnerMoveAutoPresenter?.Dispose();
         playerRunnerMovePresenter?.Dispose();
         touchSystemPresenter?.Dispose();
 

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerRunnerMovePresenter : IPlayerRunnerMoveProvider, IPlayerRunnerForceProvider, IPlayerRunnerActivatorEventsProvider, IPlayerRunnerActivatorProvider
+public class PlayerRunnerMovePresenter : IPlayerRunnerMoveProvider, IPlayerRunnerForceProvider, IPlayerRunnerMoveFreezeProvider
 {
     private readonly PlayerRunnerMoveModel _model;
     private readonly PlayerRunnerMoveView _view;
@@ -33,6 +33,9 @@ public class PlayerRunnerMovePresenter : IPlayerRunnerMoveProvider, IPlayerRunne
         _model.OnStartUp += _view.StartUp;
         _model.OnStopUp += _view.StopUp;
 
+        _model.OnFreeze += _view.Freeze;
+        _model.OnUnfreeze += _view.Unfreeze;
+
         _model.OnApplyForceOffset += _view.ApplyOffset;
     }
 
@@ -41,18 +44,11 @@ public class PlayerRunnerMovePresenter : IPlayerRunnerMoveProvider, IPlayerRunne
         _model.OnStartUp -= _view.StartUp;
         _model.OnStopUp -= _view.StopUp;
 
+        _model.OnFreeze -= _view.Freeze;
+        _model.OnUnfreeze -= _view.Unfreeze;
+
         _model.OnApplyForceOffset -= _view.ApplyOffset;
     }
-
-    #region Output
-
-    public event Action OnActivate
-    {
-        add => _view.OnActivateToStart += value;
-        remove => _view.OnActivateToStart -= value;
-    }
-
-    #endregion
 
     #region Input
 
@@ -66,9 +62,14 @@ public class PlayerRunnerMovePresenter : IPlayerRunnerMoveProvider, IPlayerRunne
         _model.StopUp();
     }
 
-    public void Activate()
+    public void Freeze()
     {
-        _view.MoveToStart();
+        _model.Freeze();
+    }
+
+    public void Unfreeze()
+    {
+        _model.Unfreeze();
     }
 
     public void ApplyForceOffset(float amount, float duration)
@@ -85,14 +86,10 @@ public interface IPlayerRunnerMoveProvider
     void StopUp();
 }
 
-public interface IPlayerRunnerActivatorProvider
+public interface IPlayerRunnerMoveFreezeProvider
 {
-    void Activate();
-}
-
-public interface IPlayerRunnerActivatorEventsProvider
-{
-    public event Action OnActivate;
+    void Freeze();
+    void Unfreeze();
 }
 
 public interface IPlayerRunnerForceProvider

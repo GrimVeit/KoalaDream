@@ -26,11 +26,13 @@ public class LeafEffectPresenter : ILeafEffectProvider
     private void ActivateEvents()
     {
         _model.OnActivateLeaf += _view.ActivateLeaf;
+        _model.OnDeactivateLeaf += _view.DeactivateLeaf;
     }
 
     private void DeactivateEvents()
     {
         _model.OnActivateLeaf -= _view.ActivateLeaf;
+        _model.OnDeactivateLeaf -= _view.DeactivateLeaf;
     }
 
     #region Input

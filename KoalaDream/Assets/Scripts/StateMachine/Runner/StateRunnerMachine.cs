@@ -10,9 +10,6 @@ public class StateRunnerMachine : IGlobalStateMachineProvider
     private IState _currentState;
 
     public StateRunnerMachine(
-        IPlayerRunnerActivatorEventsProvider playerRunnerActivatorEventsProvider,
-        IPlayerRunnerActivatorProvider playerRunnerActivatorProvider,
-
         UIGameSceneRoot_Runner sceneRoot,
         
         IBackgroundRandomProvider backgroundRandomProvider,
@@ -21,12 +18,22 @@ public class StateRunnerMachine : IGlobalStateMachineProvider
         IObstacleSpawnerProvider obstacleSpawnerProvider,
         
         ILeafEffectProvider leafEffectProvider,
-        IPlayerAddMoneyEventsProvider playerAddMoneyEventsProvider)
+        IPlayerAddMoneyEventsProvider playerAddMoneyEventsProvider,
+        IPlayerRunnerMoveFreezeProvider playerRunnerMoveFreezeProvider,
+        IPlayerRunnerMoveAutoEventsProvider playerRunnerMoveAutoEventsProvider,
+        IPlayerRunnerMoveAutoProvider playerRunnerMoveAutoProvider,
+        IPlayerRunnerDeadZoneEventsProvider playerRunnerDeadZoneEventsProvider,
+        IPlayerRunnerAnimationProvider playerRunnerAnimationProvider)
     {
-        states[typeof(IntroState_Runner)] = new IntroState_Runner(this, playerRunnerActivatorEventsProvider, playerRunnerActivatorProvider, backgroundRandomProvider, backgroundScrollProvider);
-        states[typeof(MainState_Runner)] = new MainState_Runner(this, sceneRoot, backgroundScrollProvider, obstacleSpawnerProvider, leafEffectProvider, playerAddMoneyEventsProvider);
+        states[typeof(IntroState_Runner)] = new IntroState_Runner(this, backgroundRandomProvider, backgroundScrollProvider, playerRunnerMoveFreezeProvider, playerRunnerMoveAutoProvider, playerRunnerMoveAutoEventsProvider);
+        states[typeof(MainState_Runner)] = new MainState_Runner(this, sceneRoot, backgroundScrollProvider, obstacleSpawnerProvider, leafEffectProvider, playerAddMoneyEventsProvider, playerRunnerDeadZoneEventsProvider);
 
-        states[typeof(WaitShowWinState_Runner)] = new WaitShowWinState_Runner(this, sceneRoot, backgroundScrollProvider, obstacleSpawnerProvider);
+        states[typeof(WaitShowWinState_Runner)] = new WaitShowWinState_Runner(this, sceneRoot, backgroundScrollProvider, obstacleSpawnerProvider, leafEffectProvider, playerRunnerMoveFreezeProvider, playerRunnerMoveAutoProvider, playerRunnerMoveAutoEventsProvider);
+        states[typeof(ShowWinState_Runner)] = new ShowWinState_Runner(this, sceneRoot);
+        states[typeof(WinExitState_Runner)] = new WinExitState_Runner(this, playerRunnerMoveAutoProvider);
+
+        states[typeof(ShowLoseState_Runner)] = new ShowLoseState_Runner(this, sceneRoot, backgroundScrollProvider, obstacleSpawnerProvider, leafEffectProvider, playerRunnerMoveFreezeProvider);
+        states[typeof(LoseExitState_Runner)] = new LoseExitState_Runner(this, playerRunnerMoveAutoProvider, playerRunnerAnimationProvider);
     }
 
     public void Initialize()

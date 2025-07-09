@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,5 +47,9 @@ public class AnimationFrame : MonoBehaviour, IIdentify
             currentCycle += 1;
             //Debug.Log(currentCycle);
         }
+
+        OnFinish?.Invoke();
     }
+
+    public event Action OnFinish;
 }

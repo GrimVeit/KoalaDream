@@ -19,7 +19,8 @@ public class PlayerRunnerMoveView : View
     [SerializeField] private float tiltSmoothTime = 0.1f;
 
     [SerializeField] private Transform transformStart;
-    [SerializeField] private Transform transformEnd;
+    [SerializeField] private Transform transformStartGame;
+    [SerializeField] private Transform transformEndGame;
 
     private float currentSpeed = 0f;
     private float targetSpeed = 0;
@@ -52,30 +53,41 @@ public class PlayerRunnerMoveView : View
         isHolding = false;
     }
 
-    private void Freeze()
+    public void Freeze()
     {
         isPaused = true;
     }
 
-    private void Unfreeze()
+    public void Unfreeze()
     {
         isPaused = false;
     }
 
-    public void MoveToStart()
-    {
-        Freeze();
+    //public void MoveToStart()
+    //{
+    //    Freeze();
 
-        rectTransform.localPosition = transformStart.localPosition;
-        rectTransform.localEulerAngles = new Vector3(0, 0, -20);
+    //    rectTransform.localPosition = transformStart.localPosition;
+    //    rectTransform.localEulerAngles = new Vector3(0, 0, -20);
 
-        rectTransform.DOLocalRotate(new Vector3(0, 0, -10), 3);
-        rectTransform.DOLocalMove(transformEnd.localPosition, 3f).SetEase(Ease.Linear).OnComplete(() =>
-        {
-            OnActivateToStart?.Invoke();
-            Unfreeze();
-        });
-    }
+    //    rectTransform.DOLocalRotate(new Vector3(0, 0, -10), 3);
+    //    rectTransform.DOLocalMove(transformStartGame.localPosition, 3f).SetEase(Ease.Linear).OnComplete(() =>
+    //    {
+    //        OnActivateToStart?.Invoke();
+    //        Unfreeze();
+    //    });
+    //}
+
+    //public void StopDistance()
+    //{
+    //    Freeze();
+
+    //    rectTransform.DOLocalMove(new Vector3(), 3f).SetEase(Ease.Linear).OnComplete(() =>
+    //    {
+    //        OnActivateToStart?.Invoke();
+    //        Unfreeze();
+    //    });
+    //}
 
     private void FixedUpdate()
     {
