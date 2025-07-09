@@ -6,7 +6,7 @@ public class MainState_Runner : IState
 {
     private readonly IGlobalStateMachineProvider _machineProvider;
 
-    private readonly UIGameSceneRoot_Runner _gameSceneRootRunner;
+    private readonly UIGameSceneRoot_Runner _sceneRoot;
 
     private readonly IBackgroundScrollProvider _backgroundScrollProvider;
     private readonly IObstacleSpawnerProvider _obstacleSpawnerProvider;
@@ -18,7 +18,7 @@ public class MainState_Runner : IState
     public MainState_Runner(IGlobalStateMachineProvider machineProvider, UIGameSceneRoot_Runner gameSceneRootRunner, IBackgroundScrollProvider backgroundScrollProvider, IObstacleSpawnerProvider obstacleSpawnerProvider, ILeafEffectProvider leafEffectProvider, IPlayerAddMoneyEventsProvider playerAddMoneyEventsProvider, IPlayerRunnerDeadZoneEventsProvider playerRunnerDeadZoneEventsProvider)
     {
         _machineProvider = machineProvider;
-        _gameSceneRootRunner = gameSceneRootRunner;
+        _sceneRoot = gameSceneRootRunner;
         _backgroundScrollProvider = backgroundScrollProvider;
         _obstacleSpawnerProvider = obstacleSpawnerProvider;
         _leafEffectProvider = leafEffectProvider;
@@ -30,9 +30,10 @@ public class MainState_Runner : IState
     {
         _playerAddMoneyEventsProvider.OnWin += ChangeStateToWin;
         _playerRunnerDeadZoneEventsProvider.OnActivateDeadZone += ChangeStateToLose;
+        _sceneRoot.OnClickToExit_Balance += ChangeStateToCancel;
 
-        _gameSceneRootRunner.OpenBalancePanel();
-        _gameSceneRootRunner.OpenEnergyPanel();
+        _sceneRoot.OpenBalancePanel();
+        _sceneRoot.OpenEnergyPanel();
 
         _backgroundScrollProvider.ActivateScroll();
         _obstacleSpawnerProvider.ActivateSpawner();
@@ -43,6 +44,7 @@ public class MainState_Runner : IState
     {
         _playerAddMoneyEventsProvider.OnWin -= ChangeStateToWin;
         _playerRunnerDeadZoneEventsProvider.OnActivateDeadZone -= ChangeStateToLose;
+        _sceneRoot.OnClickToExit_Balance -= ChangeStateToCancel;
     }
 
     private void ChangeStateToWin()
@@ -53,5 +55,10 @@ public class MainState_Runner : IState
     private void ChangeStateToLose()
     {
         _machineProvider.SetState(_machineProvider.GetState<ShowLoseState_Runner>());
+    }
+
+    private void ChangeStateToCancel()
+    {
+        _machineProvider.SetState(_machineProvider.GetState<ShowCancelState_Runner>());
     }
 }

@@ -12,19 +12,19 @@ public class BalancePanel_Runner : MoveRotatePanel
     {
         base.Initialize();
 
-        buttonExit.onClick.AddListener(() => OnClickToExit?.Invoke());
+        buttonExit.onClick.AddListener(() => OnClickToCancel?.Invoke());
     }
 
     public override void Dispose()
     {
         base.Dispose();
 
-        buttonExit.onClick.RemoveListener(() => OnClickToExit?.Invoke());
+        buttonExit.onClick.RemoveListener(() => OnClickToCancel?.Invoke());
     }
 
     #region Output
 
-    public event Action OnClickToExit;
+    public event Action OnClickToCancel;
 
     #endregion
 }

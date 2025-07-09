@@ -41,23 +41,22 @@ public class UIGameSceneRoot_Runner : UIRoot
 
     public void Activate()
     {
-        balancePanel.OnClickToExit += ClickToExit_Balance;
+        balancePanel.OnClickToCancel += ClickToCancel_Balance;
     }
 
     public void Deactivate()
     {
-        balancePanel.OnClickToExit -= ClickToExit_Balance;
+        balancePanel.OnClickToCancel -= ClickToCancel_Balance;
 
         if (currentPanel != null)
             CloseOtherPanel(currentPanel);
     }
 
-
     #region Output
 
     public event Action OnClickToExit_Balance;
 
-    private void ClickToExit_Balance()
+    private void ClickToCancel_Balance()
     {
         OnClickToExit_Balance?.Invoke();
     }
@@ -103,6 +102,8 @@ public class UIGameSceneRoot_Runner : UIRoot
     }
 
 
+
+
     public void OpenLosePanel()
     {
         OpenOtherPanel(losePanel);
@@ -114,12 +115,14 @@ public class UIGameSceneRoot_Runner : UIRoot
     }
 
 
-    public void OpenExitPanel()
+
+
+    public void OpenCancelPanel()
     {
         OpenOtherPanel(exitPanel);
     }
 
-    public void CloseExitPanel()
+    public void CloseCancelPanel()
     {
         CloseOtherPanel(exitPanel);
     }

@@ -46,6 +46,9 @@ public class WinPanel_Runner : MovePanel
             x => _material.SetFloat(ShaderUtilities.ID_FaceDilate, x), 
             0, 
             durationTextReveal
-            ).SetEase(Ease.InQuad);
+            ).SetEase(Ease.InQuad).OnComplete(() =>
+            {
+                _material.SetFloat(ShaderUtilities.ID_FaceDilate, 0);
+            });
     }
 }

@@ -33,15 +33,17 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
     private PlayerAddEnergyPresenter playerAddEnergyPresenter;
     private PlayerAddMoneyPresenter playerAddMoneyPresenter;
 
+    private RunnerExitPresenter runnerExitPresenter;
+
     private LeafEffectPresenter leafEffectPresenter;
 
     private StateRunnerMachine stateRunnerMachine;
 
 
-    private void Awake()
-    {
-        Run(null);
-    }
+    //private void Awake()
+    //{
+    //    Run(null);
+    //}
 
     public void Run(UIRootView uIRootView)
     {
@@ -74,6 +76,8 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
         playerAddEnergyPresenter = new PlayerAddEnergyPresenter(new PlayerAddEnergyModel(obstacleSpawnerPresenter, playerEnergyPresenter));
         playerAddMoneyPresenter = new PlayerAddMoneyPresenter(new PlayerAddMoneyModel(obstacleSpawnerPresenter, bankPresenter));
 
+        runnerExitPresenter = new RunnerExitPresenter(new RunnerExitModel());
+
         leafEffectPresenter = new LeafEffectPresenter(new LeafEffectModel(), viewContainer.GetView<LeafEffectView>());
 
         stateRunnerMachine = new StateRunnerMachine(
@@ -87,7 +91,8 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
             playerRunnerMoveAutoPresenter,
             playerRunnerMoveAutoPresenter,
             playerRunnerDeadZonePresenter,
-            playerRunnerAnimationPresenter);
+            playerRunnerAnimationPresenter,
+            runnerExitPresenter);
         
         sceneRoot.SetSoundProvider(soundPresenter);
         sceneRoot.Activate();
@@ -120,6 +125,8 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
 
         leafEffectPresenter.Initialize();
 
+        runnerExitPresenter.Initialize();
+
         stateRunnerMachine.Initialize();
 
 
@@ -140,12 +147,12 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
 
     private void ActivateTransitionsSceneEvents()
     {
-        sceneRoot.OnClickToExit_Balance += HandleGoToMenu;
+        runnerExitPresenter.OnExit += HandleGoToMenu;
     }
 
     private void DeactivateTransitionsSceneEvents()
     {
-        sceneRoot.OnClickToExit_Balance -= HandleGoToMenu;
+        runnerExitPresenter.OnExit -= HandleGoToMenu;
     }
 
     public void Dispose()
@@ -174,6 +181,8 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
 
         obstaclePresenter?.Dispose();
         obstacleSpawnerPresenter?.Dispose();
+
+        runnerExitPresenter?.Dispose();
 
         leafEffectPresenter?.Dispose();
 
