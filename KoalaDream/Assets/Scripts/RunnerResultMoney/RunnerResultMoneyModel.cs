@@ -27,7 +27,7 @@ public class RunnerResultMoneyModel
 
     public void AddMoney(int count)
     {
-        _currentMoney = count;
+        _currentMoney += count;
         OnChangeCountMoney?.Invoke(_currentMoney);
     }
 

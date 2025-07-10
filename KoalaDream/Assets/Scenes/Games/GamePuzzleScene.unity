@@ -484,17 +484,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 172927583}
-  m_LocalRotation: {x: 0, y: 0, z: -0.480147, w: 0.8771881}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 130426283}
   m_Father: {fileID: 767340471}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -57.39}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 300, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &172927586
@@ -530,11 +530,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 172927583}
-  from: {x: 0, y: 0, z: 0}
+  from: {x: 300, y: 0, z: 0}
   to: {x: 0, y: 0, z: 0}
   time: 0.2
   canvasGroup: {fileID: 172927587}
-  rotateFrom: {x: 0, y: 0, z: -60}
+  rotateFrom: {x: 0, y: 0, z: 0}
   rotateTo: {x: 0, y: 0, z: 0}
 --- !u!1 &213703059
 GameObject:

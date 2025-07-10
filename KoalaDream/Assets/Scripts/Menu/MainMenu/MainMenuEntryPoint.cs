@@ -42,6 +42,9 @@ public class MainMenuEntryPoint : MonoBehaviour
     private RunnerGameResultPresenter runnerGameResultPresenter;
     private RunnerGameResultVisualPresenter runnerGameResultVisualPresenter;
 
+    private RunnerResultMoneyPresenter runnerResultMoneyPresenter;
+    private RunnerResultMoneyVisualPresenter runnerResultMoneyVisualPresenter;
+
     private RoomNamePresenter roomNamePresenter;
 
     private StateMenuMachine stateMenuMachine;
@@ -89,6 +92,9 @@ public class MainMenuEntryPoint : MonoBehaviour
 
         runnerGameResultPresenter = new RunnerGameResultPresenter(new RunnerGameResultModel(PlayerPrefsKeys.RUNNER_RESULT));
         runnerGameResultVisualPresenter = new RunnerGameResultVisualPresenter(new RunnerGameResultVisualModel(runnerGameResultPresenter), viewContainer.GetView<RunnerGameResultVisualView>());
+
+        runnerResultMoneyPresenter = new RunnerResultMoneyPresenter(new RunnerResultMoneyModel(PlayerPrefsKeys.RUNNER_RESULT_MONEY));
+        runnerResultMoneyVisualPresenter = new RunnerResultMoneyVisualPresenter(new RunnerResultMoneyVisualModel(runnerResultMoneyPresenter), viewContainer.GetView<RunnerResultMoneyVisualView>());
 
         stateMenuMachine = new StateMenuMachine(
             autoMovePresenter, 
@@ -142,6 +148,9 @@ public class MainMenuEntryPoint : MonoBehaviour
 
         runnerGameResultVisualPresenter.Initialize();
         runnerGameResultPresenter.Initialize();
+
+        runnerResultMoneyVisualPresenter.Initialize();
+        runnerResultMoneyPresenter.Initialize();
 
         stateMenuMachine.Initialize();
     }
@@ -209,8 +218,11 @@ public class MainMenuEntryPoint : MonoBehaviour
         picturePreviewPresenter?.Dispose();
         picturesOpenVisualPresenter?.Dispose();
         picturesShowVisualPresenter?.Dispose();
-        picturesVisualPresenter.Dispose();
-        storePicturesPresenter.Dispose();
+        picturesVisualPresenter?.Dispose();
+        storePicturesPresenter?.Dispose();
+
+        runnerResultMoneyVisualPresenter?.Dispose();
+        runnerResultMoneyPresenter?.Dispose();
 
         runnerGameResultVisualPresenter?.Dispose();
         runnerGameResultPresenter?.Dispose();

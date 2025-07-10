@@ -19,7 +19,7 @@ public class BankModel
 
     public void Destroy()
     {
-        PlayerPrefs.SetFloat(BANK_MONEY, _money);
+        PlayerPrefs.SetInt(BANK_MONEY, _money);
     }
 
     public void SendMoney(int money)

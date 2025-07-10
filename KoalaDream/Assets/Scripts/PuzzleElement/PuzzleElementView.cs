@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class PuzzleElementView : View
 {
@@ -25,8 +27,21 @@ public class PuzzleElementView : View
     {
         allItems = new(puzzles.puzzleElements);
 
+        Shuffle(allItems);
+
         UpdateDisplay();
         UpdateButtons();
+    }
+
+    private void Shuffle<T>(List<T> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            int randomIndex = Random.Range(i, list.Count);
+            T temp = list[i];
+            list[i] = list[randomIndex];
+            list[randomIndex] = temp;
+        }
     }
 
     public void Initialize()
