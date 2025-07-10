@@ -9,15 +9,19 @@ public class CancelExitState_Runner : IState
     private readonly IPlayerRunnerMoveAutoProvider _playerRunnerMoveAutoProvider;
     private readonly IPlayerRunnerAnimationProvider _playerRunnerAnimationProvider;
     private readonly IRunnerExitProvider _runnerExitProvider;
+    private readonly IRunnerGameResultProvider _gameResultProvider;
+    private readonly IRunnerResultMoneyInfoProvider _moneyInfoProvider;
 
     private IEnumerator timer;
 
-    public CancelExitState_Runner(IGlobalStateMachineProvider machineProvider, IPlayerRunnerMoveAutoProvider playerRunnerMoveAutoProvider, IPlayerRunnerAnimationProvider playerRunnerAnimationProvider, IRunnerExitProvider runnerExitProvider)
+    public CancelExitState_Runner(IGlobalStateMachineProvider machineProvider, IPlayerRunnerMoveAutoProvider playerRunnerMoveAutoProvider, IPlayerRunnerAnimationProvider playerRunnerAnimationProvider, IRunnerExitProvider runnerExitProvider, IRunnerGameResultProvider gameResultProvider, IRunnerResultMoneyInfoProvider moneyInfoProvider)
     {
         _machineProvider = machineProvider;
         _playerRunnerMoveAutoProvider = playerRunnerMoveAutoProvider;
         _playerRunnerAnimationProvider = playerRunnerAnimationProvider;
         _runnerExitProvider = runnerExitProvider;
+        _gameResultProvider = gameResultProvider;
+        _moneyInfoProvider = moneyInfoProvider;
     }
 
     public void EnterState()
@@ -29,6 +33,15 @@ public class CancelExitState_Runner : IState
 
         _playerRunnerMoveAutoProvider.MoveToLoseExitPosition();
         _playerRunnerAnimationProvider.AnimationDown();
+
+        if(_moneyInfoProvider.GetMoney() > 0)
+        {
+            _gameResultProvider.SetResult(RunnerResult.CancelWithMoney);
+        }
+        else
+        {
+            _gameResultProvider.SetResult(RunnerResult.CancelNoMoney);
+        }
     }
 
     public void ExitState()

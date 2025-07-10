@@ -8,14 +8,16 @@ public class WinExitState_Runner : IState
 
     private readonly IPlayerRunnerMoveAutoProvider _playerRunnerMoveAutoProvider;
     private readonly IRunnerExitProvider _runnerExitProvider;
+    private readonly IRunnerGameResultProvider _gameResultProvider;
 
     private IEnumerator timer;
 
-    public WinExitState_Runner(IGlobalStateMachineProvider machineProvider, IPlayerRunnerMoveAutoProvider playerRunnerMoveAutoProvider, IRunnerExitProvider runnerExitProvider)
+    public WinExitState_Runner(IGlobalStateMachineProvider machineProvider, IPlayerRunnerMoveAutoProvider playerRunnerMoveAutoProvider, IRunnerExitProvider runnerExitProvider, IRunnerGameResultProvider gameResultProvider)
     {
         _machineProvider = machineProvider;
         _playerRunnerMoveAutoProvider = playerRunnerMoveAutoProvider;
         _runnerExitProvider = runnerExitProvider;
+        _gameResultProvider = gameResultProvider;
     }
 
     public void EnterState()
@@ -26,6 +28,8 @@ public class WinExitState_Runner : IState
         Coroutines.Start(timer);
 
         _playerRunnerMoveAutoProvider.MoveToWinExitPosition();
+
+        _gameResultProvider.SetResult(RunnerResult.Win);
     }
 
     public void ExitState()

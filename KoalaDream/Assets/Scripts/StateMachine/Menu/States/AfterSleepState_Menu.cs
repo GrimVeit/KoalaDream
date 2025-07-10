@@ -27,7 +27,7 @@ public class AfterSleepState_Menu : IState
     {
         Debug.Log($"<color=red>AFTER SLEEP 1</color>");
 
-        _sleepAnimationEventsProvider.OnEndDeactivate += ChangeStateToManual;
+        _sleepAnimationEventsProvider.OnEndDeactivate += ChangeStateToCheckRunnerResult;
 
         _playerVisibleProvider.Hide();
         _moveProvider.Teleport(1);
@@ -37,13 +37,15 @@ public class AfterSleepState_Menu : IState
 
     public void ExitState()
     {
-        _sleepAnimationEventsProvider.OnEndDeactivate -= ChangeStateToManual;
+        _sleepAnimationEventsProvider.OnEndDeactivate -= ChangeStateToCheckRunnerResult;
     }
 
-    private void ChangeStateToManual()
+    private void ChangeStateToCheckRunnerResult()
     {
         _playerVisibleProvider.Show();
 
-        _globalStateMachineProvider.SetState(_globalStateMachineProvider.GetState<FromAutoToManualState_Menu>());
+        //_globalStateMachineProvider.SetState(_globalStateMachineProvider.GetState<FromAutoToManualState_Menu>());
+
+        _globalStateMachineProvider.SetState(_globalStateMachineProvider.GetState<CheckRunnerResultState_Menu>());
     }
 }

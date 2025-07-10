@@ -9,16 +9,18 @@ public class PlayerAddMoneyModel
 
     private readonly IObstacleSpawnerEventsProvider _obstacleSpawnerEventsProvider;
     private readonly IMoneyProvider _moneyProvider;
+    private readonly IRunnerResultMoneyProvider _runnerResultMoneyProvider;
 
     private const int _winMoney = 5;
     private int _currentMoney;
 
-    public PlayerAddMoneyModel(IObstacleSpawnerEventsProvider obstacleSpawnerEventsProvider, IMoneyProvider moneyProvider)
+    public PlayerAddMoneyModel(IObstacleSpawnerEventsProvider obstacleSpawnerEventsProvider, IMoneyProvider moneyProvider, IRunnerResultMoneyProvider runnerResultMoneyProvider)
     {
         _obstacleSpawnerEventsProvider = obstacleSpawnerEventsProvider;
 
         _obstacleSpawnerEventsProvider.OnSpawnObstacle += AddObstacle;
         _moneyProvider = moneyProvider;
+        _runnerResultMoneyProvider = runnerResultMoneyProvider;
     }
 
     public void Initialize()
@@ -45,6 +47,7 @@ public class PlayerAddMoneyModel
     {
         _currentMoney += 1;
         _moneyProvider.SendMoney(1);
+        _runnerResultMoneyProvider.AddMoney(1);
         if(_currentMoney >= _winMoney)
         {
             OnWin?.Invoke();

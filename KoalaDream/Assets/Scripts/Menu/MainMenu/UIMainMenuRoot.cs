@@ -6,6 +6,8 @@ public class UIMainMenuRoot : UIRoot
     [SerializeField] private ShowPicturePanel_Menu showPicturePanel;
     [SerializeField] private OpenPicturePanel_Menu openPicturePanel;
 
+    [SerializeField] private RunnerResultPanel_Menu runnerResultPanel;
+
     private ISoundProvider _soundProvider;
 
     public void SetSoundProvider(ISoundProvider soundProvider)
@@ -17,13 +19,17 @@ public class UIMainMenuRoot : UIRoot
     {
         showPicturePanel.Initialize();
         openPicturePanel.Initialize();
+        runnerResultPanel.Initialize();
     }
 
     public void Activate()
     {
         showPicturePanel.OnClickToExit += ClickToExit_ShowPicture;
-
         openPicturePanel.OnClickToExit += ClickToExit_OpenPicture;
+
+        runnerResultPanel.OnClickToExit += ClickToExit_RunnerResult;
+        runnerResultPanel.OnClickToRestart += ClickToRestart_RunnerResult;
+        runnerResultPanel.OnClickToGallery += ClickToGallery_RunnerResult;
     }
 
 
@@ -33,14 +39,18 @@ public class UIMainMenuRoot : UIRoot
             CloseOtherPanel(currentPanel);
 
         showPicturePanel.OnClickToExit -= ClickToExit_ShowPicture;
-
         openPicturePanel.OnClickToExit -= ClickToExit_OpenPicture;
+
+        runnerResultPanel.OnClickToExit -= ClickToExit_RunnerResult;
+        runnerResultPanel.OnClickToRestart -= ClickToRestart_RunnerResult;
+        runnerResultPanel.OnClickToGallery -= ClickToGallery_RunnerResult;
     }
 
     public void Dispose()
     {
         showPicturePanel.Dispose();
         openPicturePanel.Dispose();
+        runnerResultPanel.Dispose();
     }
 
 
@@ -66,6 +76,28 @@ public class UIMainMenuRoot : UIRoot
         OnClickToExit_OpenPicture?.Invoke();
     }
 
+
+
+
+
+    public event Action OnClickToExit_RunnerResult;
+    public event Action OnClickToRestart_RunnerResult;
+    public event Action OnClickToGallery_RunnerResult;
+
+    private void ClickToExit_RunnerResult()
+    {
+        OnClickToExit_RunnerResult?.Invoke();
+    }
+
+    private void ClickToRestart_RunnerResult()
+    {
+        OnClickToRestart_RunnerResult?.Invoke();
+    }
+
+    private void ClickToGallery_RunnerResult()
+    {
+        OnClickToGallery_RunnerResult?.Invoke();
+    }
 
     #endregion
 
@@ -94,6 +126,19 @@ public class UIMainMenuRoot : UIRoot
     public void ClosePicturePanel()
     {
         CloseOtherPanel(openPicturePanel);
+    }
+
+
+
+
+    public void OpenRunnerResultPanel()
+    {
+        OpenOtherPanel(runnerResultPanel);
+    }
+
+    public void CloseRunnerResultPanel()
+    {
+        CloseOtherPanel(runnerResultPanel);
     }
 
     #endregion

@@ -44,6 +44,9 @@ public class StateMenuMachine : IGlobalStateMachineProvider
         states[typeof(FromManualToStartWalkToBedState_Menu)] = new FromManualToStartWalkToBedState_Menu(this, gameMarkerNavigationPresenter, playerMarkerNavigationPresenter, moveMarkerProvider);
         states[typeof(WalkToStartBedState_Menu)] = new WalkToStartBedState_Menu(this, autoMovePresenter, playerMoveProvider);
         states[typeof(StartSleepState_Menu)] = new StartSleepState_Menu(this, playerVisibleProvider, playerSleepAnimationProvider);
+
+        states[typeof(CheckRunnerResultState_Menu)] = new CheckRunnerResultState_Menu(this, sceneRoot);
+        states[typeof(WalkToPictureState_Menu)] = new WalkToPictureState_Menu(this, autoMovePresenter);
     }
 
     public void Initialize()

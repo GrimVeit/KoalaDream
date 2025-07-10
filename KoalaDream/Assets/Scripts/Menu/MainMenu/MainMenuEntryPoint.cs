@@ -39,6 +39,9 @@ public class MainMenuEntryPoint : MonoBehaviour
     private PicturePuzzleAccessPresenter picturePuzzleAccessPresenter;
     private BedGameAccessPresenter bedGameAccessPresenter;
 
+    private RunnerGameResultPresenter runnerGameResultPresenter;
+    private RunnerGameResultVisualPresenter runnerGameResultVisualPresenter;
+
     private RoomNamePresenter roomNamePresenter;
 
     private StateMenuMachine stateMenuMachine;
@@ -83,6 +86,9 @@ public class MainMenuEntryPoint : MonoBehaviour
 
         picturePuzzleAccessPresenter = new PicturePuzzleAccessPresenter(new PicturePuzzleAccessModel(bankPresenter, storePicturesPresenter), viewContainer.GetView<PicturePuzzleAccessView>());
         bedGameAccessPresenter = new BedGameAccessPresenter(new BedGameAccessModel(), viewContainer.GetView<BedGameAccessView>());
+
+        runnerGameResultPresenter = new RunnerGameResultPresenter(new RunnerGameResultModel(PlayerPrefsKeys.RUNNER_RESULT));
+        runnerGameResultVisualPresenter = new RunnerGameResultVisualPresenter(new RunnerGameResultVisualModel(runnerGameResultPresenter), viewContainer.GetView<RunnerGameResultVisualView>());
 
         stateMenuMachine = new StateMenuMachine(
             autoMovePresenter, 
@@ -133,6 +139,9 @@ public class MainMenuEntryPoint : MonoBehaviour
         picturesShowVisualPresenter.Initialize();
         picturesVisualPresenter.Initialize();
         storePicturesPresenter.Initialize();
+
+        runnerGameResultVisualPresenter.Initialize();
+        runnerGameResultPresenter.Initialize();
 
         stateMenuMachine.Initialize();
     }
@@ -202,6 +211,9 @@ public class MainMenuEntryPoint : MonoBehaviour
         picturesShowVisualPresenter?.Dispose();
         picturesVisualPresenter.Dispose();
         storePicturesPresenter.Dispose();
+
+        runnerGameResultVisualPresenter?.Dispose();
+        runnerGameResultPresenter?.Dispose();
     }
 
     private void OnDestroy()
