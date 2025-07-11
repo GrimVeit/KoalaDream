@@ -30,7 +30,7 @@ public class PicturePuzzleAccessModel
 
     public void ActivatePuzzle()
     {
-        //_moneyProvider.SendMoney(-_currentPicture.Price);
+        _moneyProvider.SendMoney(-_currentPicture.Price);
 
         OnActivatePuzzle?.Invoke();
     }
