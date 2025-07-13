@@ -4046,15 +4046,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnChance:
     obstacleSpawns:
-    - chanceDrop: 17
+    - chanceDrop: 0
       obstaclePrefab: {fileID: 8850199130382380716, guid: 882a4c194d1dcc9458d3251a0cb93617, type: 3}
-    - chanceDrop: 17
+    - chanceDrop: 0
       obstaclePrefab: {fileID: 2854624426753601946, guid: 60ff4a2a37c0f9d47b14300951a47768, type: 3}
-    - chanceDrop: 5
+    - chanceDrop: 100
       obstaclePrefab: {fileID: 5342096888797842410, guid: 5028b2ca4db1ce74db7a87139fe61aec, type: 3}
-    - chanceDrop: 18
+    - chanceDrop: 0
       obstaclePrefab: {fileID: 3700521626733643511, guid: 972a1b57e7c60d0468f0747481c43094, type: 3}
-    - chanceDrop: 16
+    - chanceDrop: 0
       obstaclePrefab: {fileID: 2440247653717861979, guid: 9d6cd66e1994aab49aeab9c450c01b8e, type: 3}
   transformParent: {fileID: 1969028048}
   spawnPoints:

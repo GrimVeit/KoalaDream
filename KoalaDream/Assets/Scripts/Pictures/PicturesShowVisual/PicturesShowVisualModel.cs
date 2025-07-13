@@ -7,9 +7,12 @@ public class PicturesShowVisualModel
 {
     private readonly IStorePicturesSelectEventsProvider _storePicturesSelectEventsProvider;
 
-    public PicturesShowVisualModel(IStorePicturesSelectEventsProvider storePicturesSelectEventsProvider)
+    private readonly ISoundProvider _soundProvider;
+
+    public PicturesShowVisualModel(IStorePicturesSelectEventsProvider storePicturesSelectEventsProvider, ISoundProvider soundProvider)
     {
         _storePicturesSelectEventsProvider = storePicturesSelectEventsProvider;
+        _soundProvider = soundProvider;
 
         _storePicturesSelectEventsProvider.OnSelectOpenPicture_Value += ShowPicture;
     }
@@ -26,6 +29,8 @@ public class PicturesShowVisualModel
 
     private void ShowPicture(Picture picture)
     {
+        _soundProvider.PlayOneShot("Click_OpenPicture");
+
         OnShowPicture?.Invoke(picture);
     }
 

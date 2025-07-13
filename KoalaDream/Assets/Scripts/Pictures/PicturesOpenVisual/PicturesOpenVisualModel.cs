@@ -7,9 +7,12 @@ public class PicturesOpenVisualModel
 {
     private readonly IStorePicturesSelectEventsProvider _storePicturesSelectEventsProvider;
 
-    public PicturesOpenVisualModel(IStorePicturesSelectEventsProvider storePicturesSelectEventsProvider)
+    private readonly ISoundProvider _soundProvider;
+
+    public PicturesOpenVisualModel(IStorePicturesSelectEventsProvider storePicturesSelectEventsProvider, ISoundProvider soundProvider)
     {
         _storePicturesSelectEventsProvider = storePicturesSelectEventsProvider;
+        _soundProvider = soundProvider;
 
         _storePicturesSelectEventsProvider.OnSelectClosePicture_Value += OpenPicture;
     }
@@ -26,6 +29,8 @@ public class PicturesOpenVisualModel
 
     private void OpenPicture(Picture picture)
     {
+        _soundProvider.PlayOneShot("Click_ClosePicture");
+
         OnOpenPicture?.Invoke(picture);
     }
 
