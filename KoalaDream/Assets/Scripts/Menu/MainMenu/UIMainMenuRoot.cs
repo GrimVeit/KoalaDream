@@ -63,6 +63,8 @@ public class UIMainMenuRoot : UIRoot
 
     private void ClickToExit_ShowPicture()
     {
+        _soundProvider.PlayOneShot("Click_Exit");
+
         OnClickToExit_ShowPicture?.Invoke();
     }
 
@@ -73,6 +75,8 @@ public class UIMainMenuRoot : UIRoot
 
     private void ClickToExit_OpenPicture()
     {
+        _soundProvider.PlayOneShot("Click_Exit");
+
         OnClickToExit_OpenPicture?.Invoke();
     }
 
@@ -86,6 +90,8 @@ public class UIMainMenuRoot : UIRoot
 
     private void ClickToExit_RunnerResult()
     {
+        _soundProvider.PlayOneShot("Click_Exit");
+
         OnClickToExit_RunnerResult?.Invoke();
     }
 

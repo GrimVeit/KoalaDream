@@ -29,7 +29,7 @@ public class PicturesOpenVisualModel
 
     private void OpenPicture(Picture picture)
     {
-        _soundProvider.PlayOneShot("Click_ClosePicture");
+        _soundProvider.PlayOneShot("OpenPanel");
 
         OnOpenPicture?.Invoke(picture);
     }

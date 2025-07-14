@@ -8,6 +8,7 @@ public class AutoMoveModel
 {
     private readonly IPlayerMoveEventsProvider _playerMoveEventsProvider;
     private readonly IPlayerMoveProvider _playerMoveProvider;
+    private readonly ISoundProvider _soundProvider;
 
     private bool isActive = false;
     private readonly float stopTreshold = 0.03f;
@@ -15,10 +16,11 @@ public class AutoMoveModel
     private float _currentTarget = 0;
     private float _currentPlayer;
 
-    public AutoMoveModel(IPlayerMoveEventsProvider playerMoveEventsProvider, IPlayerMoveProvider playerMoveProvider)
+    public AutoMoveModel(IPlayerMoveEventsProvider playerMoveEventsProvider, IPlayerMoveProvider playerMoveProvider, ISoundProvider soundProvider)
     {
         _playerMoveEventsProvider = playerMoveEventsProvider;
         _playerMoveProvider = playerMoveProvider;
+        _soundProvider = soundProvider;
     }
 
     public void Initialize()
@@ -33,6 +35,8 @@ public class AutoMoveModel
 
     public void MoveTo(float target)
     {
+        _soundProvider.PlayOneShot("StartAutoMove");
+
         OnStartMove?.Invoke();
 
         _currentTarget = target;

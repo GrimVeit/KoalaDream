@@ -74,7 +74,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         playerMovePresenter = new PlayerMovePresenter(new PlayerMoveModel(), viewContainer.GetView<PlayerMoveView>());
         playerAnimationPresenter = new PlayerAnimationPresenter(new PlayerAnimationModel(playerMovePresenter), viewContainer.GetView<PlayerAnimationView>());
         manualMovePresenter = new ManualMovePresenter(new ManualMoveModel(), viewContainer.GetView<ManualMoveView>());
-        autoMovePresenter = new AutoMovePresenter(new AutoMoveModel(playerMovePresenter, playerMovePresenter), viewContainer.GetView<AutoMoveView>());
+        autoMovePresenter = new AutoMovePresenter(new AutoMoveModel(playerMovePresenter, playerMovePresenter, soundPresenter), viewContainer.GetView<AutoMoveView>());
         playerVisiblePresenter = new PlayerVisiblePresenter(new PlayerVisibleModel(), viewContainer.GetView<PlayerVisibleView>());
         playerSleepAnimationPresenter = new PlayerSleepAnimationPresenter(new PlayerSleepAnimationModel(), viewContainer.GetView<PlayerSleepAnimationView>());
         playerAnimationSoundPresenter = new PlayerAnimationSoundPresenter(new PlayerAnimationSoundModel(soundPresenter), viewContainer.GetView<PlayerAnimationSoundView>());
@@ -116,7 +116,7 @@ public class MainMenuEntryPoint : MonoBehaviour
             playerAnimationPresenter);
 
         ActivateEvents();
-
+        sceneRoot.SetSoundProvider(soundPresenter);
         soundPresenter.Initialize();
         sceneRoot.Initialize();
         particleEffectPresenter.Initialize();
