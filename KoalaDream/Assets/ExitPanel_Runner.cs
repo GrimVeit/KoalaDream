@@ -10,6 +10,6 @@ public class ExitPanel_Runner : MovePanel
     {
         base.ActivatePanel();
 
-        animationFrame.Activate(3);
+        animationFrame.Activate(5);
     }
 }

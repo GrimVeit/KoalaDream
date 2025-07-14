@@ -5,11 +5,12 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ObstacleCoin : MonoBehaviour, IMoveObstacle, IMoneyObstacle
+public class ObstacleCoin : MonoBehaviour, IMoveObstacle, IMoneyObstacle, ISoundObstacle
 {
     //[SerializeField] private protected Collider2D colliderObstacle;
     [SerializeField] private protected Transform transformObstacle;
     [SerializeField] private ObstacleCollider obstacleCollider;
+    [SerializeField] private string soundId;
 
     [Header("Effect")]
     [SerializeField] private Transform transformSprite;
@@ -68,6 +69,7 @@ public class ObstacleCoin : MonoBehaviour, IMoveObstacle, IMoneyObstacle
     private void ActivateAction()
     {
         OnAddMoney?.Invoke();
+        OnAddSound?.Invoke(soundId);
 
         if(timer != null) Coroutines.Stop(timer);
 
@@ -99,6 +101,7 @@ public class ObstacleCoin : MonoBehaviour, IMoveObstacle, IMoneyObstacle
     public event Action<IMoveObstacle> OnEndMove;
 
     public event Action OnAddMoney;
+    public event Action<string> OnAddSound;
 
     #endregion
 }

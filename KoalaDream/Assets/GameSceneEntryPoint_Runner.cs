@@ -32,6 +32,7 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
     private PlayerPunchPresenter playerPunchPresenter;
     private PlayerAddEnergyPresenter playerAddEnergyPresenter;
     private PlayerAddMoneyPresenter playerAddMoneyPresenter;
+    private PlayerObstacleSoundPresenter playerObstacleSoundPresenter;
 
     private RunnerExitPresenter runnerExitPresenter;
 
@@ -79,6 +80,7 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
         playerPunchPresenter = new PlayerPunchPresenter(new PlayerPunchModel(obstacleSpawnerPresenter, playerRunnerMovePresenter));
         playerAddEnergyPresenter = new PlayerAddEnergyPresenter(new PlayerAddEnergyModel(obstacleSpawnerPresenter, playerEnergyPresenter));
         playerAddMoneyPresenter = new PlayerAddMoneyPresenter(new PlayerAddMoneyModel(obstacleSpawnerPresenter, bankPresenter, runnerResultMoneyPresenter));
+        playerObstacleSoundPresenter = new PlayerObstacleSoundPresenter(new PlayerObstacleSoundModel(obstacleSpawnerPresenter, soundPresenter));
 
         runnerExitPresenter = new RunnerExitPresenter(new RunnerExitModel());
 
@@ -100,7 +102,8 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
             playerRunnerAnimationPresenter,
             runnerExitPresenter,
             runnerGameResultPresenter,
-            runnerResultMoneyPresenter);
+            runnerResultMoneyPresenter,
+            soundPresenter);
         
         sceneRoot.SetSoundProvider(soundPresenter);
         sceneRoot.Activate();
@@ -124,6 +127,7 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
         playerRunnerMovePresenter.Initialize();
         touchSystemPresenter.Initialize();
 
+        playerObstacleSoundPresenter.Initialize();
         playerAddMoneyPresenter.Initialize();
         playerAddEnergyPresenter.Initialize();
         playerPunchPresenter.Initialize();
@@ -187,6 +191,7 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
         playerRunnerMovePresenter?.Dispose();
         touchSystemPresenter?.Dispose();
 
+        playerObstacleSoundPresenter?.Dispose();
         playerAddMoneyPresenter?.Dispose();
         playerAddEnergyPresenter?.Dispose();
         playerPunchPresenter?.Dispose();

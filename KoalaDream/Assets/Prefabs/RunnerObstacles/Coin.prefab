@@ -176,6 +176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transformObstacle: {fileID: 3754264777564492454}
   obstacleCollider: {fileID: 7542151260459685790}
+  soundId: Grab_Puzzle
   transformSprite: {fileID: 2682416249400328881}
   imageEffect: {fileID: 4782560561869161621}
   spriteEffect_1: {fileID: 21300000, guid: 35ee1a71c42e9174a968b46f61fb2576, type: 3}

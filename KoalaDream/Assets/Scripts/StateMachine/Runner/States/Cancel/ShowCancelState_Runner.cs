@@ -14,9 +14,12 @@ public class ShowCancelState_Runner : IState
 
     private readonly IPlayerRunnerMoveFreezeProvider _playerRunnerMoveFreezeProvider;
 
+    private readonly ISoundProvider _soundProvider;
+    private readonly ISound _soundBackground;
+
     private IEnumerator timer;
 
-    public ShowCancelState_Runner(IGlobalStateMachineProvider machineProvider, UIGameSceneRoot_Runner sceneRoot, IBackgroundScrollProvider backgroundScrollProvider, IObstacleSpawnerProvider obstacleSpawnerProvider, ILeafEffectProvider leafEffectProvider, IPlayerRunnerMoveFreezeProvider playerRunnerMoveFreezeProvider)
+    public ShowCancelState_Runner(IGlobalStateMachineProvider machineProvider, UIGameSceneRoot_Runner sceneRoot, IBackgroundScrollProvider backgroundScrollProvider, IObstacleSpawnerProvider obstacleSpawnerProvider, ILeafEffectProvider leafEffectProvider, IPlayerRunnerMoveFreezeProvider playerRunnerMoveFreezeProvider, ISoundProvider soundProvider)
     {
         _machineProvider = machineProvider;
         _sceneRoot = sceneRoot;
@@ -24,6 +27,9 @@ public class ShowCancelState_Runner : IState
         _obstacleSpawnerProvider = obstacleSpawnerProvider;
         _leafEffectProvider = leafEffectProvider;
         _playerRunnerMoveFreezeProvider = playerRunnerMoveFreezeProvider;
+        _soundProvider = soundProvider;
+
+        _soundBackground = _soundProvider.GetSound("Background");
     }
 
     public void EnterState()
@@ -40,8 +46,11 @@ public class ShowCancelState_Runner : IState
 
         if (timer != null) Coroutines.Stop(timer);
 
-        timer = Timer(2.5f);
+        timer = Timer(3f);
         Coroutines.Start(timer);
+
+        _soundBackground.SetVolume(0.6f, 0.2f, 0.2f);
+        _soundProvider.PlayOneShot("Alarm");
     }
 
     public void ExitState()
@@ -49,6 +58,8 @@ public class ShowCancelState_Runner : IState
         _sceneRoot.CloseCancelPanel();
 
         if (timer != null) Coroutines.Stop(timer);
+
+        _soundBackground.SetVolume(0.2f, 0.6f, 0.2f);
     }
 
     private IEnumerator Timer(float time)

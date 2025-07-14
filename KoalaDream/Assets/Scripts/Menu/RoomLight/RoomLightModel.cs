@@ -6,10 +6,12 @@ using UnityEngine;
 public class RoomLightModel
 {
     private readonly IRoomTrackerEventsProvider _roomTrackerEventsProvider;
+    private readonly ISoundProvider _soundProvider;
 
-    public RoomLightModel(IRoomTrackerEventsProvider roomTrackerEventsProvider)
+    public RoomLightModel(IRoomTrackerEventsProvider roomTrackerEventsProvider, ISoundProvider soundProvider)
     {
         _roomTrackerEventsProvider = roomTrackerEventsProvider;
+        _soundProvider = soundProvider;
 
         _roomTrackerEventsProvider.OnActivatedRoom += ActivateRoomLight;
         _roomTrackerEventsProvider.OnDeactivatedRoom += DeactivateRoomLight;
@@ -28,6 +30,8 @@ public class RoomLightModel
 
     private void ActivateRoomLight(int roomId)
     {
+        _soundProvider.PlayOneShot("ShowRoom");
+
         OnActivateRoomLight?.Invoke(roomId);
     }
 

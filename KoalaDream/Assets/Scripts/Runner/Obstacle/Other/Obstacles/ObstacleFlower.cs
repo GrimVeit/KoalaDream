@@ -5,12 +5,13 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ObstacleFlower : MonoBehaviour, IMoveObstacle, IEnergyObstacle
+public class ObstacleFlower : MonoBehaviour, IMoveObstacle, IEnergyObstacle, ISoundObstacle
 {
     //[SerializeField] private protected Collider2D colliderObstacle;
     [SerializeField] private protected Transform transformObstacle;
     [SerializeField] private AnimationFrame animationFrame;
     [SerializeField] private ObstacleCollider obstacleCollider;
+    [SerializeField] private string soundId;
 
     [Header("Effect")]
     [SerializeField] private Transform transformSprite;
@@ -71,6 +72,7 @@ public class ObstacleFlower : MonoBehaviour, IMoveObstacle, IEnergyObstacle
     private void ActivateAction()
     {
         OnAddEnergy?.Invoke();
+        OnAddSound?.Invoke(soundId);
 
         if (timer != null) Coroutines.Stop(timer);
 
@@ -109,6 +111,7 @@ public class ObstacleFlower : MonoBehaviour, IMoveObstacle, IEnergyObstacle
     public event Action<IMoveObstacle> OnEndMove;
 
     public event Action OnAddEnergy;
+    public event Action<string> OnAddSound;
 
     #endregion
 }

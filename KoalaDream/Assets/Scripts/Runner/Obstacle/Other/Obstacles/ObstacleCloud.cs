@@ -5,13 +5,14 @@ using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class ObstacleCloud : MonoBehaviour, IMoveObstacle, IPunchObstacle
+public class ObstacleCloud : MonoBehaviour, IMoveObstacle, IPunchObstacle, ISoundObstacle
 {
     //[SerializeField] private protected Collider2D colliderObstacle;
     [SerializeField] private protected Transform transformObstacle;
     [SerializeField] private AnimationFrame animationFrame;
     [SerializeField] private ObstacleCollider obstacleCollider;
     [SerializeField] private float forcePunch;
+    [SerializeField] private string soundId;
 
     private protected float endX;
     private protected Tween _tweenMove;
@@ -68,6 +69,7 @@ public class ObstacleCloud : MonoBehaviour, IMoveObstacle, IPunchObstacle
         if(isActivate) return;
 
         OnAddPunch?.Invoke(forcePunch);
+        OnAddSound?.Invoke(soundId);
 
         sequenceClose = DOTween.Sequence();
 
@@ -94,6 +96,7 @@ public class ObstacleCloud : MonoBehaviour, IMoveObstacle, IPunchObstacle
     public event Action<IMoveObstacle> OnEndMove;
 
     public event Action<float> OnAddPunch;
+    public event Action<string> OnAddSound;
 
     #endregion
 }

@@ -66,7 +66,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         bankPresenter = new BankPresenter(new BankModel(), viewContainer.GetView<BankView>());
 
         roomTrackerPresenter = new RoomTrackerPresenter(new RoomTrackerModel(), viewContainer.GetView<RoomTrackerView>());
-        roomLightPresenter = new RoomLightPresenter(new RoomLightModel(roomTrackerPresenter), viewContainer.GetView<RoomLightView>());
+        roomLightPresenter = new RoomLightPresenter(new RoomLightModel(roomTrackerPresenter, soundPresenter), viewContainer.GetView<RoomLightView>());
         playerMarkerNavigationPresenter = new PlayerMarkerNavigationPresenter(new PlayerMarkerNavigationModel(roomTrackerPresenter), viewContainer.GetView<PlayerMarkerNavigationView>());
         gameMarkerNavigationPresenter = new GameMarkerNavigationPresenter(new GameMarkerNavigationModel(roomTrackerPresenter), viewContainer.GetView<GameMarkerNavigationView>());
         moveMarkerPresenter = new MoveMarkerPresenter(new MoveMarkerModel(), viewContainer.GetView<MoveMarkerView>());
@@ -76,7 +76,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         manualMovePresenter = new ManualMovePresenter(new ManualMoveModel(), viewContainer.GetView<ManualMoveView>());
         autoMovePresenter = new AutoMovePresenter(new AutoMoveModel(playerMovePresenter, playerMovePresenter, soundPresenter), viewContainer.GetView<AutoMoveView>());
         playerVisiblePresenter = new PlayerVisiblePresenter(new PlayerVisibleModel(), viewContainer.GetView<PlayerVisibleView>());
-        playerSleepAnimationPresenter = new PlayerSleepAnimationPresenter(new PlayerSleepAnimationModel(), viewContainer.GetView<PlayerSleepAnimationView>());
+        playerSleepAnimationPresenter = new PlayerSleepAnimationPresenter(new PlayerSleepAnimationModel(soundPresenter), viewContainer.GetView<PlayerSleepAnimationView>());
         playerAnimationSoundPresenter = new PlayerAnimationSoundPresenter(new PlayerAnimationSoundModel(soundPresenter), viewContainer.GetView<PlayerAnimationSoundView>());
 
         storePicturesPresenter = new StorePicturesPresenter(new StorePicturesModel(pictureGroup));

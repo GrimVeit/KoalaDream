@@ -54,6 +54,7 @@ MonoBehaviour:
   transformObstacle: {fileID: 3968694921910399902}
   animationFrame: {fileID: 2611493421654489781}
   obstacleCollider: {fileID: 940105214368606890}
+  soundId: Grab_Energy
   transformSprite: {fileID: 2107969157925932861}
   imageEffect: {fileID: 5077500863713484913}
   spriteEffect_1: {fileID: 21300000, guid: 53dcd07a09cf3e84986c7d846a233a4b, type: 3}

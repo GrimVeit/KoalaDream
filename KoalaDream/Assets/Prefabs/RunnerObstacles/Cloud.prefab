@@ -178,6 +178,7 @@ MonoBehaviour:
   animationFrame: {fileID: 1172564776859392357}
   obstacleCollider: {fileID: 8275433203440932720}
   forcePunch: 130
+  soundId: Punch_3
 --- !u!114 &1172564776859392357
 MonoBehaviour:
   m_ObjectHideFlags: 0

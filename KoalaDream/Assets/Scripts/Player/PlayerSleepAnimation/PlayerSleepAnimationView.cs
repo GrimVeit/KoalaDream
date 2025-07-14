@@ -78,9 +78,13 @@ public class PlayerSleepAnimationView : View
         transformPlayer.localPosition = transformLieDownAndSitDown.localPosition;
         imagePlayerAnim.sprite = spriteSitDawn;
 
+        OnSitBedroom?.Invoke();
+
         yield return new WaitForSeconds(timeWaitLieDown_Anim);
 
         imagePlayerAnim.sprite = spriteLieDown;
+
+        OnHrap?.Invoke();
 
         yield return new WaitForSeconds(timeSleep);
 
@@ -97,6 +101,8 @@ public class PlayerSleepAnimationView : View
         imagePlayerAnim.flipX = true;
 
         imagePlayerAnim.sprite = spriteSitDawn;
+
+        OnSitBedroom?.Invoke();
 
         yield return new WaitForSeconds(timeWaitLieDown_Anim);
 
@@ -127,6 +133,9 @@ public class PlayerSleepAnimationView : View
 
     public event Action OnEndActivate;
     public event Action OnEndDeactivate;
+
+    public event Action OnHrap;
+    public event Action OnSitBedroom;
 
     #endregion
 }

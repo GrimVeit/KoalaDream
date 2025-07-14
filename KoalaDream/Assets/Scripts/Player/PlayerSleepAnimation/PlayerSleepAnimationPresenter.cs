@@ -28,6 +28,8 @@ public class PlayerSleepAnimationPresenter : IPlayerSleepAnimationProvider, IPla
     {
         _view.OnEndActivate += _model.EndActivate;
         _view.OnEndDeactivate += _model.EndDeactivate;
+        _view.OnHrap += _model.Hrap;
+        _view.OnSitBedroom += _model.SitToTheBedroom;
 
         _model.OnActivate += _view.Activate;
         _model.OnDeactivate += _view.Deactivate;
@@ -37,6 +39,8 @@ public class PlayerSleepAnimationPresenter : IPlayerSleepAnimationProvider, IPla
     {
         _view.OnEndActivate -= _model.EndActivate;
         _view.OnEndDeactivate -= _model.EndDeactivate;
+        _view.OnHrap -= _model.Hrap;
+        _view.OnSitBedroom -= _model.SitToTheBedroom;
 
         _model.OnActivate -= _view.Activate;
         _model.OnDeactivate -= _view.Deactivate;

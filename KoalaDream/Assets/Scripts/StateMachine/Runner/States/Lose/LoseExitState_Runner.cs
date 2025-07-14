@@ -11,10 +11,11 @@ public class LoseExitState_Runner : IState
     private readonly IRunnerExitProvider _runnerExitProvider;
     private readonly IRunnerGameResultProvider _gameResultProvider;
     private readonly IRunnerResultMoneyInfoProvider _moneyInfoProvider;
+    private readonly ISoundProvider _soundProvider;
 
     private IEnumerator timer;
 
-    public LoseExitState_Runner(IGlobalStateMachineProvider machineProvider, IPlayerRunnerMoveAutoProvider playerRunnerMoveAutoProvider, IPlayerRunnerAnimationProvider playerRunnerAnimationProvider, IRunnerExitProvider runnerExitProvider, IRunnerGameResultProvider gameResultProvider, IRunnerResultMoneyInfoProvider moneyInfoProvider)
+    public LoseExitState_Runner(IGlobalStateMachineProvider machineProvider, IPlayerRunnerMoveAutoProvider playerRunnerMoveAutoProvider, IPlayerRunnerAnimationProvider playerRunnerAnimationProvider, IRunnerExitProvider runnerExitProvider, IRunnerGameResultProvider gameResultProvider, IRunnerResultMoneyInfoProvider moneyInfoProvider, ISoundProvider soundProvider)
     {
         _machineProvider = machineProvider;
         _playerRunnerMoveAutoProvider = playerRunnerMoveAutoProvider;
@@ -22,6 +23,7 @@ public class LoseExitState_Runner : IState
         _runnerExitProvider = runnerExitProvider;
         _gameResultProvider = gameResultProvider;
         _moneyInfoProvider = moneyInfoProvider;
+        _soundProvider = soundProvider;
     }
 
     public void EnterState()
@@ -33,6 +35,7 @@ public class LoseExitState_Runner : IState
 
         _playerRunnerMoveAutoProvider.MoveToLoseExitPosition();
         _playerRunnerAnimationProvider.AnimationDown();
+        _soundProvider.PlayOneShot("PlayerDown_Small");
 
         if(_moneyInfoProvider.GetMoney() > 0)
         {

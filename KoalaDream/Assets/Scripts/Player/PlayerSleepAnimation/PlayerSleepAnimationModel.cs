@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class PlayerSleepAnimationModel
 {
+    private readonly ISoundProvider _soundProvider;
+
+    public PlayerSleepAnimationModel(ISoundProvider soundProvider)
+    {
+        _soundProvider = soundProvider;
+    }
+
     public void Activate()
     {
         OnActivate?.Invoke();
@@ -24,6 +31,16 @@ public class PlayerSleepAnimationModel
     public void EndDeactivate()
     {
         OnEndDeactivate?.Invoke();
+    }
+
+    public void SitToTheBedroom()
+    {
+        _soundProvider.PlayOneShot("SitBedroom");
+    }
+
+    public void Hrap()
+    {
+        _soundProvider.PlayOneShot("Hrap");
     }
     
     #region Output
