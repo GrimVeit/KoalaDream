@@ -13,9 +13,9 @@ public class PuzzleElementModel
     public event Action OnEndMove;
     public event Action OnDestroy;
 
-    private ISoundProvider _soundProvider;
-    private IStorePicturesSelectEventsProvider _storePicturesSelectEventsProvider;
-    private PuzzlesGroup _puzzlesGroup;
+    private readonly ISoundProvider _soundProvider;
+    private readonly IStorePicturesSelectEventsProvider _storePicturesSelectEventsProvider;
+    private readonly PuzzlesGroup _puzzlesGroup;
 
     public PuzzleElementModel(ISoundProvider soundProvider, IStorePicturesSelectEventsProvider storePicturesSelectEventsProvider, PuzzlesGroup puzzlesGroup)
     {
@@ -72,10 +72,13 @@ public class PuzzleElementModel
                 {
                     cell.Set();
                     OnDestroy?.Invoke();
+                    _soundProvider.PlayOneShot("Puzzle_Put");
                     return;
                 }
             }
         }
+
+        _soundProvider.PlayOneShot("Puzzle_Error");
 
         OnEndMove?.Invoke();
     }

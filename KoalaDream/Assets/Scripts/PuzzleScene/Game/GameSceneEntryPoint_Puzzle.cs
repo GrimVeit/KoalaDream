@@ -38,13 +38,13 @@ public class GameSceneEntryPoint_Puzzle : MonoBehaviour
         particleEffectPresenter = new ParticleEffectPresenter(new ParticleEffectModel(), viewContainer.GetView<ParticleEffectView>());
 
         storePicturesPresenter = new StorePicturesPresenter(new StorePicturesModel(pictureGroup));
-        puzzleFramePresenter = new PuzzleFramePresenter(new PuzzleFrameModel(storePicturesPresenter), viewContainer.GetView<PuzzleFrameView>());
+        puzzleFramePresenter = new PuzzleFramePresenter(new PuzzleFrameModel(storePicturesPresenter, soundPresenter), viewContainer.GetView<PuzzleFrameView>());
         puzzleElementPresenter = new PuzzleElementPresenter(new PuzzleElementModel(soundPresenter, storePicturesPresenter, puzzlesGroup), viewContainer.GetView<PuzzleElementView>());
         puzzleDemonstrationPresenter = new PuzzleDemonstrationPresenter(new PuzzleDemonstrationModel(storePicturesPresenter), viewContainer.GetView<PuzzleDemonstrationView>());
 
         gameSessionPresenter = new GameSessionPresenter(new GameSesionModel(PlayerPrefsKeys.GAME_TYPE));
 
-        statePuzzleMachine = new StatePuzzleMachine(sceneRoot, storePicturesPresenter, puzzleFramePresenter, puzzleFramePresenter);
+        statePuzzleMachine = new StatePuzzleMachine(sceneRoot, storePicturesPresenter, puzzleFramePresenter, puzzleFramePresenter, soundPresenter);
 
         sceneRoot.SetSoundProvider(soundPresenter);
         sceneRoot.Activate();

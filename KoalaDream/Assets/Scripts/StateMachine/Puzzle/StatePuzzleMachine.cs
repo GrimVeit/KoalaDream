@@ -14,15 +14,16 @@ public class StatePuzzleMachine : IGlobalStateMachineProvider
         
         IStorePicturesPreviewProvider storePicturesPreviewProvider,
         IPuzzleFrameEventsProvider puzzleFrameEventsProvider,
-        IPuzzleFrameProvider puzzleFrameProvider)
+        IPuzzleFrameProvider puzzleFrameProvider,
+        ISoundProvider soundProvider)
     {
         states[typeof(MainState_Puzzle)] = new MainState_Puzzle(this, sceneRoot, storePicturesPreviewProvider, puzzleFrameEventsProvider);
         states[typeof(HideScrollState_Puzzle)] = new HideScrollState_Puzzle(this, sceneRoot);
         states[typeof(PuzzleScaleState_Puzzle)] = new PuzzleScaleState_Puzzle(this, puzzleFrameProvider);
         states[typeof(ShowFullImageState_Puzzle)] = new ShowFullImageState_Puzzle(this, sceneRoot);
         states[typeof(DarkenFullImageState_Puzzle)] = new DarkenFullImageState_Puzzle(this, sceneRoot);
-        states[typeof(ShowGreatTextState_Puzzle)] = new ShowGreatTextState_Puzzle(this, sceneRoot);
-        states[typeof(ShowExitState_Puzzle)] = new ShowExitState_Puzzle(this, sceneRoot);
+        states[typeof(ShowGreatTextState_Puzzle)] = new ShowGreatTextState_Puzzle(this, sceneRoot, soundProvider);
+        states[typeof(ShowExitState_Puzzle)] = new ShowExitState_Puzzle(this, sceneRoot, soundProvider);
     }
 
     public void Initialize()

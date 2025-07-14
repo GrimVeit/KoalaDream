@@ -7,9 +7,12 @@ public class PuzzleFrameModel
 {
     private readonly IStorePicturesSelectEventsProvider _storePicturesSelectEventsProvider;
 
-    public PuzzleFrameModel(IStorePicturesSelectEventsProvider storePicturesSelectEventsProvider)
+    private readonly ISoundProvider _soundProvider;
+
+    public PuzzleFrameModel(IStorePicturesSelectEventsProvider storePicturesSelectEventsProvider, ISoundProvider soundProvider)
     {
         _storePicturesSelectEventsProvider = storePicturesSelectEventsProvider;
+        _soundProvider = soundProvider;
 
         _storePicturesSelectEventsProvider.OnSelectPicture += SelectFrame;
     }
@@ -48,6 +51,8 @@ public class PuzzleFrameModel
 
     public void ShowScale()
     {
+        _soundProvider.PlayOneShot("Puzzle_Complete");
+
         OnShowScale?.Invoke();
     }
 
