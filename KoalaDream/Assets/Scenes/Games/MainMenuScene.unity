@@ -72490,6 +72490,13 @@ MonoBehaviour:
     pitch: 1
     isLoop: 0
     isPlayAwake: 0
+  - id: Click_OpenNewPicture
+    audioSource: {fileID: 1073554298}
+    audioClip: {fileID: 8300000, guid: eb7bde8b9717e904283f16f5227bf152, type: 3}
+    volume: 1
+    pitch: 1
+    isLoop: 0
+    isPlayAwake: 0
   - id: Click_Exit
     audioSource: {fileID: 2147093701}
     audioClip: {fileID: 8300000, guid: cb231dc76449c8e46989b1203a51c32d, type: 3}

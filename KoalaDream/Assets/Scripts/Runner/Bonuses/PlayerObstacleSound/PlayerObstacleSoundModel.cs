@@ -35,7 +35,7 @@ public class PlayerObstacleSoundModel
             soundObstacle.OnAddSound += AddSound;
 
             soundObstacles.Add(soundObstacle);
-            Debug.Log("Add Energy");
+            //Debug.Log("Add Energy");
         }
     }
 

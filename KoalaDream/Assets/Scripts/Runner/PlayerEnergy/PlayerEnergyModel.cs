@@ -6,17 +6,19 @@ using UnityEngine;
 public class PlayerEnergyModel
 {
     private readonly ITouchSystemEventsProvider _touchSystemEventsProvider;
+    private readonly ITouchSystemProvider _touchSystemProvider;
 
     private IEnumerator energyCoroutine;
 
     private float _currentEnergy = 30f;
 
-    public PlayerEnergyModel(ITouchSystemEventsProvider touchSystemEventsProvider)
+    public PlayerEnergyModel(ITouchSystemEventsProvider touchSystemEventsProvider, ITouchSystemProvider touchSystemProvider)
     {
         _touchSystemEventsProvider = touchSystemEventsProvider;
 
         _touchSystemEventsProvider.OnStartTouch += Activate;
         _touchSystemEventsProvider.OnStopTouch += Deactivate;
+        _touchSystemProvider = touchSystemProvider;
     }
 
     public void Initialize()
@@ -57,6 +59,7 @@ public class PlayerEnergyModel
 
             if(_currentEnergy == 0)
             {
+                _touchSystemProvider.Deactivate();
                 OnFinished?.Invoke();
                 yield break;
             }

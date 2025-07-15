@@ -64,7 +64,7 @@ public class TouchSystemPresenter : ITouchSystemEventsProvider, ITouchSystemProv
 
     public void Deactivate()
     {
-        DeactivateEvents();
+        _model.Deactivate();
     }
 
     #endregion

@@ -83,7 +83,7 @@ public class MainMenuEntryPoint : MonoBehaviour
         picturesVisualPresenter = new PicturesVisualPresenter(new PicturesVisualModel(storePicturesPresenter, storePicturesPresenter), viewContainer.GetView<PicturesVisualView>());
         picturesShowVisualPresenter = new PicturesShowVisualPresenter(new PicturesShowVisualModel(storePicturesPresenter, soundPresenter), viewContainer.GetView<PicturesShowVisualView>());
         picturesOpenVisualPresenter = new PicturesOpenVisualPresenter(new PicturesOpenVisualModel(storePicturesPresenter, soundPresenter), viewContainer.GetView<PicturesOpenVisualView>());
-        picturePreviewPresenter = new PicturePreviewPresenter(new PicturePreviewModel(storePicturesPresenter, storePicturesPresenter));
+        picturePreviewPresenter = new PicturePreviewPresenter(new PicturePreviewModel(storePicturesPresenter, storePicturesPresenter, soundPresenter));
 
         roomNamePresenter = new RoomNamePresenter(new RoomNameModel(roomTrackerPresenter), viewContainer.GetView<RoomNameView>());
 

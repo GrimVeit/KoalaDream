@@ -7,10 +7,13 @@ public class PicturePreviewModel
     private readonly IStorePicturesSelectEventsProvider _storePicturesSelectEventsProvider;
     private readonly IStorePicturesOpenProvider _storePicturesOpenProvider;
 
-    public PicturePreviewModel(IStorePicturesSelectEventsProvider storePicturesSelectEventsProvider, IStorePicturesOpenProvider storePicturesOpenProvider)
+    private readonly ISoundProvider _soundProvider;
+
+    public PicturePreviewModel(IStorePicturesSelectEventsProvider storePicturesSelectEventsProvider, IStorePicturesOpenProvider storePicturesOpenProvider, ISoundProvider soundProvider)
     {
         _storePicturesSelectEventsProvider = storePicturesSelectEventsProvider;
         _storePicturesOpenProvider = storePicturesOpenProvider;
+        _soundProvider = soundProvider;
 
         _storePicturesSelectEventsProvider.OnSelectPreviewPicture_Value += PreviewPicture;
     }
@@ -27,6 +30,8 @@ public class PicturePreviewModel
 
     private void PreviewPicture(Picture picture)
     {
+        _soundProvider.PlayOneShot("Click_OpenNewPicture");
+
         _storePicturesOpenProvider.OpenPicture(picture.Id);
     }
 }

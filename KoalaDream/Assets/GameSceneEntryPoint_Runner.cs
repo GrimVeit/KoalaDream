@@ -69,7 +69,7 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
         playerRunnerMovePresenter = new PlayerRunnerMovePresenter(new PlayerRunnerMoveModel(touchSystemPresenter), viewContainer.GetView<PlayerRunnerMoveView>());
         playerRunnerMoveAutoPresenter = new PlayerRunnerMoveAutoPresenter(viewContainer.GetView<PlayerRunnerMoveAutoView>());
         playerRunnerAnimationPresenter = new PlayerRunnerAnimationPresenter(viewContainer.GetView<PlayerRunnerAnimationView>());
-        playerEnergyPresenter = new PlayerEnergyPresenter(new PlayerEnergyModel(touchSystemPresenter), viewContainer.GetView<PlayerEnergyView>());
+        playerEnergyPresenter = new PlayerEnergyPresenter(new PlayerEnergyModel(touchSystemPresenter, touchSystemPresenter), viewContainer.GetView<PlayerEnergyView>());
         playerRunnerDeadZonePresenter = new PlayerRunnerDeadZonePresenter(new PlayerRunnerDeadZoneModel(), viewContainer.GetView<PlayerRunnerDeadZoneView>());
         scrollBackgroundPresenter = new ScrollBackgroundPresenter(new ScrollBackgroundModel(), viewContainer.GetView<ScrollBackgroundView>());
 
