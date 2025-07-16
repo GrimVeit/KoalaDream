@@ -9,13 +9,16 @@ public class PlayerObstacleSoundModel
     private readonly IObstacleSpawnerEventsProvider _obstacleSpawnerEventsProvider;
 
     private readonly ISoundProvider _soundProvider;
+    private readonly IObstacleEventsProvider _obstacleEventsProvider;
 
-    public PlayerObstacleSoundModel(IObstacleSpawnerEventsProvider obstacleSpawnerEventsProvider, ISoundProvider soundProvider)
+    public PlayerObstacleSoundModel(IObstacleSpawnerEventsProvider obstacleSpawnerEventsProvider, ISoundProvider soundProvider, IObstacleEventsProvider obstacleEventsProvider)
     {
         _obstacleSpawnerEventsProvider = obstacleSpawnerEventsProvider;
         _soundProvider = soundProvider;
+        _obstacleEventsProvider = obstacleEventsProvider;
 
         _obstacleSpawnerEventsProvider.OnSpawnObstacle += AddObstacle;
+        _obstacleEventsProvider.OnDestroyObstacle += RemoveObstacle;
     }
 
     public void Initialize()
@@ -26,6 +29,7 @@ public class PlayerObstacleSoundModel
     public void Dispose()
     {
         _obstacleSpawnerEventsProvider.OnSpawnObstacle -= AddObstacle;
+        _obstacleEventsProvider.OnDestroyObstacle -= RemoveObstacle;
     }
 
     private void AddObstacle(IObstacle obstacle)
@@ -35,7 +39,16 @@ public class PlayerObstacleSoundModel
             soundObstacle.OnAddSound += AddSound;
 
             soundObstacles.Add(soundObstacle);
-            //Debug.Log("Add Energy");
+        }
+    }
+
+    private void RemoveObstacle(IObstacle obstacle)
+    {
+        if (obstacle is ISoundObstacle soundObstacle)
+        {
+            soundObstacle.OnAddSound -= AddSound;
+
+            soundObstacles.Remove(soundObstacle);
         }
     }
 

@@ -10,17 +10,20 @@ public class PlayerAddMoneyModel
     private readonly IObstacleSpawnerEventsProvider _obstacleSpawnerEventsProvider;
     private readonly IMoneyProvider _moneyProvider;
     private readonly IRunnerResultMoneyProvider _runnerResultMoneyProvider;
+    private readonly IObstacleEventsProvider _obstacleEventsProvider;
 
     private const int _winMoney = 5;
     private int _currentMoney;
 
-    public PlayerAddMoneyModel(IObstacleSpawnerEventsProvider obstacleSpawnerEventsProvider, IMoneyProvider moneyProvider, IRunnerResultMoneyProvider runnerResultMoneyProvider)
+    public PlayerAddMoneyModel(IObstacleSpawnerEventsProvider obstacleSpawnerEventsProvider, IMoneyProvider moneyProvider, IRunnerResultMoneyProvider runnerResultMoneyProvider, IObstacleEventsProvider obstacleEventsProvider)
     {
         _obstacleSpawnerEventsProvider = obstacleSpawnerEventsProvider;
-
-        _obstacleSpawnerEventsProvider.OnSpawnObstacle += AddObstacle;
         _moneyProvider = moneyProvider;
         _runnerResultMoneyProvider = runnerResultMoneyProvider;
+        _obstacleEventsProvider = obstacleEventsProvider;
+
+        _obstacleSpawnerEventsProvider.OnSpawnObstacle += AddObstacle;
+        _obstacleEventsProvider.OnDestroyObstacle += RemoveObstacle;
     }
 
     public void Initialize()
@@ -31,6 +34,7 @@ public class PlayerAddMoneyModel
     public void Dispose()
     {
         _obstacleSpawnerEventsProvider.OnSpawnObstacle -= AddObstacle;
+        _obstacleEventsProvider.OnDestroyObstacle -= RemoveObstacle;
     }
 
     private void AddObstacle(IObstacle obstacle)
@@ -40,6 +44,16 @@ public class PlayerAddMoneyModel
             punchObstacle.OnAddMoney += AddMoney;
             moneyObstacles.Add(punchObstacle);
             Debug.Log("Add Money");
+        }
+    }
+
+    private void RemoveObstacle(IObstacle obstacle)
+    {
+        if (obstacle is IMoneyObstacle punchObstacle)
+        {
+            punchObstacle.OnAddMoney -= AddMoney;
+            moneyObstacles.Remove(punchObstacle);
+            Debug.Log("Remove Money");
         }
     }
 

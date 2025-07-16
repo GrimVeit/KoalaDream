@@ -8,13 +8,16 @@ public class PlayerPunchModel
 
     private readonly IObstacleSpawnerEventsProvider _obstacleSpawnerEventsProvider;
     private readonly IPlayerRunnerForceProvider _playerRunnerForceProvider;
+    private readonly IObstacleEventsProvider _obstacleEventsProvider;
 
-    public PlayerPunchModel(IObstacleSpawnerEventsProvider obstacleSpawnerEventsProvider, IPlayerRunnerForceProvider playerRunnerForceProvider)
+    public PlayerPunchModel(IObstacleSpawnerEventsProvider obstacleSpawnerEventsProvider, IPlayerRunnerForceProvider playerRunnerForceProvider, IObstacleEventsProvider obstacleEventsProvider)
     {
         _obstacleSpawnerEventsProvider = obstacleSpawnerEventsProvider;
+        _playerRunnerForceProvider = playerRunnerForceProvider;
+        _obstacleEventsProvider = obstacleEventsProvider;
 
         _obstacleSpawnerEventsProvider.OnSpawnObstacle += AddObstacle;
-        _playerRunnerForceProvider = playerRunnerForceProvider;
+        _obstacleEventsProvider.OnDestroyObstacle += RemoveObstacle;
     }
 
     public void Initialize()
@@ -25,6 +28,7 @@ public class PlayerPunchModel
     public void Dispose()
     {
         _obstacleSpawnerEventsProvider.OnSpawnObstacle -= AddObstacle;
+        _obstacleEventsProvider.OnDestroyObstacle -= RemoveObstacle;
     }
 
     private void AddObstacle(IObstacle obstacle)
@@ -35,6 +39,17 @@ public class PlayerPunchModel
 
             punchObstacles.Add(punchObstacle);
             Debug.Log("Add Punch");
+        }
+    }
+
+    private void RemoveObstacle(IObstacle obstacle)
+    {
+        if (obstacle is IPunchObstacle punchObstacle)
+        {
+            punchObstacle.OnAddPunch -= AddPunch;
+
+            punchObstacles.Remove(punchObstacle);
+            Debug.Log("Remove Punch");
         }
     }
 

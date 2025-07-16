@@ -66,7 +66,7 @@ public class ObstacleView : View
 
     #region Output
 
-    public event Action<IMoveObstacle> OnDestroyObstacle;
+    public event Action<IObstacle> OnDestroyObstacle;
 
     #endregion
 }

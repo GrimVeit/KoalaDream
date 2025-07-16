@@ -77,10 +77,10 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
         obstaclePresenter = new ObstaclePresenter(new ObstacleModel(obstacleSpawnerPresenter), viewContainer.GetView<ObstacleView>());
 
         runnerResultMoneyPresenter = new RunnerResultMoneyPresenter(new RunnerResultMoneyModel(PlayerPrefsKeys.RUNNER_RESULT_MONEY));
-        playerPunchPresenter = new PlayerPunchPresenter(new PlayerPunchModel(obstacleSpawnerPresenter, playerRunnerMovePresenter));
-        playerAddEnergyPresenter = new PlayerAddEnergyPresenter(new PlayerAddEnergyModel(obstacleSpawnerPresenter, playerEnergyPresenter));
-        playerAddMoneyPresenter = new PlayerAddMoneyPresenter(new PlayerAddMoneyModel(obstacleSpawnerPresenter, bankPresenter, runnerResultMoneyPresenter));
-        playerObstacleSoundPresenter = new PlayerObstacleSoundPresenter(new PlayerObstacleSoundModel(obstacleSpawnerPresenter, soundPresenter));
+        playerPunchPresenter = new PlayerPunchPresenter(new PlayerPunchModel(obstacleSpawnerPresenter, playerRunnerMovePresenter, obstaclePresenter));
+        playerAddEnergyPresenter = new PlayerAddEnergyPresenter(new PlayerAddEnergyModel(obstacleSpawnerPresenter, playerEnergyPresenter, obstaclePresenter));
+        playerAddMoneyPresenter = new PlayerAddMoneyPresenter(new PlayerAddMoneyModel(obstacleSpawnerPresenter, bankPresenter, runnerResultMoneyPresenter, obstaclePresenter));
+        playerObstacleSoundPresenter = new PlayerObstacleSoundPresenter(new PlayerObstacleSoundModel(obstacleSpawnerPresenter, soundPresenter, obstaclePresenter));
 
         runnerExitPresenter = new RunnerExitPresenter(new RunnerExitModel());
 

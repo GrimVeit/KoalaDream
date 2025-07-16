@@ -25,7 +25,7 @@ public class ObstacleModel
     }
 
     public event Action<IMoveObstacle> OnAddObstacle;
-    public event Action<IMoveObstacle> OnRemoveObstacle;
+    public event Action<IObstacle> OnRemoveObstacle;
 
     private void AddObstacle(IObstacle obstacle)
     {
@@ -34,7 +34,7 @@ public class ObstacleModel
         OnAddObstacle?.Invoke(moveObstacle);
     }
 
-    public void RemoveObstacle(IMoveObstacle obstacle)
+    public void RemoveObstacle(IObstacle obstacle)
     {
         OnRemoveObstacle?.Invoke(obstacle);
     }

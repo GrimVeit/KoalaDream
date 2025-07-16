@@ -30,11 +30,15 @@ public class ObstaclePresenter : IObstacleEventsProvider
 
     private void ActivateEvents()
     {
+        _view.OnDestroyObstacle += _model.RemoveObstacle;
+
         _model.OnAddObstacle += _view.AddObstacle;
     }
 
     private void DeactivateEvents()
     {
+        _view.OnDestroyObstacle -= _model.RemoveObstacle;
+
         _model.OnAddObstacle -= _view.AddObstacle;
     }
 
