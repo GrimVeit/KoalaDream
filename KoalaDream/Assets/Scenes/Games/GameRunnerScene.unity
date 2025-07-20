@@ -5317,8 +5317,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e9c6dcef45cccc42b2361feef3db4e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upSpeed: 4
-  downSpeed: -3
+  upSpeed: 7
+  downSpeed: -8
   speedChangeRate: 15
   rectTransform: {fileID: 1230478131}
   upperLimitTransform: {fileID: 1436034133}

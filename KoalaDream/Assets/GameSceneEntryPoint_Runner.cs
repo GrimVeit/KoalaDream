@@ -73,7 +73,7 @@ public class GameSceneEntryPoint_Runner : MonoBehaviour
         playerRunnerDeadZonePresenter = new PlayerRunnerDeadZonePresenter(new PlayerRunnerDeadZoneModel(), viewContainer.GetView<PlayerRunnerDeadZoneView>());
         scrollBackgroundPresenter = new ScrollBackgroundPresenter(new ScrollBackgroundModel(), viewContainer.GetView<ScrollBackgroundView>());
 
-        obstacleSpawnerPresenter = new ObstacleSpawnerPresenter(new ObstacleSpawnerModel(spawnPointsData, 2, 5), viewContainer.GetView<ObstacleSpawnerView>());
+        obstacleSpawnerPresenter = new ObstacleSpawnerPresenter(new ObstacleSpawnerModel(spawnPointsData, 1f, 2), viewContainer.GetView<ObstacleSpawnerView>());
         obstaclePresenter = new ObstaclePresenter(new ObstacleModel(obstacleSpawnerPresenter), viewContainer.GetView<ObstacleView>());
 
         runnerResultMoneyPresenter = new RunnerResultMoneyPresenter(new RunnerResultMoneyModel(PlayerPrefsKeys.RUNNER_RESULT_MONEY));
