@@ -74,6 +74,9 @@ public class PlayerEnergyModel
 
         _currentEnergy += size;
 
+        if (_currentEnergy >= 30)
+            _currentEnergy = 30;
+
         OnEnergyChanged?.Invoke(_currentEnergy);
     }
 

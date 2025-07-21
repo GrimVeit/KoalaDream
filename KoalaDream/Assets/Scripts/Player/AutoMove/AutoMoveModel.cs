@@ -35,7 +35,7 @@ public class AutoMoveModel
 
     public void MoveTo(float target)
     {
-        _soundProvider.PlayOneShot("StartAutoMove");
+        //_soundProvider.PlayOneShot("StartAutoMove");
 
         OnStartMove?.Invoke();
 

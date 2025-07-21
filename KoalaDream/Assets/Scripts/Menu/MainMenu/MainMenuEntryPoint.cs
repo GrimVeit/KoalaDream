@@ -230,6 +230,8 @@ public class MainMenuEntryPoint : MonoBehaviour
 
         runnerGameResultVisualPresenter?.Dispose();
         runnerGameResultPresenter?.Dispose();
+
+        stateMenuMachine.Dispose();
     }
 
     private void OnDestroy()

@@ -26731,7 +26731,7 @@ Transform:
   m_GameObject: {fileID: 725920887}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0015000555, y: -14.110001, z: -10}
+  m_LocalPosition: {x: 0.0018255641, y: -14.110001, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -42756,7 +42756,7 @@ MonoBehaviour:
     durationTextTyping: 0.2
   - id: 2
     roomName: Bedroom
-    durationTextTyping: 0.099
+    durationTextTyping: 0.1
   roomNameNotificationPrefab: {fileID: 4283949375190134545, guid: af345e31e8cc298429a3a58b55755c68, type: 3}
   transformSpawn: {fileID: 287708583}
   transformUp: {fileID: 1932754917}
@@ -73394,7 +73394,7 @@ Transform:
   m_GameObject: {fileID: 2138375266}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0014933334, y: -12.20374, z: -10}
+  m_LocalPosition: {x: 0.0018173831, y: -12.20374, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
