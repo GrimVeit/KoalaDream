@@ -9,4 +9,7 @@ public static class Scenes
 
     public const string PUZZLE = "GamePuzzleScene";
     public const string RUNNER = "GameRunnerScene";
+
+    public const string COUNTRY_CHECK = "CountryCheckScene";
+    public const string OTHER = "OtherScene";
 }
